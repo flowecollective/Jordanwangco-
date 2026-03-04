@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers at Flowe - Flowe Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#C9A96E;--gold-light:#E8D5B0;--gold-dark:#A8884D;--cream:#FAF6F0;--cream-dark:#F0EBE2;--charcoal:#1A1A1A;--charcoal-mid:#2C2C2C;--muted:#6B6460;--light-line:#E0DAD0;--white:#FFFFFF;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Outfit',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--cream);color:var(--charcoal);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold-light);color:var(--charcoal)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:rgba(26,26,26,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,169,110,.1);transition:all .4s ease}
+nav.scrolled{padding:1rem 3rem;box-shadow:0 2px 40px rgba(0,0,0,.2)}
+.nav-logo{font-family:var(--font-display);font-size:1.6rem;font-weight:500;letter-spacing:.15em;color:var(--cream);text-decoration:none}
+.nav-back{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);text-decoration:none;transition:color .3s;display:flex;align-items:center;gap:.5rem}
+.nav-back:hover{color:var(--gold)}
+.nav-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.hero{min-height:80vh;background:var(--charcoal);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(201,169,110,.05) 0%,transparent 60%)}
+.hero-eyebrow{font-size:.65rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;position:relative;z-index:1;opacity:0;animation:fadeUp .8s ease forwards .2s}
+.hero-title{font-family:var(--font-display);font-size:clamp(3rem,7vw,5.5rem);font-weight:300;line-height:1.05;color:var(--cream);margin-bottom:1rem;position:relative;z-index:1;opacity:0;animation:fadeUp .8s ease forwards .4s}
+.hero-title em{font-style:italic;font-weight:400;color:var(--gold)}
+.hero-sub{font-size:.95rem;font-weight:300;color:rgba(250,246,240,.5);max-width:550px;line-height:1.7;position:relative;z-index:1;opacity:0;animation:fadeUp .8s ease forwards .6s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.section{padding:6rem 2rem}
+.section-inner{max-width:900px;margin:0 auto}
+.dark-section{background:var(--charcoal);color:var(--cream)}
+.eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem}
+.section-title{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:300;line-height:1.2;margin-bottom:.75rem}
+.section-line{width:50px;height:1px;background:var(--gold);margin:1.5rem 0 2rem}
+.section-desc{font-size:.95rem;font-weight:300;color:var(--muted);line-height:1.8;max-width:650px;margin-bottom:2.5rem}
+.dark-section .section-desc{color:rgba(250,246,240,.55)}
+.model-intro{font-family:var(--font-display);font-size:clamp(1.1rem,2vw,1.4rem);font-weight:300;line-height:1.8;text-align:center;max-width:700px;margin:0 auto 3rem;color:var(--charcoal)}
+.model-intro strong{font-weight:500;color:var(--gold-dark)}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem}
+.compare-card{padding:2.5rem;border:1px solid var(--light-line);background:var(--white);transition:all .4s;display:flex;flex-direction:column}
+.compare-card:hover{border-color:var(--gold-light);box-shadow:0 12px 40px rgba(0,0,0,.04)}
+.compare-card .card-eyebrow{font-size:.55rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.compare-card h3{font-family:var(--font-display);font-size:1.8rem;font-weight:400;margin-bottom:1rem;line-height:1.2}
+.compare-card .card-desc{font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1.5rem}
+.detail-row{display:flex;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--light-line);font-size:.85rem}
+.detail-row:last-child{border:none}
+.detail-label{font-weight:500;color:var(--charcoal)}
+.detail-value{color:var(--muted);font-weight:300;text-align:right;max-width:55%}
+.card-cta-wrap{margin-top:auto;padding-top:1.5rem}
+.card-cta-btn{display:block;text-align:center;font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:.9rem 2rem;transition:all .4s}
+.cta-primary{color:var(--charcoal);background:var(--gold)}
+.cta-primary:hover{background:var(--gold-light);box-shadow:0 8px 30px rgba(201,169,110,.25)}
+.cta-secondary{color:var(--charcoal);border:1px solid var(--charcoal);background:transparent}
+.cta-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.calc-section{background:var(--white);border-top:1px solid var(--light-line);border-bottom:1px solid var(--light-line)}
+.calc-wrap{max-width:900px;margin:0 auto}
+.slider-group{margin-bottom:2rem}
+.slider-label{font-size:.6rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.slider-value{font-family:var(--font-display);font-size:2.5rem;font-weight:300;color:var(--charcoal);margin-bottom:1rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--light-line);outline:none;border-radius:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--cream);box-shadow:0 2px 10px rgba(201,169,110,.3);transition:all .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);box-shadow:0 4px 16px rgba(201,169,110,.4)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--cream);box-shadow:0 2px 10px rgba(201,169,110,.3)}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.result-card{padding:2rem;border:1px solid var(--light-line);background:var(--cream);position:relative;overflow:hidden}
+.result-card.active{border-color:var(--gold)}
+.result-card.active::before{content:'BETTER FIT';position:absolute;top:12px;right:-28px;transform:rotate(45deg);font-size:.5rem;font-weight:500;letter-spacing:.15em;color:var(--charcoal);background:var(--gold-light);padding:3px 36px}
+.result-card .card-type{font-size:.55rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.result-card .take-home{font-family:var(--font-display);font-size:2.8rem;font-weight:300;color:var(--charcoal);line-height:1;margin-bottom:.25rem}
+.result-card .take-home-sub{font-size:.75rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem}
+.breakdown-row{display:flex;justify-content:space-between;padding:.45rem 0;font-size:.8rem;border-bottom:1px solid var(--light-line)}
+.breakdown-row:last-child{border:none;padding-top:.6rem;font-weight:500}
+.breakdown-label{color:var(--muted);font-weight:300}
+.breakdown-value{color:var(--charcoal)}
+.tier-table{margin-top:0;margin-bottom:0}
+.tier-tr{display:grid;grid-template-columns:80px 1fr 80px;gap:0;border-bottom:1px solid var(--light-line);transition:all .3s}
+.tier-header{border-bottom:1px solid var(--gold)}
+.tier-header .tier-td{font-size:.55rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.75rem .5rem}
+.tier-td{font-size:.85rem;font-weight:300;color:var(--muted);padding:.85rem .5rem;display:flex;align-items:center}
+.tier-label-cell{font-weight:500;color:var(--charcoal)}
+.tier-rate{font-family:var(--font-display);font-size:1.1rem;font-weight:400;color:var(--charcoal)}
+.tier-tr.active-tier{background:rgba(201,169,110,.1);border-bottom-color:var(--gold)}
+.tier-tr.active-tier .tier-td{color:var(--charcoal)}
+.tier-tr.active-tier .tier-label-cell{color:var(--gold-dark)}
+.tier-tr.active-tier .tier-rate{color:var(--gold-dark);font-size:1.2rem}
+.quote-block{text-align:center;padding:5rem 2rem;background:var(--charcoal)}
+.quote-text{font-family:var(--font-display);font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:300;font-style:italic;line-height:1.8;color:rgba(250,246,240,.6);max-width:650px;margin:0 auto}
+.quote-text strong{font-weight:500;color:var(--gold-light);font-style:normal}
+.perks-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.perk-item{padding:1.75rem;border:1px solid var(--light-line);background:var(--white)}
+.perk-item h4{font-family:var(--font-display);font-size:1.15rem;font-weight:400;margin-bottom:.5rem}
+.perk-item p{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.6}
+.cta-section{background:var(--charcoal);padding:6rem 2rem;text-align:center}
+.cta-inner{max-width:600px;margin:0 auto}
+.cta-btn{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);text-decoration:none;padding:1.1rem 3rem;transition:all .4s}
+.cta-btn:hover{background:var(--gold-light);box-shadow:0 10px 40px rgba(201,169,110,.3)}
+footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top:1px solid rgba(201,169,110,.08)}
+.footer-logo{font-family:var(--font-display);font-size:1.4rem;font-weight:400;letter-spacing:.15em;color:var(--cream);margin-bottom:1rem}
+.footer-links{display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:.7rem;font-weight:400;letter-spacing:.06em;color:rgba(250,246,240,.4);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--gold)}
+.footer-copy{font-size:.6rem;color:rgba(250,246,240,.25);letter-spacing:.05em}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .hero{padding:7rem 1.5rem 4rem;min-height:60vh}
+  .compare-grid,.results-grid,.perks-grid{grid-template-columns:1fr}
+  .section{padding:4rem 1.5rem}
+  .result-card .take-home{font-size:2.2rem}
+  .detail-value{max-width:60%}
+  .tier-tr{grid-template-columns:60px 1fr 60px}
+  .tier-td{font-size:.75rem;padding:.7rem .35rem}
+  .tier-rate{font-size:.95rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="/index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Home
+  </a>
+  <a href="/index.html" class="nav-logo">FLOWE</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Flowe Collective</div>
+  <h1 class="hero-title">Build Your<br><em>Career Here</em></h1>
+  <p class="hero-sub">A hybrid salon model designed to meet you where you are and grow with you. Commission or booth rent. W-2 or 1099. Your choice.</p>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <p class="model-intro reveal">Most salons force you into one box. We built <strong>two paths</strong> under the same roof, so your career structure matches your stage, your goals, and your independence level.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card reveal">
+        <div class="card-eyebrow">Path A / W-2</div>
+        <h3>Commission<br>Stylist</h3>
+        <p class="card-desc">Work under the Flowe brand and systems. Clients are partially provided. Steady, supported income while you grow your book.</p>
+        <div class="detail-row"><span class="detail-label">Structure</span><span class="detail-value">Sliding scale commission</span></div>
+        <div class="detail-row"><span class="detail-label">Pay Range</span><span class="detail-value">30% - 50% of service revenue</span></div>
+        <div class="detail-row"><span class="detail-label">Pay Period</span><span class="detail-value">Biweekly reset</span></div>
+        <div class="detail-row"><span class="detail-label">Support</span><span class="detail-value">Training, products, front desk, marketing, walk-in priority</span></div>
+        <div class="detail-row"><span class="detail-label">Best For</span><span class="detail-value">Building with mentorship and a pipeline</span></div>
+        <div class="card-cta-wrap">
+          <a href="/apply.html?path=commission" class="card-cta-btn cta-primary">Apply for Commission</a>
+        </div>
+      </div>
+      <div class="compare-card reveal">
+        <div class="card-eyebrow">Path B / 1099</div>
+        <h3>Booth<br>Rental</h3>
+        <p class="card-desc">Operate independently under your own brand within the salon. You set your prices, your hours, and your direction.</p>
+        <div class="detail-row"><span class="detail-label">Structure</span><span class="detail-value">Weekly rent + capped % fee</span></div>
+        <div class="detail-row"><span class="detail-label">Rent</span><span class="detail-value">$600/week</span></div>
+        <div class="detail-row"><span class="detail-label">Fee</span><span class="detail-value">7.5% of sales ($1,000/mo cap)</span></div>
+        <div class="detail-row"><span class="detail-label">Support</span><span class="detail-value">Front desk, cleaning, brand equity, client amenities</span></div>
+        <div class="detail-row"><span class="detail-label">Best For</span><span class="detail-value">Running your own business, your own way</span></div>
+        <div class="card-cta-wrap">
+          <a href="/apply.html?path=rent" class="card-cta-btn cta-secondary">Apply for Booth Rent</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section calc-section" id="calculator">
+  <div class="calc-wrap">
+    <div class="eyebrow reveal" style="text-align:center">Earnings Calculator</div>
+    <div class="section-title reveal" style="text-align:center">See What You'd Take Home</div>
+    <div style="width:50px;height:1px;background:var(--gold);margin:1.5rem auto 2rem" class="reveal"></div>
+    <p style="text-align:center;font-size:.9rem;color:var(--muted);font-weight:300;line-height:1.7;max-width:550px;margin:0 auto 3rem" class="reveal">Drag the slider to your monthly service revenue. We'll show your take-home under both models so you can see which one fits.</p>
+
+    <div class="eyebrow reveal">Commission Tiers</div>
+    <p style="font-size:.85rem;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:1.5rem" class="reveal">Your rate is based on total service revenue per pay period (every 2 weeks). Hit a higher tier and the entire period pays at that rate. Not blended. Clean cut.</p>
+
+    <div class="tier-table reveal" id="tier-table">
+      <div class="tier-tr tier-header">
+        <span class="tier-td">Tier</span>
+        <span class="tier-td">Revenue / Pay Period</span>
+        <span class="tier-td">Your Rate</span>
+        
+      </div>
+      <div class="tier-tr" data-tier="entry">
+        <span class="tier-td tier-label-cell">Entry</span>
+        <span class="tier-td">$0 - $2,000</span>
+        <span class="tier-td tier-rate">30%</span>
+        
+      </div>
+      <div class="tier-tr" data-tier="tier1">
+        <span class="tier-td tier-label-cell">Tier 1</span>
+        <span class="tier-td">$2,001 - $4,000</span>
+        <span class="tier-td tier-rate">36%</span>
+        
+      </div>
+      <div class="tier-tr" data-tier="tier2">
+        <span class="tier-td tier-label-cell">Tier 2</span>
+        <span class="tier-td">$4,001 - $6,000</span>
+        <span class="tier-td tier-rate">40%</span>
+        
+      </div>
+      <div class="tier-tr" data-tier="tier3">
+        <span class="tier-td tier-label-cell">Tier 3</span>
+        <span class="tier-td">$6,001 - $8,000</span>
+        <span class="tier-td tier-rate">44%</span>
+        
+      </div>
+      <div class="tier-tr" data-tier="tier4">
+        <span class="tier-td tier-label-cell">Tier 4</span>
+        <span class="tier-td">$8,001+</span>
+        <span class="tier-td tier-rate">50%</span>
+        
+      </div>
+    </div>
+
+    <div style="width:50px;height:1px;background:var(--light-line);margin:2.5rem auto"></div>
+
+    <div class="slider-group reveal" style="text-align:center">
+      <div class="slider-label">Monthly Service Revenue</div>
+      <div class="slider-value" id="rev-display">$6,000</div>
+      <input type="range" id="rev-slider" min="0" max="25000" step="250" value="6000">
+    </div>
+
+    <div class="results-grid reveal" id="results">
+      <div class="result-card" id="comm-card">
+        <div class="card-type">Commission (W-2)</div>
+        <div class="take-home" id="comm-takehome">$2,400</div>
+        <div class="take-home-sub">per month take-home</div>
+        <div class="breakdown-row"><span class="breakdown-label">Monthly Revenue</span><span class="breakdown-value" id="comm-rev">$6,000</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Pay Period 1 Tier</span><span class="breakdown-value" id="comm-tier1">Tier 1 (36%)</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Pay Period 2 Tier</span><span class="breakdown-value" id="comm-tier2">Tier 1 (36%)</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Total Commission</span><span class="breakdown-value" id="comm-total">$2,160</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Effective Rate</span><span class="breakdown-value" id="comm-rate">36%</span></div>
+      </div>
+      <div class="result-card" id="rent-card">
+        <div class="card-type">Booth Rent (1099)</div>
+        <div class="take-home" id="rent-takehome">$2,400</div>
+        <div class="take-home-sub">per month take-home</div>
+        <div class="breakdown-row"><span class="breakdown-label">Monthly Revenue</span><span class="breakdown-value" id="rent-rev">$6,000</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Weekly Rent ($600 x 4.33)</span><span class="breakdown-value" id="rent-base">$2,600</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">7.5% Fee</span><span class="breakdown-value" id="rent-fee">$450</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Fee Cap Status</span><span class="breakdown-value" id="rent-cap">Under cap</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Total Costs</span><span class="breakdown-value" id="rent-costs">$3,050</span></div>
+        <div class="breakdown-row"><span class="breakdown-label">Effective Rate Kept</span><span class="breakdown-value" id="rent-rate">49%</span></div>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:.75rem;color:var(--muted);font-weight:300;margin-top:1.5rem;line-height:1.6" class="reveal">Commission is W-2 (taxes withheld). Booth rent is 1099 (you handle taxes). These are simplified estimates for comparison.</p>
+  </div>
+</section>
+
+<div class="quote-block">
+  <p class="quote-text reveal">You are not choosing between two options. You are choosing between <strong>two versions of success</strong>. Both lead somewhere extraordinary.</p>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="eyebrow reveal" style="text-align:center">At Flowe</div>
+    <div class="section-title reveal" style="text-align:center">What You Walk Into</div>
+    <div style="width:50px;height:1px;background:var(--gold);margin:1.5rem auto 3rem" class="reveal"></div>
+    <div class="perks-grid">
+      <div class="perk-item reveal"><h4>Mentorship Culture</h4><p>Whether commission or booth rent, you're surrounded by stylists who invest in each other. Education is built into how we operate.</p></div>
+      <div class="perk-item reveal"><h4>Modern Space</h4><p>A salon designed with intention. Clean aesthetic, premium infrastructure, and an environment that reflects the standard of work we do.</p></div>
+      <div class="perk-item reveal"><h4>Specialty Focus</h4><p>We don't try to be everything. We build around precision, structure, and services that command premium pricing.</p></div>
+      <div class="perk-item reveal"><h4>Business Training</h4><p>Pricing architecture, client retention systems, consultation frameworks, and social strategy. The business side is not an afterthought.</p></div>
+      <div class="perk-item reveal"><h4>Flexible Transition</h4><p>Start on commission. Move to booth rent when you're ready. The pathway is built in, and the timing is yours.</p></div>
+      <div class="perk-item reveal"><h4>Houston, TX</h4><p>Located in the Oak Forest/Garden Oaks area of Houston. Strong neighborhood support and a growing market for elevated, specialty-driven salon experiences.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="eyebrow reveal" style="text-align:center;margin-bottom:1.5rem">Ready?</div>
+    <div class="section-title reveal" style="color:var(--cream);text-align:center;margin-bottom:1rem">Let's Talk About Your Career</div>
+    <p style="font-size:.9rem;font-weight:300;color:rgba(250,246,240,.5);line-height:1.7;margin-bottom:2.5rem;text-align:center" class="reveal">Whether you're just starting or ready to go independent, we'd love to hear where you are and where you want to go.</p>
+    <div class="reveal" style="text-align:center">
+      <a href="/apply.html" class="cta-btn">Start the Conversation</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">FLOWE</div>
+  <div class="footer-links">
+    <a href="tel:8329740913">832-974-0913</a>
+    <a href="mailto:hello@flowecollective.com">hello@flowecollective.com</a>
+    <a href="https://instagram.com/flowecollective_" target="_blank" rel="noopener">@flowecollective_</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 Flowe Collective. All rights reserved.</div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 50) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el){ observer.observe(el); });
+
+  var slider = document.getElementById('rev-slider');
+  var display = document.getElementById('rev-display');
+
+  function getCommTier(biweeklyRev) {
+    if (biweeklyRev >= 8001) return { name: 'Tier 4', rate: 0.50 };
+    if (biweeklyRev >= 6001) return { name: 'Tier 3', rate: 0.44 };
+    if (biweeklyRev >= 4001) return { name: 'Tier 2', rate: 0.40 };
+    if (biweeklyRev >= 2001) return { name: 'Tier 1', rate: 0.36 };
+    return { name: 'Entry', rate: 0.30 };
+  }
+
+  function fmt(n) {
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+  function pct(n) {
+    return Math.round(n * 100) + '%';
+  }
+
+  function calculate(monthlyRev) {
+    var pp1 = monthlyRev / 2;
+    var pp2 = monthlyRev / 2;
+    var tier1 = getCommTier(pp1);
+    var tier2 = getCommTier(pp2);
+    var comm1 = pp1 * tier1.rate;
+    var comm2 = pp2 * tier2.rate;
+    var commTotal = comm1 + comm2;
+    var commRate = monthlyRev > 0 ? commTotal / monthlyRev : 0;
+
+    document.getElementById('comm-takehome').textContent = fmt(commTotal);
+    document.getElementById('comm-rev').textContent = fmt(monthlyRev);
+    document.getElementById('comm-tier1').textContent = tier1.name + ' (' + pct(tier1.rate) + ')';
+    document.getElementById('comm-tier2').textContent = tier2.name + ' (' + pct(tier2.rate) + ')';
+    document.getElementById('comm-total').textContent = fmt(commTotal);
+    document.getElementById('comm-rate').textContent = pct(commRate);
+
+    var monthlyRent = 600 * 52 / 12;
+    var rawFee = monthlyRev * 0.075;
+    var fee = Math.min(rawFee, 1000);
+    var totalCosts = monthlyRent + fee;
+    var rentTakeHome = monthlyRev - totalCosts;
+    var rentRate = monthlyRev > 0 ? rentTakeHome / monthlyRev : 0;
+    var atCap = rawFee >= 1000;
+
+    document.getElementById('rent-takehome').textContent = fmt(Math.max(rentTakeHome, 0));
+    document.getElementById('rent-rev').textContent = fmt(monthlyRev);
+    document.getElementById('rent-base').textContent = fmt(monthlyRent);
+    document.getElementById('rent-fee').textContent = fmt(fee) + (atCap ? ' (capped)' : '');
+    document.getElementById('rent-cap').textContent = atCap ? 'At $1,000 cap' : fmt(1000 - fee) + ' remaining';
+    document.getElementById('rent-costs').textContent = fmt(totalCosts);
+    document.getElementById('rent-rate').textContent = monthlyRev > 0 ? pct(Math.max(rentRate, 0)) : '0%';
+
+    var commCard = document.getElementById('comm-card');
+    var rentCard = document.getElementById('rent-card');
+    commCard.classList.remove('active');
+    rentCard.classList.remove('active');
+    if (monthlyRev > 0) {
+      if (commTotal > rentTakeHome) commCard.classList.add('active');
+      else if (rentTakeHome > commTotal) rentCard.classList.add('active');
+    }
+
+    // Highlight active tier in table
+    var tierRows = document.querySelectorAll('.tier-tr[data-tier]');
+    var activeTier = tier1.name.toLowerCase().replace(' ', '');
+    tierRows.forEach(function(row) {
+      row.classList.remove('active-tier');
+      if (row.getAttribute('data-tier') === activeTier) {
+        row.classList.add('active-tier');
+      }
+    });
+  }
+
+  slider.addEventListener('input', function(){
+    var v = parseInt(this.value);
+    display.textContent = fmt(v);
+    calculate(v);
+  });
+
+  calculate(6000);
+})();
+</script>
+
+</body>
+</html>

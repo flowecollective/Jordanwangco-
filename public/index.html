@@ -70,19 +70,22 @@ section { padding: 7rem 2rem; }
 
 /* OFFERING CARDS */
 .offerings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
-.offering-card { background: var(--white); border: 1px solid var(--light-line); border-radius: 2px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23,1,0.32,1); }
+.offering-card { background: var(--white); border: 1px solid var(--light-line); border-radius: 2px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23,1,0.32,1); display: flex; flex-direction: column; }
 .offering-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
 .offering-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); border-color: var(--gold-light); }
 .offering-card:hover::before { transform: scaleX(1); }
 .card-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.35rem 0.75rem; border-radius: 1px; margin-bottom: 1.5rem; }
 .tag-program { background: var(--charcoal); color: var(--cream); }
+.tag-hiring { background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark)); background-size: 200% 100%; color: var(--charcoal); animation: shimmer 3s ease-in-out infinite; }
+@keyframes shimmer { 0%{background-position:100% 0} 50%{background-position:0% 0} 100%{background-position:100% 0} }
 .tag-digital { background: var(--gold); color: var(--white); }
 .card-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.75rem; line-height: 1.3; }
-.card-desc { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.7; margin-bottom: 1.75rem; }
-.card-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 1.25rem; border-top: 1px solid var(--light-line); }
+.card-desc { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.7; }
+.card-body { flex: 1; }
+.card-meta { display: flex; flex-direction: column; align-items: flex-start; padding-top: 1.25rem; border-top: 1px solid var(--light-line); gap: 1rem; margin-top: 1.75rem; }
 .card-price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--gold-dark); }
 .card-price .subtext { display: block; font-family: var(--font-body); font-size: 0.65rem; font-weight: 400; color: var(--muted); letter-spacing: 0.05em; margin-top: 2px; }
-.card-cta { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; padding: 0.6rem 1.4rem; border: 1px solid var(--charcoal); transition: all 0.3s ease; display: inline-block; }
+.card-cta { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; padding: 0.6rem 1.4rem; border: 1px solid var(--charcoal); transition: all 0.3s ease; display: inline-block; min-width: 160px; text-align: center; }
 .card-cta:hover { background: var(--charcoal); color: var(--cream); }
 
 /* DARK SECTION */
@@ -151,6 +154,7 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
   <ul class="nav-links">
     <li><a href="#offerings">Programs</a></li>
     <li><a href="#classes">Classes</a></li>
+    <li><a href="/careers.html">Careers</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -201,9 +205,11 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
 
     <div class="offerings-grid">
       <div class="offering-card reveal">
-        <span class="card-tag tag-program">Flagship Program</span>
-        <h3 class="card-title">Stylist Residency Program</h3>
-        <p class="card-desc">A 3-month, hands-on training experience with a hyper-focus on your chosen specialty. Business strategy, technical mastery, and a guaranteed path to generating income, all under direct mentorship.</p>
+        <div class="card-body">
+          <span class="card-tag tag-program">Flagship Program</span>
+          <h3 class="card-title">Stylist Residency Program</h3>
+          <p class="card-desc">A 3-month, hands-on training experience with a hyper-focus on your chosen specialty. Business strategy, technical mastery, and a guaranteed path to generating income, all under direct mentorship.</p>
+        </div>
         <div class="card-meta">
           <div class="card-price">$4,500<span class="subtext">Payment plans available</span></div>
           <a href="/Flowe_Stylist_Residency.pdf" download class="card-cta">Learn More</a>
@@ -211,12 +217,26 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
       </div>
 
       <div class="offering-card reveal">
-        <span class="card-tag tag-digital">Digital Resource</span>
-        <h3 class="card-title">The Revenue Audit</h3>
-        <p class="card-desc">A web-based tool designed to help you break down your numbers, identify where you are leaving money on the table, and build a pricing strategy that actually reflects your worth.</p>
+        <div class="card-body">
+          <span class="card-tag tag-digital">Digital Resource</span>
+          <h3 class="card-title">The Revenue Audit</h3>
+          <p class="card-desc">A web-based tool designed to help you break down your numbers, identify where you are leaving money on the table, and build a pricing strategy that actually reflects your worth.</p>
+        </div>
         <div class="card-meta">
           <div class="card-price">Free<span class="subtext">Web app</span></div>
           <a href="https://snap.flowecollective.com/" class="card-cta">Take the Snapshot</a>
+        </div>
+      </div>
+
+      <div class="offering-card reveal">
+        <div class="card-body">
+          <span class="card-tag tag-hiring">Now Hiring</span>
+          <h3 class="card-title">Work at Flowe</h3>
+          <p class="card-desc">A hybrid salon model with two paths: commission (W-2) or booth rental (1099). Sliding scale earnings, mentorship culture, and interactive calculators so you can see exactly what you would take home.</p>
+        </div>
+        <div class="card-meta">
+          <div class="card-price">Careers<span class="subtext">Commission or Booth Rent</span></div>
+          <a href="/careers.html" class="card-cta">Explore</a>
         </div>
       </div>
     </div>
