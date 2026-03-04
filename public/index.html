@@ -298,4 +298,13 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
     entries.forEach(function(entry, i){
       if (entry.isIntersecting) {
         setTimeout(function(){ entry.target.classList.add('visible'); }, i * 80);
-        observe
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>
