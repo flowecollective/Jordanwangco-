@@ -263,13 +263,6 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
 
 var currentPath = null;
 
-// Auto-select path from URL param
-(function(){
-  var params = new URLSearchParams(window.location.search);
-  var p = params.get('path');
-  if (p === 'commission' || p === 'rent') selectPath(p);
-})();
-
 function selectPath(path) {
   currentPath = path;
   document.querySelectorAll('.path-btn').forEach(function(b){
@@ -279,6 +272,13 @@ function selectPath(path) {
   document.getElementById('rent-fields').classList.toggle('visible', path === 'rent');
   document.getElementById('general-fields').classList.toggle('visible', !path);
 }
+
+// Auto-select path from URL param
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var p = params.get('path');
+  if (p === 'commission' || p === 'rent') selectPath(p);
+})();
 
 function gatherFormData() {
   var first = document.getElementById('fname').value;
@@ -337,12 +337,24 @@ function gatherFormData() {
 
 function submitForm() {
   var btn = document.getElementById('submit-btn');
-  var data = gatherFormData();
-
-  if (!data.firstName || !data.email) {
+  
+  var fnameEl = document.getElementById('fname');
+  var emailEl = document.getElementById('email');
+  
+  if (!fnameEl || !emailEl) {
+    alert('Form error: could not find input fields. Please refresh and try again.');
+    return;
+  }
+  
+  var fname = fnameEl.value.trim();
+  var em = emailEl.value.trim();
+  
+  if (!fname || !em) {
     alert('Please fill in at least your name and email.');
     return;
   }
+  
+  var data = gatherFormData();
 
   btn.disabled = true;
   btn.textContent = 'Submitting...';
