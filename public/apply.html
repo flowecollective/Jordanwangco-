@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apply - Flowe Collective</title>
+<title>Connect - Flowe Collective</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
@@ -73,18 +73,28 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
 </nav>
 
 <div class="page-wrap">
-  <div class="eyebrow">Apply</div>
+  <div class="eyebrow">Connect</div>
   <h1 class="page-title">Let's Start the Conversation</h1>
-  <p class="page-sub">Tell us where you are and where you want to go. Pick your path below and we'll be in touch within 48 hours.</p>
+  <p class="page-sub">Whether you're interested in joining the team, have a question about our programs, or just want to connect — we're here.</p>
 
   <!-- Path selector -->
   <div class="path-select" id="path-select">
-    <div class="path-btn" data-path="commission">
-      <div class="path-label">Path A / W-2</div>
+    <div class="path-btn" data-path="apply" onclick="toggleApply()">
+      <div class="path-label">Join the Team</div>
+      <div class="path-name">Apply</div>
+    </div>
+    <div class="path-btn" data-path="general" onclick="selectPath('general')">
+      <div class="path-label">Ask</div>
+      <div class="path-name">A Question</div>
+    </div>
+  </div>
+  <div class="path-select" id="apply-sub" style="display:none;margin-top:-.75rem;margin-bottom:2.5rem">
+    <div class="path-btn" data-path="commission" onclick="selectPath('commission')">
+      <div class="path-label">W-2</div>
       <div class="path-name">Commission</div>
     </div>
-    <div class="path-btn" data-path="rent">
-      <div class="path-label">Path B / 1099</div>
+    <div class="path-btn" data-path="rent" onclick="selectPath('rent')">
+      <div class="path-label">1099</div>
       <div class="path-name">Booth Rent</div>
     </div>
   </div>
@@ -222,23 +232,34 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
       </div>
     </div>
 
-    <!-- General inquiry fields (no path selected) -->
+    <!-- General inquiry fields -->
     <div class="form-section" id="general-fields">
       <div class="divider"></div>
       <div class="field">
-        <label>What brings you to Flowe?</label>
-        <textarea id="general-message" placeholder="Tell us a little about yourself and what you're looking for..."></textarea>
+        <label>What's this about?</label>
+        <select id="general-topic">
+          <option value="" disabled selected>Select a topic</option>
+          <option value="programs">Residency program question</option>
+          <option value="pricing">Pricing or services</option>
+          <option value="careers">General career question</option>
+          <option value="collaboration">Collaboration or partnership</option>
+          <option value="other">Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Your message</label>
+        <textarea id="general-message" placeholder="What's on your mind? No question is too small."></textarea>
       </div>
     </div>
 
-    <button type="button" class="submit-btn" id="submit-btn">Submit Application</button>
-    <p class="form-note">We respond to every application within 48 hours. No spam, no pressure.</p>
+    <button type="button" class="submit-btn" id="submit-btn" onclick="submitForm()">Submit Application</button>
+    <p class="form-note">We respond within 48 hours. No spam, no pressure.</p>
   </div>
 
   <!-- Success state -->
   <div class="success-msg" id="success" style="display:none">
-    <h2>Application Received</h2>
-    <p>Thanks for reaching out. We'll review your submission and get back to you within 48 hours. In the meantime, follow us <a href="https://instagram.com/flowecollective_" target="_blank" rel="noopener" style="color:var(--gold)">@flowecollective_</a></p>
+    <h2>Message Received</h2>
+    <p>Thanks for reaching out. We'll get back to you within 48 hours. In the meantime, follow us <a href="https://instagram.com/flowecollective_" target="_blank" rel="noopener" style="color:var(--gold)">@flowecollective_</a></p>
   </div>
 </div>
 
@@ -263,21 +284,60 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
 
 var currentPath = null;
 
+function toggleApply() {
+  var sub = document.getElementById('apply-sub');
+  var applyBtn = document.querySelector('[data-path="apply"]');
+  var generalBtn = document.querySelector('[data-path="general"]');
+  if (sub.style.display === 'none') {
+    sub.style.display = 'grid';
+    applyBtn.classList.add('active');
+    generalBtn.classList.remove('active');
+    // Hide general fields, don't show commission/rent yet
+    document.getElementById('general-fields').classList.remove('visible');
+  } else {
+    sub.style.display = 'none';
+    applyBtn.classList.remove('active');
+  }
+}
+
 function selectPath(path) {
   currentPath = path;
-  document.querySelectorAll('.path-btn').forEach(function(b){
+  var sub = document.getElementById('apply-sub');
+  var applyBtn = document.querySelector('[data-path="apply"]');
+  var generalBtn = document.querySelector('[data-path="general"]');
+
+  if (path === 'general') {
+    sub.style.display = 'none';
+    applyBtn.classList.remove('active');
+    generalBtn.classList.add('active');
+  } else {
+    applyBtn.classList.add('active');
+    generalBtn.classList.remove('active');
+  }
+
+  document.querySelectorAll('#apply-sub .path-btn').forEach(function(b){
     b.classList.toggle('active', b.getAttribute('data-path') === path);
   });
+
   document.getElementById('commission-fields').classList.toggle('visible', path === 'commission');
   document.getElementById('rent-fields').classList.toggle('visible', path === 'rent');
-  document.getElementById('general-fields').classList.toggle('visible', !path);
+  document.getElementById('general-fields').classList.toggle('visible', path === 'general');
+
+  var btn = document.getElementById('submit-btn');
+  if (path === 'general') btn.textContent = 'Send Message';
+  else btn.textContent = 'Submit Application';
 }
 
 // Auto-select path from URL param
 (function(){
   var params = new URLSearchParams(window.location.search);
   var p = params.get('path');
-  if (p === 'commission' || p === 'rent') selectPath(p);
+  if (p === 'commission' || p === 'rent') {
+    document.getElementById('apply-sub').style.display = 'grid';
+    selectPath(p);
+  } else if (p === 'general') {
+    selectPath(p);
+  }
 })();
 
 function gatherFormData() {
@@ -323,6 +383,9 @@ function gatherFormData() {
     lines.push('What they are looking for:');
     lines.push(document.getElementById('rent-goals').value);
   } else {
+    var topic = document.getElementById('general-topic');
+    lines.push('Topic: ' + (topic.options[topic.selectedIndex]?.text || ''));
+    lines.push('');
     lines.push(document.getElementById('general-message').value);
   }
 
