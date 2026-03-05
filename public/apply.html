@@ -434,7 +434,7 @@ function submitForm() {
   .then(function(res) {
     if (res.ok) {
       document.getElementById('form-container').style.display = 'none';
-      document.querySelector('.path-select').style.display = 'none';
+      document.querySelectorAll('.path-select').forEach(function(el){ el.style.display = 'none'; });
       document.getElementById('success').style.display = 'block';
     } else {
       btn.disabled = false;
