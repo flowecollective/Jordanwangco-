@@ -65,11 +65,11 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
 <body>
 
 <nav id="nav">
-  <a href="/careers.html" class="nav-back">
+  <a href="/careers" class="nav-back">
     <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Back to Careers
   </a>
-  <a href="/index.html" class="nav-logo">FLOWE</a>
+  <a href="/" class="nav-logo">FLOWE</a>
 </nav>
 
 <div class="page-wrap">
@@ -79,11 +79,11 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
 
   <!-- Path selector -->
   <div class="path-select" id="path-select">
-    <div class="path-btn" data-path="commission" onclick="selectPath('commission')">
+    <div class="path-btn" data-path="commission">
       <div class="path-label">Path A / W-2</div>
       <div class="path-name">Commission</div>
     </div>
-    <div class="path-btn" data-path="rent" onclick="selectPath('rent')">
+    <div class="path-btn" data-path="rent">
       <div class="path-label">Path B / 1099</div>
       <div class="path-name">Booth Rent</div>
     </div>
@@ -97,17 +97,17 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
       <div class="field-row">
         <div class="field">
           <label>First Name</label>
-          <input type="text" id="fname" placeholder="First name" required>
+          <input type="text" id="fname" placeholder="First name">
         </div>
         <div class="field">
           <label>Last Name</label>
-          <input type="text" id="lname" placeholder="Last name" required>
+          <input type="text" id="lname" placeholder="Last name">
         </div>
       </div>
       <div class="field-row">
         <div class="field">
           <label>Email</label>
-          <input type="email" id="email" placeholder="you@email.com" required>
+          <input type="email" id="email" placeholder="you@email.com">
         </div>
         <div class="field">
           <label>Phone</label>
@@ -231,7 +231,7 @@ footer{background:var(--charcoal);padding:3rem 2rem;text-align:center;border-top
       </div>
     </div>
 
-    <button type="button" class="submit-btn" id="submit-btn" onclick="submitForm()">Submit Application</button>
+    <button type="button" class="submit-btn" id="submit-btn">Submit Application</button>
     <p class="form-note">We respond to every application within 48 hours. No spam, no pressure.</p>
   </div>
 
