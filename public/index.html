@@ -45,6 +45,14 @@ nav.scrolled { padding: 1rem 3rem; box-shadow: 0 2px 40px rgba(0,0,0,0.04); }
 .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
 .nav-links a:hover { color: var(--charcoal); }
 .nav-links a:hover::after { width: 100%; }
+.nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-hamburger svg { width: 24px; height: 24px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+.nav-mobile { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(250,246,240,0.98); z-index: 200; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
+.nav-mobile.open { display: flex; }
+.nav-mobile a { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: var(--charcoal); text-decoration: none; transition: color 0.3s; }
+.nav-mobile a:hover { color: var(--gold); }
+.nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-mobile-close svg { width: 24px; height: 24px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
 
 /* HERO */
 .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 8rem 2rem 6rem; position: relative; overflow: hidden; }
@@ -136,6 +144,7 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
 @media (max-width: 768px) {
   nav { padding: 1rem 1.5rem; }
   .nav-links { display: none; }
+  .nav-hamburger { display: block; }
   section { padding: 4rem 1.5rem; }
   .offerings-grid { grid-template-columns: 1fr; }
   .class-card { grid-template-columns: 1fr; }
@@ -158,7 +167,20 @@ footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
 </nav>
+<div class="nav-mobile" id="mobileMenu">
+  <button class="nav-mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#offerings" onclick="document.getElementById('mobileMenu').classList.remove('open')">Programs</a>
+  <a href="#classes" onclick="document.getElementById('mobileMenu').classList.remove('open')">Classes</a>
+  <a href="/careers" onclick="document.getElementById('mobileMenu').classList.remove('open')">Careers</a>
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
