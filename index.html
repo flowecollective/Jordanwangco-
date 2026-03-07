@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flowe Collective - Build a Beauty Career That Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --gold: #C9A96E; --gold-light: #E8D5B0; --gold-dark: #A8884D;
+  --cream: #FAF6F0; --cream-dark: #F0EBE2;
+  --charcoal: #1A1A1A; --charcoal-mid: #2C2C2C;
+  --muted: #6B6460; --light-line: #E0DAD0; --white: #FFFFFF;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--charcoal); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--gold-light); color: var(--charcoal); }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: rgba(250,246,240,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--light-line); transition: all 0.4s ease; }
+nav.scrolled { padding: 1rem 3rem; box-shadow: 0 2px 40px rgba(0,0,0,0.04); }
+.nav-logo { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; letter-spacing: 0.15em; color: var(--charcoal); text-decoration: none; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; position: relative; transition: color 0.3s; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s ease; }
+.nav-links a:hover { color: var(--charcoal); }
+.nav-links a:hover::after { width: 100%; }
+.nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-hamburger svg { width: 24px; height: 24px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+.nav-mobile { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(250,246,240,0.98); z-index: 200; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; }
+.nav-mobile.open { display: flex; }
+.nav-mobile a { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: var(--charcoal); text-decoration: none; transition: color 0.3s; }
+.nav-mobile a:hover { color: var(--gold); }
+.nav-mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; cursor: pointer; padding: 4px; }
+.nav-mobile-close svg { width: 24px; height: 24px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+
+/* HERO */
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 8rem 2rem 6rem; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 20%, rgba(201,169,110,0.06) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(201,169,110,0.04) 0%, transparent 50%); animation: drift 20s ease-in-out infinite; }
+@keyframes drift { 0%,100% { transform: translate(0,0); } 33% { transform: translate(2%,-1%); } 66% { transform: translate(-1%,1%); } }
+.hero-eyebrow { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.8rem,6.5vw,5rem); font-weight: 300; line-height: 1.1; color: var(--charcoal); margin-bottom: 1.5rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+.hero-title em { font-style: italic; font-weight: 400; color: var(--gold-dark); }
+.hero-subtitle { font-size: 1.05rem; font-weight: 300; color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 2.5rem; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+.hero-ctas { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+.hero-btn-primary { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--charcoal); background: var(--gold); text-decoration: none; padding: 1rem 2.5rem; transition: all 0.4s ease; display: inline-block; }
+.hero-btn-primary:hover { background: var(--gold-light); box-shadow: 0 10px 40px rgba(201,169,110,0.25); }
+.hero-btn-secondary { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; padding: 1rem 2rem; border: 1px solid var(--light-line); transition: all 0.3s; display: inline-block; }
+.hero-btn-secondary:hover { border-color: var(--gold); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.hex-ring { animation: hexPulse 6s ease-in-out infinite; }
+.hex-ring-2 { animation: hexPulse 6s ease-in-out infinite 1.5s; }
+.hex-ring-3 { animation: hexPulse 6s ease-in-out infinite 3s; }
+@keyframes hexPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.3; } }
+
+/* SECTIONS */
+section { padding: 7rem 2rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-eyebrow { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.section-title { font-family: var(--font-display); font-size: clamp(2rem,4vw,3rem); font-weight: 400; line-height: 1.2; color: var(--charcoal); margin-bottom: 1rem; }
+.section-desc { font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 600px; line-height: 1.7; margin-bottom: 3.5rem; }
+.divider { width: 60px; height: 1px; background: var(--gold); margin: 0 0 2rem 0; }
+
+/* PROBLEM SECTION */
+.problem { background: var(--charcoal); }
+.problem .section-inner { max-width: 700px; text-align: center; }
+.problem .section-eyebrow { color: var(--gold-light); }
+.problem .section-title { color: var(--cream); font-size: clamp(1.8rem,3.5vw,2.5rem); margin-bottom: 1.5rem; }
+.problem-text { font-size: 1rem; font-weight: 300; color: rgba(250,246,240,0.55); line-height: 1.9; margin-bottom: 1.5rem; }
+.problem-text strong { color: var(--gold-light); font-weight: 400; }
+.problem-closer { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; font-style: italic; color: var(--gold); margin-top: 2rem; }
+
+/* QUIZ FEATURE */
+.quiz-feature { background: var(--white); border-top: 1px solid var(--light-line); border-bottom: 1px solid var(--light-line); }
+.quiz-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.quiz-visual { background: var(--charcoal); padding: 3rem 2.5rem; text-align: center; position: relative; overflow: hidden; }
+.quiz-visual::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 200px; height: 200px; border: 1px solid rgba(201,169,110,0.08); border-radius: 50%; animation: breathe 6s ease-in-out infinite; }
+@keyframes breathe { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 1; } 50% { transform: translate(-50%,-50%) scale(1.3); opacity: 0.3; } }
+.quiz-visual-eyebrow { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.quiz-visual-title { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--cream); line-height: 1.3; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.quiz-archetype-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; position: relative; z-index: 1; }
+.quiz-archetype { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.08em; color: rgba(250,246,240,0.5); padding: 0.6rem 0.75rem; border: 1px solid rgba(201,169,110,0.15); transition: all 0.3s; }
+.quiz-info .quiz-info-eyebrow { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.quiz-info h2 { font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.5rem); font-weight: 300; line-height: 1.2; color: var(--charcoal); margin-bottom: 1rem; }
+.quiz-info-desc { font-size: 0.95rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+.quiz-includes { list-style: none; padding: 0; margin-bottom: 2rem; }
+.quiz-includes li { padding: 0.4rem 0 0.4rem 1.5rem; position: relative; font-size: 0.9rem; font-weight: 300; color: var(--charcoal); line-height: 1.5; }
+.quiz-includes li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+.quiz-price { font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; color: var(--gold-dark); margin-bottom: 0.25rem; }
+.quiz-price-note { font-size: 0.75rem; color: var(--muted); font-weight: 300; margin-bottom: 1.5rem; }
+.quiz-cta { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--charcoal); background: var(--gold); text-decoration: none; padding: 1rem 2.5rem; transition: all 0.4s ease; display: inline-block; }
+.quiz-cta:hover { background: var(--gold-light); box-shadow: 0 10px 40px rgba(201,169,110,0.25); }
+
+/* ABOUT */
+.credibility { background: var(--cream); border-top: 1px solid var(--light-line); border-bottom: 1px solid var(--light-line); }
+.about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
+.about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(100%) sepia(20%) brightness(1.05); border: 1px solid var(--light-line); padding: 8px; background: var(--cream); }
+.about-eyebrow { font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.about-name { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1.15; margin-bottom: 0.75rem; }
+.about-name em { font-style: italic; font-weight: 400; color: var(--gold-dark); }
+.about-bio { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+.about-divider { width: 40px; height: 1px; background: var(--gold); margin-bottom: 1.5rem; }
+.photo-wrap:hover .photo-credit { opacity: 1 !important; }
+.cred-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+.cred-number { font-family: var(--font-display); font-size: 2.8rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.5rem; }
+.cred-label { font-size: 0.7rem; font-weight: 400; letter-spacing: 0.08em; color: var(--muted); line-height: 1.5; }
+
+/* OFFERING CARDS */
+.offerings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+.offering-card { background: var(--white); border: 1px solid var(--light-line); border-radius: 2px; padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23,1,0.32,1); display: flex; flex-direction: column; }
+.offering-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+.offering-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); border-color: var(--gold-light); }
+.offering-card:hover::before { transform: scaleX(1); }
+.card-tag { display: inline-block; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.35rem 0.75rem; border-radius: 1px; margin-bottom: 1.5rem; }
+.tag-program { background: var(--charcoal); color: var(--cream); }
+.tag-hiring { background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold), var(--gold-dark)); background-size: 200% 100%; color: var(--charcoal); animation: shimmer 3s ease-in-out infinite; }
+@keyframes shimmer { 0%{background-position:100% 0} 50%{background-position:0% 0} 100%{background-position:100% 0} }
+.tag-digital { background: var(--gold); color: var(--white); }
+.card-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.75rem; line-height: 1.3; }
+.card-desc { font-size: 0.9rem; font-weight: 300; color: var(--muted); line-height: 1.7; }
+.card-body { flex: 1; }
+.card-meta { display: flex; flex-direction: column; align-items: flex-start; padding-top: 1.25rem; border-top: 1px solid var(--light-line); gap: 1rem; margin-top: 1.75rem; }
+.card-price { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; color: var(--gold-dark); }
+.card-price .subtext { display: block; font-family: var(--font-body); font-size: 0.65rem; font-weight: 400; color: var(--muted); letter-spacing: 0.05em; margin-top: 2px; }
+.card-cta { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--charcoal); text-decoration: none; padding: 0.6rem 1.4rem; border: 1px solid var(--charcoal); transition: all 0.3s ease; display: inline-block; min-width: 160px; text-align: center; }
+.card-cta:hover { background: var(--charcoal); color: var(--cream); }
+
+/* DARK SECTION */
+.dark-section { background: var(--charcoal); }
+.dark-section .section-eyebrow { color: var(--gold-light); }
+.dark-section .section-title { color: var(--cream); }
+.dark-section .section-desc { color: rgba(250,246,240,0.6); }
+.dark-section .divider { background: var(--gold-light); opacity: 0.5; }
+
+/* CLASS CARDS */
+.class-card { display: grid; grid-template-columns: 1fr 1fr; background: var(--charcoal-mid); border: 1px solid rgba(201,169,110,0.15); border-radius: 2px; overflow: hidden; transition: all 0.5s cubic-bezier(0.23,1,0.32,1); }
+.class-card:hover { border-color: rgba(201,169,110,0.35); box-shadow: 0 20px 80px rgba(0,0,0,0.3); }
+.class-card-visual { background: linear-gradient(135deg, var(--charcoal) 0%, rgba(201,169,110,0.1) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 3rem; text-align: center; position: relative; overflow: hidden; }
+.class-card-visual::before { content: ''; position: absolute; width: 220px; height: 220px; border: 1.5px solid rgba(201,169,110,0.18); border-radius: 50%; animation: expandCircle 5s ease-in-out infinite; }
+.class-card-visual::after { content: ''; position: absolute; width: 140px; height: 140px; border: 1px solid rgba(201,169,110,0.12); border-radius: 50%; animation: expandCircle 5s ease-in-out infinite 1.5s; }
+@keyframes expandCircle { 0%,100% { transform: scale(0.7); opacity: 0.7; } 50% { transform: scale(1.5); opacity: 0; } }
+.class-badge { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 0.3rem 0.8rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.class-visual-title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; font-style: italic; color: var(--cream); position: relative; z-index: 1; line-height: 1.2; }
+.class-card-content { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+.class-card-content h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; color: var(--cream); margin-bottom: 0.75rem; }
+.class-card-content p { font-size: 0.9rem; font-weight: 300; color: rgba(250,246,240,0.6); line-height: 1.7; margin-bottom: 1.5rem; }
+.class-details { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+.class-detail { font-size: 0.7rem; letter-spacing: 0.08em; color: var(--gold-light); }
+.class-detail strong { display: block; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250,246,240,0.35); margin-bottom: 3px; font-weight: 500; }
+.class-cta { display: inline-block; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; padding: 0.7rem 1.6rem; border: 1px solid var(--gold); transition: all 0.3s ease; align-self: flex-start; }
+.class-cta:hover { background: var(--gold); color: var(--charcoal); }
+
+/* TESTIMONIALS */
+.testimonials { background: var(--cream); }
+.testimonials .section-inner { max-width: 900px; text-align: center; }
+.testimonials .section-title { margin-bottom: 3rem; }
+.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.test-card { background: var(--white); border: 1px solid var(--light-line); padding: 2rem; text-align: left; }
+.test-quote { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; font-style: italic; color: var(--charcoal); line-height: 1.7; margin-bottom: 1.25rem; }
+.test-name { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; color: var(--gold-dark); }
+.test-role { font-size: 0.7rem; font-weight: 300; color: var(--muted); margin-top: 2px; }
+
+/* FOOTER */
+footer { background: var(--charcoal); padding: 4rem 2rem; text-align: center; }
+.footer-logo { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; letter-spacing: 0.15em; color: var(--cream); margin-bottom: 1.5rem; text-decoration: none; display: block; }
+.footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-line { width: 40px; height: 1px; background: rgba(201,169,110,0.3); margin: 0 auto 1.5rem; }
+.footer-copy { font-size: 0.65rem; color: rgba(250,246,240,0.3); letter-spacing: 0.05em; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .hero-ctas { flex-direction: column; }
+  .quiz-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .quiz-visual { padding: 2.5rem 2rem; }
+  .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .about-photo { max-width: 80%; margin: 0 auto; display: block; }
+  .about-name { font-size: 1.8rem; }
+  .offerings-grid { grid-template-columns: 1fr; }
+  .class-card { grid-template-columns: 1fr; }
+  .class-card-visual { padding: 2.5rem 2rem; }
+  .class-card-content { padding: 2rem; }
+  .cred-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .test-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">FLOWE</a>
+  <ul class="nav-links">
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#offerings">Programs</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="/careers">Careers</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="nav-mobile" id="mobileMenu">
+  <button class="nav-mobile-close" onclick="document.getElementById('mobileMenu').classList.remove('open')" aria-label="Close">
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <a href="#quiz" onclick="document.getElementById('mobileMenu').classList.remove('open')">Quiz</a>
+  <a href="#offerings" onclick="document.getElementById('mobileMenu').classList.remove('open')">Programs</a>
+  <a href="#classes" onclick="document.getElementById('mobileMenu').classList.remove('open')">Classes</a>
+  <a href="/careers" onclick="document.getElementById('mobileMenu').classList.remove('open')">Careers</a>
+  <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+  <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+</div>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Flowe Collective</div>
+  <h1 class="hero-title">Build a beauty career<br>that actually <em>works for you.</em></h1>
+  <p class="hero-subtitle">For stylists who are talented behind the chair but need clarity on pricing, direction, and long-term growth.</p>
+  <div class="hero-ctas">
+    <a href="https://snap.flowecollective.com/quiz" class="hero-btn-primary">Take the Career Quiz</a>
+    <a href="/call" class="hero-btn-secondary">Book a Call</a>
+  </div>
+</section>
+
+<!-- 2. PROBLEM -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">The Gap No One Talks About</div>
+    <h2 class="section-title reveal">Beauty school teaches technique. It doesn't teach you how to build a career.</h2>
+    <p class="problem-text reveal">Most stylists figure out <strong>pricing</strong> by guessing. They learn <strong>business</strong> by failing. They deal with <strong>burnout</strong> because no one showed them another way.</p>
+    <p class="problem-text reveal">The talent was never the problem. The structure around it was.</p>
+    <div class="problem-closer reveal">Flowe exists to close that gap.</div>
+  </div>
+</section>
+
+<!-- 3. QUIZ FEATURE -->
+<section class="dark-section" id="quiz" style="position:relative;overflow:hidden">
+  <div style="position:absolute;top:50%;left:30%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,169,110,0.05) 0%,transparent 60%);border-radius:50%"></div>
+  <div class="section-inner" style="position:relative;z-index:1">
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center">
+      <div class="reveal" style="display:flex;align-items:center;justify-content:center;padding:2rem 0">
+        <div style="position:relative;width:280px;height:280px;display:flex;align-items:center;justify-content:center">
+          <div class="hex-ring" style="position:absolute;inset:0;border:1px solid rgba(201,169,110,0.12);border-radius:50%"></div>
+          <div class="hex-ring hex-ring-2" style="position:absolute;inset:30px;border:1px solid rgba(201,169,110,0.08);border-radius:50%"></div>
+          <div class="hex-ring hex-ring-3" style="position:absolute;inset:60px;border:1px solid rgba(201,169,110,0.05);border-radius:50%"></div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:center;position:relative;z-index:1">
+            <div style="width:70px;height:5px;background:var(--gold);border-radius:1px"></div>
+            <div style="display:flex;gap:6px"><div style="width:32px;height:5px;background:var(--gold);border-radius:1px"></div><div style="width:32px;height:5px;background:var(--gold);border-radius:1px"></div></div>
+            <div style="width:70px;height:5px;background:var(--gold);border-radius:1px"></div>
+            <div style="width:70px;height:5px;background:var(--gold);border-radius:1px"></div>
+            <div style="display:flex;gap:6px"><div style="width:32px;height:5px;background:var(--gold);border-radius:1px"></div><div style="width:32px;height:5px;background:var(--gold);border-radius:1px"></div></div>
+            <div style="width:70px;height:5px;background:var(--gold);border-radius:1px"></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div style="font-size:0.6rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">60-Second Career Quiz</div>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:300;line-height:1.2;color:var(--cream);margin-bottom:1rem">Which beauty career<br><span style="font-style:italic;font-weight:400;color:var(--gold)">archetype are you?</span></h2>
+        <div style="width:40px;height:1px;background:var(--gold);margin-bottom:1.25rem;opacity:0.5"></div>
+        <p style="font-size:0.95rem;font-weight:300;color:rgba(250,246,240,0.55);line-height:1.8;margin-bottom:2rem">3 questions. Your birth date. A personalized reading with your shadow pattern, gift, and the career move you should be making right now.</p>
+        <a href="https://snap.flowecollective.com/quiz" style="font-size:0.7rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);text-decoration:none;padding:1rem 2.5rem;display:inline-block;transition:all 0.4s">Take the Quiz</a>
+        <div style="font-size:0.75rem;color:rgba(250,246,240,0.35);font-weight:300;margin-top:1.25rem">Free to start. Full reading: $27</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. ABOUT -->
+<section class="credibility" id="about">
+  <div class="section-inner">
+    <div class="about-layout reveal">
+      <div class="photo-wrap" style="position:relative;display:inline-block">
+        <img src="/IMG_2225.JPG" alt="Jordan Wang" class="about-photo">
+        <a href="https://www.camarawong.com" target="_blank" rel="noopener" style="position:absolute;bottom:16px;right:16px;font-size:0.6rem;letter-spacing:0.08em;color:rgba(107,100,96,0.4);text-decoration:none;opacity:0;transition:opacity 0.3s;font-family:var(--font-body)" class="photo-credit">Photo: Camara Wong</a>
+      </div>
+      <div>
+        <div class="about-eyebrow">The Person Behind Flowe</div>
+        <h2 class="about-name">Jordan<em>Wang</em></h2>
+        <div class="about-divider"></div>
+        <p class="about-bio">Flowe started in my boyfriend's apartment. Then our townhouse. Then a living room with a couch full of people waiting to get their hair done.</p>
+        <p class="about-bio">I didn't have a business plan. I had a gift for hair, a love for people, and a refusal to stop showing up.</p>
+        <p class="about-bio">What no one tells you about this industry is that talent isn't the hard part. The hard part is building a career that actually works.</p>
+        <p class="about-bio">Over the years I've built teams, lost teams, rebuilt again, and learned the business side of beauty the hard way. Every setback forced me to understand the systems, mindset, and structure that most stylists are never taught.</p>
+        <p class="about-bio">Today Flowe exists for one reason: to help beauty professionals connect their soul to their career without losing years to trial and error.</p>
+        <p class="about-bio" style="color:var(--charcoal);font-weight:400">If you're feeling stuck, burnt out, or unsure what your next move should be, this is where we get clear on your path forward.</p>
+        <p class="about-bio" style="color:var(--charcoal);font-weight:400">Houston-based. Stylist-first. Always building.</p>
+      </div>
+    </div>
+    <div class="cred-grid">
+      <div class="reveal">
+        <div class="cred-number">25+</div>
+        <div class="cred-label">Stylists Trained<br>&amp; Launched</div>
+      </div>
+      <div class="reveal">
+        <div class="cred-number">3</div>
+        <div class="cred-label">Month Immersive<br>Residency</div>
+      </div>
+      <div class="reveal">
+        <div class="cred-number">100%</div>
+        <div class="cred-label">Career-Focused<br>Curriculum</div>
+      </div>
+      <div class="reveal">
+        <div class="cred-number">1</div>
+        <div class="cred-label">Mission: Your<br>Independence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. PROGRAMS -->
+<section id="offerings">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">Programs &amp; Resources</div>
+    <h2 class="section-title reveal">Invest in Your Career</h2>
+    <div class="divider reveal"></div>
+    <p class="section-desc reveal">Whether you are starting out or ready to level up, these offerings are designed to bridge the gap between where you are and where you want to be.</p>
+
+    <div class="offerings-grid">
+      <div class="offering-card reveal">
+        <div class="card-body">
+          <span class="card-tag tag-program">Flagship Program</span>
+          <h3 class="card-title">Stylist Residency Program</h3>
+          <p class="card-desc">A 3-month, hands-on training experience with a hyper-focus on your chosen specialty. Business strategy, technical mastery, and a guaranteed path to generating income, all under direct mentorship.</p>
+        </div>
+        <div class="card-meta">
+          <div class="card-price">$4,500<span class="subtext">Payment plans available</span></div>
+          <a href="/Flowe_Stylist_Residency.pdf" download class="card-cta">Learn More</a>
+        </div>
+      </div>
+
+      <div class="offering-card reveal">
+        <div class="card-body">
+          <span class="card-tag tag-program">1:1 Session</span>
+          <h3 class="card-title">Career Direction Call</h3>
+          <p class="card-desc">A private, one-on-one call to talk through your career, your pricing, your next move, or whatever's holding you back. No fluff, just clarity.</p>
+        </div>
+        <div class="card-meta">
+          <div class="card-price">$99<span class="subtext">30 minutes</span></div>
+          <a href="/call" class="card-cta">Book a Call</a>
+        </div>
+      </div>
+
+      <div class="offering-card reveal">
+        <div class="card-body">
+          <span class="card-tag tag-digital">Digital Resource</span>
+          <h3 class="card-title">The Revenue Audit</h3>
+          <p class="card-desc">A web-based tool designed to help you break down your numbers, identify where you are leaving money on the table, and build a pricing strategy that actually reflects your worth.</p>
+        </div>
+        <div class="card-meta">
+          <div class="card-price">Free<span class="subtext">Web app</span></div>
+          <span class="card-cta" style="opacity:0.5;cursor:default;pointer-events:none">Coming Soon</span>
+        </div>
+      </div>
+
+      <div class="offering-card reveal">
+        <div class="card-body">
+          <span class="card-tag tag-hiring">Now Hiring</span>
+          <h3 class="card-title">Work at Flowe</h3>
+          <p class="card-desc">A hybrid salon model with two paths: commission (W-2) or booth rental (1099). Sliding scale earnings, mentorship culture, and interactive calculators so you can see exactly what you would take home.</p>
+        </div>
+        <div class="card-meta">
+          <div class="card-price">Careers<span class="subtext">Commission or Booth Rent</span></div>
+          <a href="/careers" class="card-cta">Explore</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CLASSES -->
+<section class="dark-section" id="classes">
+  <div class="section-inner">
+    <div class="section-eyebrow reveal">In-Person Education</div>
+    <h2 class="section-title reveal">Salon Classes</h2>
+    <div class="divider reveal"></div>
+    <p class="section-desc reveal">Intimate, hands-on classes hosted by Jordan Wang at Flowe. Limited seats. Real technique. No fluff.</p>
+
+    <div class="class-card reveal">
+      <div class="class-card-visual">
+        <div class="class-badge">Inaugural Class</div>
+        <div class="class-visual-title">The Art of<br>the Bob</div>
+      </div>
+      <div class="class-card-content">
+        <h3>Bob Cutting Class</h3>
+        <p>Master precision bob cutting techniques in this inaugural hands-on class. Practice on a mannequin, then execute on a live model for refinement and in-person critiques. From consultation to execution, learn the details that separate a good bob from one that builds your reputation.</p>
+        <div class="class-details">
+          <div class="class-detail"><strong>Instructor</strong>Jordan Wang</div>
+          <div class="class-detail"><strong>Location</strong>Flowe, Houston, TX</div>
+          <div class="class-detail"><strong>Duration</strong>6 Hours</div>
+          <div class="class-detail"><strong>Price</strong>$799</div>
+          <div class="class-detail"><strong>Format</strong>Hands-On + Live Model</div>
+        </div>
+        <a href="/bob" class="class-cta">Reserve Your Seat</a>
+      </div>
+    </div>
+
+    <div class="class-card reveal" style="margin-top:2.5rem">
+      <div class="class-card-visual">
+        <div class="class-badge">Razor Method</div>
+        <div class="class-visual-title">Airform<br><span style="font-size:0.55em;font-weight:300;font-style:normal;letter-spacing:0.08em;opacity:0.6">by FLOWE</span></div>
+      </div>
+      <div class="class-card-content">
+        <h3>A Razor + Finish Method Intensive</h3>
+        <p>A 6-hour immersive education experience designed to redefine how you approach shape, movement, and finish. Built around our signature Eraser Method, using a feather razor to remove weight with intention, softness, and architectural control.</p>
+        <div class="class-details">
+          <div class="class-detail"><strong>Instructor</strong>Jordan Wang</div>
+          <div class="class-detail"><strong>Location</strong>Flowe, Houston, TX</div>
+          <div class="class-detail"><strong>Duration</strong>6 Hours</div>
+          <div class="class-detail"><strong>Price</strong>$650</div>
+          <div class="class-detail"><strong>Format</strong>Hands-On + Demonstration</div>
+        </div>
+        <a href="#" class="class-cta">Reserve Your Seat</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <a href="https://jordanwangco.com" class="footer-logo">FLOWE</a>
+  <div class="footer-links">
+    <a href="tel:8329740913">832-974-0913</a>
+    <a href="mailto:hello@flowecollective.com">hello@flowecollective.com</a>
+    <a href="https://instagram.com/flowecollective_" target="_blank" rel="noopener">@flowecollective_</a>
+  </div>
+  <div class="footer-line"></div>
+  <div class="footer-copy">&copy; 2026 Flowe Collective. All rights reserved.</div>
+</footer>
+
+<script>
+(function(){
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 50) { nav.classList.add('scrolled'); }
+    else { nav.classList.remove('scrolled'); }
+  });
+  var reveals = document.querySelectorAll('.reveal');
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if (entry.isIntersecting) {
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+
+</body>
+</html>
