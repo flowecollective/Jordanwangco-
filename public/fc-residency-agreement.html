@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stylist Residency Program Agreement - Flowe Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garabond:ital,wght@0,300;0,400;0,500;0,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#C9A96E;
+  --gold-light:#E8D5B0;
+  --gold-dark:#A8884D;
+  --cream:#FAF6F0;
+  --charcoal:#1A1A1A;
+  --muted:#6B6460;
+  --light-line:#E0DAD0;
+  --white:#FFFFFF;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Outfit',sans-serif;
+}
+body{font-family:var(--font-body);background:var(--cream);color:var(--charcoal);-webkit-font-smoothing:antialiased}
+
+.doc-wrap{max-width:760px;margin:0 auto;padding:3rem 2rem 4rem}
+
+/* ── Header ── */
+.doc-header{text-align:center;padding-bottom:2rem;margin-bottom:2.5rem;border-bottom:1px solid var(--gold)}
+.doc-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:500;letter-spacing:.2em;color:var(--charcoal);margin-bottom:.5rem}
+.doc-address{font-size:.75rem;font-weight:300;color:var(--muted);letter-spacing:.05em}
+
+/* ── Print Button Bar ── */
+.print-bar{
+  position:sticky;top:0;z-index:100;
+  background:var(--charcoal);
+  padding:.75rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+.print-bar-label{
+  font-family:var(--font-display);font-size:1rem;font-weight:400;
+  color:var(--gold-light);letter-spacing:.1em;
+}
+.print-bar-status{font-size:.72rem;color:var(--muted);font-weight:300}
+.btn-print{
+  font-family:var(--font-body);font-size:.78rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:var(--gold);color:var(--charcoal);
+  border:none;padding:.6rem 1.6rem;cursor:pointer;
+  transition:all .2s ease;
+}
+.btn-print:hover{background:var(--gold-dark);color:var(--white)}
+
+/* ── Title ── */
+.doc-title{font-family:var(--font-display);font-size:1.6rem;font-weight:400;text-align:center;color:var(--charcoal);letter-spacing:.08em;margin-bottom:3rem}
+
+/* ── Sections ── */
+.section{margin-bottom:2.5rem}
+.section-heading{
+  font-family:var(--font-body);font-size:.7rem;font-weight:500;
+  color:var(--cream);background:var(--gold-dark);
+  padding:.6rem 1.25rem;margin-bottom:1rem;
+  letter-spacing:.15em;text-transform:uppercase;
+}
+
+/* ── Body ── */
+p{font-size:.9rem;font-weight:300;line-height:1.8;color:var(--charcoal);margin-bottom:.75rem}
+p strong{font-weight:500}
+
+/* ── Lists ── */
+ul{list-style:none;padding:0;margin:.5rem 0 1rem}
+ul li{padding:.25rem 0 .25rem 1.5rem;position:relative;font-size:.9rem;font-weight:300;line-height:1.7}
+ul li::before{content:'';position:absolute;left:.3rem;top:.7em;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+
+/* ── Definition terms ── */
+.def{font-weight:500;color:var(--gold-dark)}
+
+/* ── Interactive Fill Fields ── */
+.fill-input{
+  border:none;border-bottom:1.5px solid var(--gold);
+  background:transparent;
+  font-family:var(--font-body);font-size:.9rem;font-weight:400;
+  color:var(--charcoal);
+  padding:.15rem .4rem;
+  min-width:240px;
+  outline:none;
+  transition:border-color .2s ease, background .2s ease;
+}
+.fill-input:focus{
+  border-bottom-color:var(--gold-dark);
+  background:rgba(201,169,110,.06);
+}
+.fill-input::placeholder{
+  color:var(--gold-light);font-weight:300;font-style:italic;font-size:.82rem;
+}
+.fill-input.date-input{width:180px}
+
+/* ── Date rows aligned ── */
+.date-row-group{display:flex;flex-direction:column;gap:.25rem;max-width:360px}
+.date-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+.date-row .date-label{font-size:.9rem;font-weight:300;line-height:1.8;color:var(--charcoal);white-space:nowrap;margin:0}
+.date-row .fill-input.date-input{flex-shrink:0}
+
+/* ── Signature fillable inputs ── */
+.sig-input{
+  border:none;border-bottom:1px solid var(--charcoal);
+  background:transparent;width:100%;display:block;
+  font-family:var(--font-body);font-size:.9rem;font-weight:400;
+  color:var(--charcoal);padding:.4rem 0;height:2.5rem;
+  outline:none;transition:border-color .2s ease, background .2s ease;
+}
+.sig-input:focus{border-bottom-color:var(--gold);background:rgba(201,169,110,.04)}
+.sig-input::placeholder{color:var(--gold-light);font-weight:300;font-style:italic;font-size:.82rem}
+
+/* ── Validation error state ── */
+.field-missing{border-bottom-color:#c0392b !important;background:rgba(192,57,43,.05) !important;animation:pulse-warn .6s ease}
+.check-group-missing .check-mark{border-color:#c0392b !important;animation:pulse-warn .6s ease}
+@keyframes pulse-warn{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── Validation toast ── */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--charcoal);color:var(--cream);
+  font-family:var(--font-body);font-size:.82rem;font-weight:400;
+  padding:.85rem 1.5rem;border-left:3px solid #c0392b;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+  opacity:0;transition:all .35s ease;z-index:200;
+  max-width:420px;line-height:1.5;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── Submit states ── */
+.btn-print:disabled{opacity:.5;cursor:wait}
+.btn-print.submitting{background:var(--gold-dark);color:var(--white)}
+
+/* ── Success overlay ── */
+.success-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(26,26,26,.85);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:2rem;
+}
+.success-overlay.show{display:flex}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--gold);display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.5rem;
+}
+.success-icon svg{color:var(--white)}
+.success-title{
+  font-family:var(--font-display);font-size:1.6rem;font-weight:400;
+  color:var(--cream);letter-spacing:.08em;margin-bottom:.5rem;
+}
+.success-msg{
+  font-family:var(--font-body);font-size:.88rem;font-weight:300;
+  color:var(--gold-light);max-width:380px;line-height:1.7;margin-bottom:1.5rem;
+}
+.success-btn{
+  font-family:var(--font-body);font-size:.78rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:var(--gold);color:var(--charcoal);
+  border:none;padding:.7rem 2rem;cursor:pointer;transition:background .2s;
+}
+.success-btn:hover{background:var(--gold-dark);color:var(--white)}
+
+/* ── Interactive Checkboxes (radio-style) ── */
+.check-row{margin:.4rem 0;font-size:.9rem;font-weight:300;display:flex;align-items:center;gap:.6rem;cursor:pointer;user-select:none}
+.check-row input[type="radio"],
+.check-row input[type="checkbox"]{display:none}
+.check-mark{
+  width:16px;height:16px;border:1.5px solid var(--muted);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all .2s ease;position:relative;
+}
+.check-row input:checked + .check-mark{
+  border-color:var(--gold-dark);background:var(--gold);
+}
+.check-row input:checked + .check-mark::after{
+  content:'✓';font-size:.65rem;color:var(--white);font-weight:600;
+}
+.check-row:hover .check-mark{border-color:var(--gold)}
+
+/* ── Signature blocks ── */
+.sig-section{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--gold)}
+.sig-title{font-family:var(--font-display);font-size:1.3rem;font-weight:400;text-align:center;margin-bottom:2rem;color:var(--charcoal)}
+.sig-block{margin-bottom:2.5rem}
+.sig-label{font-family:var(--font-display);font-size:1rem;font-weight:400;color:var(--gold-dark);margin-bottom:1.25rem}
+.sig-line{border-bottom:1px solid var(--charcoal);height:2.5rem;margin-bottom:.25rem}
+.sig-field{font-size:.7rem;font-weight:400;color:var(--muted);letter-spacing:.05em;margin-bottom:1.25rem}
+
+/* ── Signature Pad ── */
+.sig-pad-wrap{position:relative;margin-bottom:.25rem}
+.sig-pad-canvas{
+  width:100%;height:120px;
+  border:1px solid var(--light-line);
+  border-radius:2px;background:var(--white);
+  cursor:crosshair;touch-action:none;
+}
+.sig-pad-canvas.has-sig{border-color:var(--gold)}
+.sig-pad-actions{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:.35rem;
+}
+.sig-pad-hint{font-size:.7rem;color:var(--muted);font-weight:300;font-style:italic}
+.sig-pad-clear{
+  font-family:var(--font-body);font-size:.68rem;font-weight:400;
+  color:var(--gold-dark);background:none;border:none;
+  cursor:pointer;letter-spacing:.05em;text-transform:uppercase;
+  padding:.2rem .5rem;transition:color .2s;
+}
+.sig-pad-clear:hover{color:var(--charcoal)}
+/* Print: render signature as image */
+.sig-pad-img{display:none;max-height:120px;width:100%;object-fit:contain;border-bottom:1px solid var(--charcoal)}
+.sig-pad-canvas.field-missing{border-color:#c0392b !important;animation:pulse-warn .6s ease}
+
+/* ── Company Signature Lock ── */
+.sig-lock{
+  background:var(--white);border:1px solid var(--light-line);
+  padding:1.5rem;text-align:center;margin-bottom:.25rem;
+}
+.sig-lock-icon{color:var(--muted);margin-bottom:.5rem}
+.sig-lock-text{
+  font-family:var(--font-body);font-size:.78rem;font-weight:400;
+  color:var(--muted);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:1rem;
+}
+.sig-lock-row{display:flex;gap:.5rem;max-width:320px;margin:0 auto}
+.sig-lock-input{
+  flex:1;border:1px solid var(--light-line);background:var(--cream);
+  font-family:var(--font-body);font-size:.82rem;font-weight:300;
+  color:var(--charcoal);padding:.5rem .75rem;outline:none;
+  transition:border-color .2s;
+}
+.sig-lock-input:focus{border-color:var(--gold)}
+.sig-lock-input::placeholder{color:var(--gold-light);font-style:italic}
+.sig-lock-btn{
+  font-family:var(--font-body);font-size:.72rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:var(--charcoal);color:var(--cream);
+  border:none;padding:.5rem 1.2rem;cursor:pointer;
+  transition:background .2s;
+}
+.sig-lock-btn:hover{background:var(--gold-dark)}
+.sig-lock-error{
+  font-size:.75rem;color:#c0392b;margin-top:.5rem;
+  min-height:1rem;
+}
+
+/* ── Exhibit ── */
+.exhibit-break{margin:3rem 0;border-top:2px solid var(--gold);padding-top:2rem}
+.exhibit-title{font-family:var(--font-display);font-size:1.4rem;font-weight:400;text-align:center;color:var(--charcoal);margin-bottom:.25rem}
+.exhibit-sub{font-family:var(--font-display);font-size:1rem;font-weight:300;text-align:center;color:var(--muted);margin-bottom:2rem}
+
+/* ── Day blocks ── */
+.day{background:var(--white);border:1px solid var(--light-line);padding:1.25rem 1.5rem;margin-bottom:1rem}
+.day-name{font-family:var(--font-display);font-size:1rem;font-weight:400;color:var(--gold-dark);margin-bottom:.35rem}
+.day-desc{font-size:.85rem;font-weight:300;color:var(--muted);line-height:1.7}
+
+/* ── Filled value display (print) ── */
+.filled-value{
+  display:none;
+  font-family:var(--font-body);font-size:.9rem;font-weight:400;
+  color:var(--charcoal);
+  border-bottom:1px solid var(--light-line);
+  padding-bottom:.1rem;
+  min-width:240px;
+}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .doc-wrap{padding:2rem 1.25rem 3rem}
+  .doc-title{font-size:1.3rem}
+  .fill-input{min-width:180px}
+  .print-bar{padding:.6rem 1rem;flex-wrap:wrap;gap:.5rem}
+  .print-bar-label{font-size:.85rem}
+}
+
+/* ── PDF rendering mode (applied via JS during html2pdf capture) ── */
+.rendering-pdf .fill-input{display:none !important}
+.rendering-pdf .sig-input{display:none !important}
+.rendering-pdf .filled-value{display:inline-block !important}
+.rendering-pdf .sig-pad-canvas{display:none !important}
+.rendering-pdf .sig-pad-actions{display:none !important}
+.rendering-pdf .sig-pad-img{display:block !important}
+.rendering-pdf .sig-lock{display:none !important}
+.rendering-pdf .print-bar{display:none !important}
+.rendering-pdf .toast{display:none !important}
+.rendering-pdf .success-overlay{display:none !important}
+.rendering-pdf .check-row input:checked + .check-mark{
+  border-color:var(--charcoal);background:var(--charcoal);
+}
+.rendering-pdf .check-row input:checked + .check-mark::after{color:var(--white)}
+
+/* ══════════════════════════════════════════
+   PRINT STYLES — hide all form controls
+   ══════════════════════════════════════════ */
+@media print{
+  body{background:#fff}
+  .doc-wrap{padding:0}
+  .print-bar{display:none !important}
+  .toast{display:none !important}
+
+  /* Hide inputs, show static values */
+  .fill-input{display:none !important}
+  .sig-input{display:none !important}
+  .filled-value{display:inline-block !important}
+
+  /* Signature pads: hide canvas + controls, show rendered image */
+  .sig-pad-canvas{display:none !important}
+  .sig-pad-actions{display:none !important}
+  .sig-pad-img{display:block !important}
+
+  /* Hide lock UI in print */
+  .sig-lock{display:none !important}
+
+  /* Hide interactive checkboxes, show print marks */
+  .check-row input[type="radio"],
+  .check-row input[type="checkbox"]{display:none}
+  .check-mark{
+    border:1.5px solid var(--muted);
+    background:transparent;
+  }
+  .check-row input:checked + .check-mark{
+    border-color:var(--charcoal);
+    background:var(--charcoal);
+  }
+  .check-row input:checked + .check-mark::after{
+    color:var(--white);
+  }
+
+  /* Let sections break naturally — avoid causes large gaps */
+  .section{margin-bottom:1.5rem}
+
+  /* Only prevent breaks inside small atomic elements */
+  .section-heading{page-break-after:avoid}
+  .sig-block{page-break-inside:avoid}
+  .day{page-break-inside:avoid}
+  ul{page-break-inside:avoid}
+
+  /* Signatures on their own page */
+  .sig-section{page-break-before:always;page-break-after:always;page-break-inside:avoid}
+
+  /* Exhibit A starts on its own page, but allowed to flow across if needed */
+  .exhibit-wrap{page-break-before:always}
+  .exhibit-break{page-break-inside:avoid}
+
+  /* Tighten spacing for print density */
+  p{margin-bottom:.5rem;line-height:1.65}
+  ul li{line-height:1.55}
+  .doc-header{padding-bottom:1.5rem;margin-bottom:1.5rem}
+  .doc-title{margin-bottom:2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ACTION BAR ═══ -->
+<div class="print-bar" id="printBar">
+  <div>
+    <div class="print-bar-label">FLOWE COLLECTIVE — Residency Agreement</div>
+    <div class="print-bar-status" id="statusText">Fill in the highlighted fields below, then sign & submit.</div>
+  </div>
+  <div style="display:flex;gap:.5rem;align-items:center">
+    <button class="btn-print" onclick="handleSubmit()" id="btnSubmit">Sign & Submit</button>
+    <button class="btn-print" onclick="handlePrint()" style="background:transparent;color:var(--gold-light);border:1px solid var(--muted)">Print</button>
+  </div>
+</div>
+
+<div class="doc-wrap">
+
+<!-- ═══ HEADER ═══ -->
+<div class="doc-header">
+  <div class="doc-logo">FLOWE COLLECTIVE</div>
+  <div class="doc-address">1207 W 34th St, Suite 400 &middot; Houston, TX 77018</div>
+</div>
+
+<div class="doc-title">STYLIST RESIDENCY PROGRAM AGREEMENT</div>
+
+<!-- ═══ 1. PARTIES ═══ -->
+<div class="section">
+  <div class="section-heading">1. Parties</div>
+  <p>This Agreement is entered into between:</p>
+  <p>Flowe Beauty Interests LLC<br>d/b/a Flowe Collective<br>1207 W 34th St, Suite 400<br>Houston, TX 77018<br>("Company")</p>
+  <p>and</p>
+  <p>
+    <input type="text" class="fill-input" id="residentName" placeholder="Resident full name" oninput="syncName()">
+    <span class="filled-value" data-mirror="residentName"></span>
+    ("Resident")
+  </p>
+</div>
+
+<!-- ═══ 2. DEFINITIONS ═══ -->
+<div class="section">
+  <div class="section-heading">2. Definitions</div>
+  <p>For purposes of this Agreement, the following terms have the meanings set forth below:</p>
+  <ul>
+    <li><span class="def">"Agreement"</span> means this Stylist Residency Program Agreement, including all exhibits attached hereto.</li>
+    <li><span class="def">"Company"</span> means Flowe Beauty Interests LLC, doing business as Flowe Collective.</li>
+    <li><span class="def">"Resident"</span> means the individual enrolled in the Stylist Residency Program and employed by the Company under the terms of this Agreement.</li>
+    <li><span class="def">"Program"</span> means the Flowe Collective Stylist Residency Program described in this Agreement and in Exhibit A.</li>
+    <li><span class="def">"Program Term"</span> means the three (3) month duration of the Program as defined in Section 4.</li>
+    <li><span class="def">"Exhibit A"</span> means the Residency Program Structure attached to and incorporated into this Agreement.</li>
+  </ul>
+</div>
+
+<!-- ═══ 3. PROGRAM DESCRIPTION ═══ -->
+<div class="section">
+  <div class="section-heading">3. Program Description</div>
+  <p>The Flowe Collective Stylist Residency Program ("Program") is a structured three (3) month educational training program designed to provide licensed cosmetologists with advanced technical development, business education, and supervised salon experience.</p>
+  <p>The Program includes:</p>
+  <ul>
+    <li>Technical skill refinement in a chosen specialty area</li>
+    <li>Business structure, pricing strategy, and career development education</li>
+    <li>Direct mentorship from Jordan Wang</li>
+    <li>Supervised salon floor experience with real clients and models</li>
+    <li>Participation in training sessions and demonstrations</li>
+    <li>Access to salon facilities, tools, and products during program hours</li>
+  </ul>
+  <p>The primary purpose of the Program is education and professional development. Any services performed during the Program are intended to support the Resident's learning and are performed under supervision. The general structure of the Program schedule and training activities is outlined in Exhibit A (Residency Program Structure) attached to this Agreement.</p>
+</div>
+
+<!-- ═══ 4. PROGRAM TERM ═══ -->
+<div class="section">
+  <div class="section-heading">4. Program Term</div>
+  <div class="date-row-group">
+    <div class="date-row">
+      <span class="date-label">Start Date:</span>
+      <input type="date" class="fill-input date-input" id="startDate">
+      <span class="filled-value" data-mirror="startDate"></span>
+    </div>
+    <div class="date-row">
+      <span class="date-label">End Date:</span>
+      <input type="date" class="fill-input date-input" id="endDate">
+      <span class="filled-value" data-mirror="endDate"></span>
+    </div>
+  </div>
+  <p>Total duration: Three (3) months</p>
+  <p>Completion of the Program does not guarantee employment with Flowe Collective beyond the Program term.</p>
+</div>
+
+<!-- ═══ 5. TUITION AND PAYMENT ═══ -->
+<div class="section">
+  <div class="section-heading">5. Tuition and Payment</div>
+  <p>Total tuition for the Program is $4,500 (Four Thousand Five Hundred Dollars).</p>
+  <p>Payment may be made under one of the following options:</p>
+  <p><strong>Option A. Paid in Full</strong><br>$4,500 due prior to Program start.</p>
+  <p><strong>Option B. Installment Plan</strong><br>Three monthly payments of $1,650 ($4,950 total) beginning at enrollment. Installment pricing includes a $450 financing fee.</p>
+  <p>All payments are processed through Stripe.</p>
+  <p>Selected payment option:</p>
+  <label class="check-row">
+    <input type="radio" name="paymentOption" value="A">
+    <span class="check-mark"></span>
+    Option A. $4,500
+  </label>
+  <label class="check-row">
+    <input type="radio" name="paymentOption" value="B">
+    <span class="check-mark"></span>
+    Option B. $1,650 per month (3 payments)
+  </label>
+  <p style="margin-top:.75rem">Tuition covers the educational components of the Program including instruction, mentorship, and training resources.</p>
+</div>
+
+<!-- ═══ 6. EMPLOYMENT DURING PROGRAM ═══ -->
+<div class="section">
+  <div class="section-heading">6. Employment During Program</div>
+  <p>Concurrent with enrollment in the Program, the Resident is employed by the Company as a Salon Assistant.</p>
+  <p>As an employee, the Resident will:</p>
+  <ul>
+    <li>Be classified as a W-2 employee</li>
+    <li>Be compensated at $7.25 per hour for all approved hours worked</li>
+    <li>Receive wages according to the Company's normal payroll schedule</li>
+  </ul>
+  <p>Residents will record all required Program hours using the Company's designated timekeeping system. The Resident is responsible for accurately clocking in and out for all required Program activities. The Resident will be compensated at the hourly wage specified in this Agreement for all required Program hours, including training sessions, shadowing, model practice, clinic participation, and assistant shifts.</p>
+  <p>Employment duties may include:</p>
+  <ul>
+    <li>Assisting stylists</li>
+    <li>Preparing color or supplies</li>
+    <li>Shampooing clients</li>
+    <li>Performing supervised services</li>
+    <li>Supporting daily salon operations</li>
+  </ul>
+  <p>Employment status is distinct from, but concurrent with, enrollment in the Program.</p>
+</div>
+
+<!-- ═══ 7. NO OFFSET ═══ -->
+<div class="section">
+  <div class="section-heading">7. No Offset Between Tuition and Wages</div>
+  <p>The Resident acknowledges that tuition payments and wages earned during employment are separate and independent financial obligations.</p>
+  <ul>
+    <li>Tuition is payment for educational instruction and participation in the Program.</li>
+    <li>Wages are compensation for approved hours worked as a salon employee.</li>
+  </ul>
+  <p>Under no circumstances will tuition payments or financing fees be deducted from wages or used to offset wages owed.</p>
+</div>
+
+<!-- ═══ 8. TRAINING ACTIVITIES ═══ -->
+<div class="section">
+  <div class="section-heading">8. Training Activities</div>
+  <p>Training activities during the Program may include:</p>
+  <ul>
+    <li>Shadowing senior stylists</li>
+    <li>Performing supervised services on models or clients</li>
+    <li>Assisting in color preparation or service setup</li>
+    <li>Observing consultations and service execution</li>
+    <li>Participating in training workshops and demonstrations</li>
+    <li>Completing assigned educational exercises</li>
+  </ul>
+  <p>These activities are designed primarily to enhance the Resident's professional skills and experience.</p>
+</div>
+
+<!-- ═══ 9. TRAINING PRIORITY ═══ -->
+<div class="section">
+  <div class="section-heading">9. Training Priority and Educational Acknowledgment</div>
+  <p>The Resident acknowledges and agrees that the primary purpose of the Stylist Residency Program is education, mentorship, and professional development. The Resident understands that any services performed during the Program are conducted for training purposes under supervision and may be offered at reduced pricing or as practice services.</p>
+  <p>The Resident further acknowledges that:</p>
+  <ul>
+    <li>The Program is designed to provide hands-on learning opportunities</li>
+    <li>Participation in services or model work is intended to improve skills</li>
+    <li>The Resident is not guaranteed a client book, commission structure, or stylist-level income during the Program</li>
+  </ul>
+  <p>The Resident agrees that the training and mentorship received through the Program constitute substantial educational benefit.</p>
+</div>
+
+<!-- ═══ 10. RESIDENT EXPECTATIONS ═══ -->
+<div class="section">
+  <div class="section-heading">10. Resident Expectations</div>
+  <p>Residents agree to:</p>
+  <ul>
+    <li>Attend all scheduled sessions and training activities</li>
+    <li>Arrive on time and prepared</li>
+    <li>Maintain professional conduct</li>
+    <li>Follow sanitation and safety standards</li>
+    <li>Respect clients, staff, and fellow Residents</li>
+    <li>Participate actively in the curriculum</li>
+  </ul>
+  <p>Repeated absences or unprofessional behavior may result in dismissal from the Program.</p>
+</div>
+
+<!-- ═══ 11. FLOWE OBLIGATIONS ═══ -->
+<div class="section">
+  <div class="section-heading">11. Flowe Collective Obligations</div>
+  <p>Flowe Collective agrees to:</p>
+  <ul>
+    <li>Provide curriculum, mentorship, and supervised training</li>
+    <li>Maintain a professional and safe learning environment</li>
+    <li>Provide constructive feedback throughout the Program</li>
+    <li>Offer access to salon tools and facilities during training hours</li>
+  </ul>
+</div>
+
+<!-- ═══ 12. FAILED/LATE PAYMENTS ═══ -->
+<div class="section">
+  <div class="section-heading">12. Failed or Late Payments</div>
+  <p>If a scheduled tuition payment fails, the Resident will have five (5) business days to resolve the payment. Failure to resolve payment within this period may result in suspension or termination from the Program. No refund will be issued for completed portions of the Program.</p>
+</div>
+
+<!-- ═══ 13. REFUND AND CANCELLATION ═══ -->
+<div class="section">
+  <div class="section-heading">13. Refund and Cancellation Policy</div>
+  <p>All tuition payments are non-refundable once the Program begins.</p>
+  <p>If the Resident cancels enrollment before the Program start date:</p>
+  <ul>
+    <li>More than 14 days before start date: Full refund minus a $250 administrative fee</li>
+    <li>14 days or fewer before start date: 50% refund</li>
+    <li>After the Program start date: No refund</li>
+  </ul>
+</div>
+
+<!-- ═══ 14. AT-WILL ═══ -->
+<div class="section">
+  <div class="section-heading">14. At-Will Employment</div>
+  <p>The Resident's employment with the Company is at-will. Either the Company or the Resident may terminate the employment relationship at any time, with or without cause or advance notice. Termination of employment will concurrently result in termination of participation in the Program.</p>
+</div>
+
+<!-- ═══ 15. WORKPLACE SAFETY ═══ -->
+<div class="section">
+  <div class="section-heading">15. Workplace Safety</div>
+  <p>Residents acknowledge that salon work involves:</p>
+  <ul>
+    <li>Sharp tools</li>
+    <li>Heated styling equipment</li>
+    <li>Chemical products</li>
+    <li>Close interaction with clients</li>
+  </ul>
+  <p>Residents agree to follow all safety protocols and sanitation guidelines. Workplace injuries will be handled according to applicable Texas employment laws.</p>
+</div>
+
+<!-- ═══ 16. CONFIDENTIALITY ═══ -->
+<div class="section">
+  <div class="section-heading">16. Confidentiality</div>
+  <p>The Resident agrees to maintain confidentiality regarding:</p>
+  <ul>
+    <li>Client information</li>
+    <li>Business operations</li>
+    <li>Pricing strategies</li>
+    <li>Proprietary techniques</li>
+    <li>Internal training materials</li>
+  </ul>
+  <p>This obligation survives termination of the Agreement.</p>
+</div>
+
+<!-- ═══ 17. INTELLECTUAL PROPERTY ═══ -->
+<div class="section">
+  <div class="section-heading">17. Intellectual Property</div>
+  <p>All curriculum materials, frameworks, systems, and educational content used during the Program are the exclusive intellectual property of Flowe Collective. Residents may not reproduce, distribute, or commercially use these materials without prior written consent.</p>
+</div>
+
+<!-- ═══ 18. PHOTO AND CONTENT RELEASE ═══ -->
+<div class="section">
+  <div class="section-heading">18. Photo and Content Release</div>
+  <p>The Resident grants Flowe Collective permission to photograph or record the Resident during the Program for use in marketing, social media, and educational materials.</p>
+  <label class="check-row">
+    <input type="radio" name="photoConsent" value="consent">
+    <span class="check-mark"></span>
+    I consent
+  </label>
+  <label class="check-row">
+    <input type="radio" name="photoConsent" value="no-consent">
+    <span class="check-mark"></span>
+    I do not consent
+  </label>
+  <p style="margin-top:.75rem">Consent may be revoked in writing at any time.</p>
+</div>
+
+<!-- ═══ 19. NON-SOLICITATION ═══ -->
+<div class="section">
+  <div class="section-heading">19. Non-Solicitation of Clients and Staff</div>
+  <p>During the Program and for a period of twelve (12) months following the Resident's termination of employment or completion of the Program, the Resident agrees not to directly or indirectly:</p>
+  <ul>
+    <li>Solicit or attempt to solicit clients of Flowe Collective for competing salon services</li>
+    <li>Encourage or attempt to encourage any employee, stylist, or independent contractor of Flowe Collective to leave their relationship with the Company</li>
+    <li>Use client contact information obtained during the Program to provide competing services outside of Flowe Collective</li>
+  </ul>
+  <p>Nothing in this section prevents the Resident from working in the cosmetology industry after leaving the Program.</p>
+</div>
+
+<!-- ═══ 20. PROFESSIONAL DEVELOPMENT DISCLAIMER ═══ -->
+<div class="section">
+  <div class="section-heading">20. Professional Development Disclaimer</div>
+  <p>The Resident acknowledges that the Stylist Residency Program is designed to provide professional education, mentorship, and hands-on experience.</p>
+  <p>Flowe Collective does not guarantee any specific outcome including:</p>
+  <ul>
+    <li>Mastery of specific techniques</li>
+    <li>Income levels or earning potential</li>
+    <li>Development of a personal client base</li>
+    <li>Employment opportunities after completion of the Program</li>
+    <li>Business success in the cosmetology industry</li>
+  </ul>
+  <p>The Resident understands that professional growth and skill development depend on individual effort, practice, and experience beyond the scope of the Program. Participation in the Program does not guarantee any particular professional result.</p>
+</div>
+
+<!-- ═══ 21. GOVERNING LAW ═══ -->
+<div class="section">
+  <div class="section-heading">21. Governing Law</div>
+  <p>This Agreement shall be governed by the laws of the State of Texas. Any disputes arising from this Agreement shall be resolved in the courts of Harris County, Texas.</p>
+</div>
+
+<!-- ═══ 22. ENTIRE AGREEMENT ═══ -->
+<div class="section">
+  <div class="section-heading">22. Entire Agreement</div>
+  <p>This Agreement represents the entire understanding between the parties and supersedes all prior discussions or agreements. Any modifications must be made in writing and signed by both parties.</p>
+</div>
+
+<!-- ═══ 23. CHARGEBACK ═══ -->
+<div class="section">
+  <div class="section-heading">23. Chargeback and Payment Dispute Agreement</div>
+  <p>The Resident acknowledges that tuition payments are made for enrollment in a structured professional training program and represent payment for educational services provided by Flowe Collective.</p>
+  <p>By signing this Agreement, the Resident agrees not to initiate a chargeback, payment reversal, or dispute with their credit card provider or financial institution for tuition payments that were authorized under this Agreement.</p>
+  <p>If a chargeback or payment dispute is initiated, the Company reserves the right to:</p>
+  <ul>
+    <li>Immediately terminate participation in the Program</li>
+    <li>Pursue recovery of unpaid tuition</li>
+    <li>Recover any fees, costs, or damages incurred by the Company as a result of the chargeback</li>
+  </ul>
+  <p>The Resident agrees that this signed Agreement may be used as evidence in resolving any payment dispute.</p>
+</div>
+
+<!-- ═══ 24. EARLY WITHDRAWAL ═══ -->
+<div class="section">
+  <div class="section-heading">24. Early Withdrawal</div>
+  <p>If the Resident voluntarily withdraws from the Program before completion:</p>
+  <ul>
+    <li>Tuition remains fully owed and non-refundable once the Program has begun</li>
+    <li>Withdrawal from the Program does not cancel any outstanding payment obligations</li>
+    <li>If the Resident is on a payment plan, remaining payments will continue according to the agreed schedule</li>
+  </ul>
+  <p>The Resident understands that Program tuition reflects enrollment in the Program as a whole and is not based on attendance or completion of individual training sessions.</p>
+</div>
+
+<!-- ═══ SIGNATURES ═══ -->
+<div class="sig-section" id="sigSection">
+  <div class="sig-title">SIGNATURES</div>
+
+  <div class="sig-block">
+    <div class="sig-label">Resident</div>
+    <input type="text" class="sig-input" id="sigResidentName" placeholder="Printed name">
+    <span class="filled-value" data-mirror="sigResidentName"></span>
+    <div class="sig-field">Printed Name</div>
+    <div class="sig-pad-wrap">
+      <canvas class="sig-pad-canvas" id="sigPadResident"></canvas>
+      <img class="sig-pad-img" id="sigImgResident" alt="Resident Signature">
+      <div class="sig-pad-actions">
+        <span class="sig-pad-hint">Sign above with mouse or finger</span>
+        <button type="button" class="sig-pad-clear" onclick="clearPad('sigPadResident')">Clear</button>
+      </div>
+    </div>
+    <div class="sig-field">Signature</div>
+    <input type="date" class="sig-input" id="sigDateResident">
+    <span class="filled-value" data-mirror="sigDateResident"></span>
+    <div class="sig-field">Date</div>
+  </div>
+
+  <div class="sig-block" id="companySigBlock">
+    <div class="sig-label">Flowe Beauty Interests LLC</div>
+    <p style="margin-bottom:.75rem">Jordan Wang</p>
+
+    <!-- Locked overlay -->
+    <div class="sig-lock" id="sigLock">
+      <div class="sig-lock-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="sig-lock-text">Company signature locked</div>
+      <div class="sig-lock-row">
+        <input type="password" class="sig-lock-input" id="lockPassword" placeholder="Enter password to unlock" autocomplete="off">
+        <button type="button" class="sig-lock-btn" onclick="unlockCompanySig()">Unlock</button>
+      </div>
+      <div class="sig-lock-error" id="lockError"></div>
+    </div>
+
+    <!-- Hidden until unlocked -->
+    <div class="sig-company-fields" id="companyFields" style="display:none">
+      <div class="sig-pad-wrap">
+        <canvas class="sig-pad-canvas" id="sigPadCompany"></canvas>
+        <img class="sig-pad-img" id="sigImgCompany" alt="Company Signature">
+        <div class="sig-pad-actions">
+          <span class="sig-pad-hint">Sign above with mouse or finger</span>
+          <button type="button" class="sig-pad-clear" onclick="clearPad('sigPadCompany')">Clear</button>
+        </div>
+      </div>
+      <div class="sig-field">Signature</div>
+      <input type="date" class="sig-input" id="sigDateCompany">
+      <span class="filled-value" data-mirror="sigDateCompany"></span>
+      <div class="sig-field">Date</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ EXHIBIT A ═══ -->
+<div class="exhibit-wrap">
+  <div class="exhibit-break">
+    <div class="exhibit-title">EXHIBIT A</div>
+    <div class="exhibit-sub">Flowe Collective Residency Program Structure</div>
+  </div>
+
+<p>The following schedule represents a general example of the training structure used in the Flowe Collective Stylist Residency Program. The Program runs for twelve (12) weeks and meets four (4) days per week.</p>
+<p>The schedule is provided for illustrative purposes only and may be modified by the Company based on salon operations, educator availability, training needs, client scheduling, or program development. The Company reserves the right to adjust the structure, sequence, or timing of training activities while maintaining the overall educational purpose of the Program.</p>
+
+<div style="margin:1.5rem 0">
+  <div class="day">
+    <div class="day-name">Monday: Education + Technical Development</div>
+    <div class="day-desc">Structured education including: technical demonstrations, color theory and formulation, consultation strategy, pricing and business development, product knowledge, and salon systems.</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Wednesday: Model Practice Lab</div>
+    <div class="day-desc">Residents perform services on live models under direct supervision to develop and refine technical skills.</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Friday: Salon Integration / Assisting</div>
+    <div class="day-desc">Residents integrate onto the salon floor to assist senior stylists, prepare color and supplies, shampoo clients, and support daily salon operations.</div>
+  </div>
+  <div class="day">
+    <div class="day-name">Saturday: Emerging Artist Clinic</div>
+    <div class="day-desc">Residents perform services on clients under supervision during designated clinic hours. Services may be offered at reduced pricing and are intended for supervised skill development and building confidence on the floor.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-heading">Program Flexibility</div>
+  <p>Schedules may vary depending on salon operations, educator availability, or training needs.</p>
+</div>
+
+<div class="section">
+  <div class="section-heading">Compensation Acknowledgment</div>
+  <p>As outlined in Section 6 of this Agreement, the Resident will record all required Program hours using the Company's designated timekeeping system. This includes hours spent participating in required education, Model Practice Labs, Friday salon integration/assisting shifts, and Emerging Artist Clinic activities. All approved Program hours will be compensated at the hourly wage specified in this Agreement.</p>
+</div>
+
+<div class="section">
+  <div class="section-heading">Resident Acknowledgment of Exhibit A</div>
+  <p>The Resident acknowledges that they have reviewed Exhibit A (Residency Program Structure) and understand the general format of the training program.</p>
+</div>
+
+<div class="sig-block" style="margin-top:2rem">
+  <input type="text" class="sig-input" id="sigExhibitName" placeholder="Printed name">
+  <span class="filled-value" data-mirror="sigExhibitName"></span>
+  <div class="sig-field">Printed Name</div>
+  <div class="sig-pad-wrap">
+    <canvas class="sig-pad-canvas" id="sigPadExhibit"></canvas>
+    <img class="sig-pad-img" id="sigImgExhibit" alt="Resident Signature">
+    <div class="sig-pad-actions">
+      <span class="sig-pad-hint">Sign above with mouse or finger</span>
+      <button type="button" class="sig-pad-clear" onclick="clearPad('sigPadExhibit')">Clear</button>
+    </div>
+  </div>
+  <div class="sig-field">Signature</div>
+  <input type="date" class="sig-input" id="sigDateExhibit">
+  <span class="filled-value" data-mirror="sigDateExhibit"></span>
+  <div class="sig-field">Date</div>
+</div>
+
+</div><!-- end exhibit-wrap -->
+
+</div><!-- end doc-wrap -->
+
+<div class="toast" id="toast"></div>
+
+<!-- ═══ SUCCESS OVERLAY ═══ -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="success-title">Agreement Submitted</div>
+  <div class="success-msg" id="successMsg">Your signed agreement has been securely uploaded.</div>
+  <button class="success-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// SIGNATURE PAD ENGINE
+// ══════════════════════════════════════
+var pads = {};
+
+function initPad(canvasId) {
+  var canvas = document.getElementById(canvasId);
+  var ctx = canvas.getContext('2d');
+  var state = { drawing: false, hasSig: false, lastX: 0, lastY: 0 };
+  pads[canvasId] = state;
+
+  function resize() {
+    var rect = canvas.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    // Save current image before resize
+    var img = null;
+    if (state.hasSig) {
+      img = new Image();
+      img.src = canvas.toDataURL();
+    }
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1A1A1A';
+    // Restore image after resize
+    if (img && state.hasSig) {
+      img.onload = function() { ctx.drawImage(img, 0, 0, rect.width, rect.height); };
+    }
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function getPos(e) {
+    var rect = canvas.getBoundingClientRect();
+    var touch = e.touches ? e.touches[0] : e;
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  function startDraw(e) {
+    e.preventDefault();
+    state.drawing = true;
+    var pos = getPos(e);
+    state.lastX = pos.x;
+    state.lastY = pos.y;
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+  }
+
+  function draw(e) {
+    if (!state.drawing) return;
+    e.preventDefault();
+    var pos = getPos(e);
+    ctx.lineTo(pos.x, pos.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pos.x, pos.y);
+    state.hasSig = true;
+    canvas.classList.add('has-sig');
+    canvas.classList.remove('field-missing');
+  }
+
+  function endDraw(e) {
+    if (state.drawing) { e.preventDefault(); state.drawing = false; ctx.beginPath(); }
+  }
+
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', draw, { passive: false });
+  canvas.addEventListener('touchend', endDraw, { passive: false });
+}
+
+function clearPad(canvasId) {
+  var canvas = document.getElementById(canvasId);
+  var ctx = canvas.getContext('2d');
+  var dpr = window.devicePixelRatio || 1;
+  ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
+  pads[canvasId].hasSig = false;
+  canvas.classList.remove('has-sig');
+}
+
+function isPadSigned(canvasId) {
+  return pads[canvasId] && pads[canvasId].hasSig;
+}
+
+function renderPadToImg(canvasId, imgId) {
+  var canvas = document.getElementById(canvasId);
+  var img = document.getElementById(imgId);
+  img.src = canvas.toDataURL('image/png');
+}
+
+// Init resident + exhibit pads on load (company deferred until unlock)
+var companyUnlocked = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+  initPad('sigPadResident');
+  initPad('sigPadExhibit');
+});
+
+// ══════════════════════════════════════
+// COMPANY SIGNATURE LOCK
+// ══════════════════════════════════════
+var COMPANY_PASS = 'flowe2026';
+
+function unlockCompanySig() {
+  var input = document.getElementById('lockPassword');
+  var error = document.getElementById('lockError');
+  if (input.value === COMPANY_PASS) {
+    document.getElementById('sigLock').style.display = 'none';
+    document.getElementById('companyFields').style.display = 'block';
+    companyUnlocked = true;
+    initPad('sigPadCompany');
+    error.textContent = '';
+  } else {
+    error.textContent = 'Incorrect password';
+    input.value = '';
+    input.focus();
+  }
+}
+
+// Allow Enter key to unlock
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.activeElement.id === 'lockPassword') {
+    e.preventDefault();
+    unlockCompanySig();
+  }
+});
+
+// ══════════════════════════════════════
+// SUPABASE CONFIG
+// ══════════════════════════════════════
+var SUPABASE_URL = 'https://azddbdhnriqagvoyooqs.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF6ZGRiZGhucmlxYWd2b3lvb3FzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NzY1MTYsImV4cCI6MjA4ODE1MjUxNn0.3yBQRm2HpzBE6tr1sXngSHJSrDdF-ZexpckDL_Xj_kU';
+var BUCKET = 'agreements';
+
+// ══════════════════════════════════════
+// FORM LOGIC
+// ══════════════════════════════════════
+
+function syncName() {
+  var name = document.getElementById('residentName').value.trim();
+  var status = document.getElementById('statusText');
+  if (name) {
+    status.textContent = 'Preparing agreement for ' + name;
+  } else {
+    status.textContent = 'Fill in the highlighted fields below, then sign & submit.';
+  }
+  document.getElementById('sigResidentName').value = name;
+  document.getElementById('sigExhibitName').value = name;
+}
+
+function showToast(msg) {
+  var toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function(){ toast.classList.remove('show'); }, 4000);
+}
+
+function clearValidation() {
+  document.querySelectorAll('.field-missing').forEach(function(el){ el.classList.remove('field-missing'); });
+  document.querySelectorAll('.check-group-missing').forEach(function(el){ el.classList.remove('check-group-missing'); });
+}
+
+// ── Shared validation ──
+function validateForm() {
+  clearValidation();
+  var missing = [];
+  var firstMissing = null;
+
+  var requiredFields = [
+    { id: 'residentName', label: 'Resident Name' },
+    { id: 'startDate', label: 'Start Date' },
+    { id: 'endDate', label: 'End Date' }
+  ];
+
+  requiredFields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (!el.value.trim()) {
+      missing.push(f.label);
+      el.classList.add('field-missing');
+      if (!firstMissing) firstMissing = el;
+    }
+  });
+
+  var radioGroups = [
+    { name: 'paymentOption', label: 'Payment Option' },
+    { name: 'photoConsent', label: 'Photo Consent' }
+  ];
+
+  radioGroups.forEach(function(g) {
+    var checked = document.querySelector('input[name="' + g.name + '"]:checked');
+    if (!checked) {
+      missing.push(g.label);
+      var labels = document.querySelectorAll('input[name="' + g.name + '"]');
+      labels.forEach(function(r) {
+        r.closest('.check-row').classList.add('check-group-missing');
+      });
+      if (!firstMissing) firstMissing = labels[0].closest('.check-row');
+    }
+  });
+
+  var requiredSigs = [
+    { canvas: 'sigPadResident', label: 'Resident Signature' },
+    { canvas: 'sigPadExhibit', label: 'Exhibit A Signature' }
+  ];
+  if (companyUnlocked) {
+    requiredSigs.push({ canvas: 'sigPadCompany', label: 'Company Signature' });
+  }
+
+  requiredSigs.forEach(function(s) {
+    if (!isPadSigned(s.canvas)) {
+      missing.push(s.label);
+      var c = document.getElementById(s.canvas);
+      c.classList.add('field-missing');
+      if (!firstMissing) firstMissing = c;
+    }
+  });
+
+  if (missing.length > 0) {
+    showToast('Please complete: ' + missing.join(', '));
+    if (firstMissing) firstMissing.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  return true;
+}
+
+// ── Prepare doc for rendering (swap inputs for static values) ──
+function prepForRender() {
+  document.querySelectorAll('.fill-input').forEach(function(input) {
+    var mirror = document.querySelector('.filled-value[data-mirror="' + input.id + '"]');
+    if (mirror) {
+      if (input.type === 'date' && input.value) {
+        var d = new Date(input.value + 'T00:00:00');
+        mirror.textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      } else {
+        mirror.textContent = input.value || '________________________';
+      }
+    }
+  });
+
+  document.querySelectorAll('.sig-input').forEach(function(input) {
+    var mirror = document.querySelector('.filled-value[data-mirror="' + input.id + '"]');
+    if (mirror) {
+      if (input.type === 'date' && input.value) {
+        var d = new Date(input.value + 'T00:00:00');
+        mirror.textContent = d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      } else {
+        mirror.textContent = input.value || '________________________';
+      }
+    }
+  });
+
+  renderPadToImg('sigPadResident', 'sigImgResident');
+  if (companyUnlocked) renderPadToImg('sigPadCompany', 'sigImgCompany');
+  renderPadToImg('sigPadExhibit', 'sigImgExhibit');
+}
+
+// ── Generate filename from form ──
+function getFileName() {
+  var name = document.getElementById('residentName').value.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
+  var date = document.getElementById('startDate').value || 'undated';
+  return name + '-' + date + '.pdf';
+}
+
+// ── PRINT (browser dialog, no upload) ──
+function handlePrint() {
+  if (!validateForm()) return;
+  prepForRender();
+  setTimeout(function(){ window.print(); }, 100);
+}
+
+// ── SUBMIT (generate PDF + upload to Supabase) ──
+async function handleSubmit() {
+  if (!validateForm()) return;
+  prepForRender();
+
+  var btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Generating PDF…';
+  btn.classList.add('submitting');
+
+  try {
+    // Wait for sig images to render
+    await new Promise(function(r){ setTimeout(r, 150); });
+
+    // Clone the doc-wrap for pdf rendering
+    var el = document.querySelector('.doc-wrap');
+
+    // Apply print-like classes temporarily
+    document.body.classList.add('rendering-pdf');
+
+    var opt = {
+      margin: [0.5, 0.6, 0.5, 0.6],
+      filename: getFileName(),
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2, useCORS: true, logging: false },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], avoid: ['.sig-block', '.day'] }
+    };
+
+    btn.textContent = 'Generating PDF…';
+
+    var pdfBlob = await html2pdf().set(opt).from(el).outputPdf('blob');
+
+    document.body.classList.remove('rendering-pdf');
+
+    btn.textContent = 'Uploading…';
+
+    // Upload to Supabase Storage
+    var fileName = getFileName();
+    var uploadUrl = SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName;
+
+    var response = await fetch(uploadUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'apikey': SUPABASE_KEY,
+        'Content-Type': 'application/pdf',
+        'x-upsert': 'true'
+      },
+      body: pdfBlob
+    });
+
+    if (!response.ok) {
+      var errData = await response.json().catch(function(){ return {}; });
+      throw new Error(errData.message || errData.error || 'Upload failed (' + response.status + ')');
+    }
+
+    // Show success
+    var residentName = document.getElementById('residentName').value.trim();
+    document.getElementById('successMsg').textContent =
+      'The signed agreement for ' + residentName + ' has been securely uploaded as ' + fileName;
+    document.getElementById('successOverlay').classList.add('show');
+
+    btn.textContent = 'Submitted ✓';
+    btn.classList.remove('submitting');
+
+  } catch (err) {
+    document.body.classList.remove('rendering-pdf');
+    console.error('Submit error:', err);
+    showToast('Upload failed: ' + err.message + '. You can still use Print as a fallback.');
+    btn.disabled = false;
+    btn.textContent = 'Sign & Submit';
+    btn.classList.remove('submitting');
+  }
+}
+
+// Remove error highlights on interaction
+document.addEventListener('input', function(e) {
+  if (e.target.classList.contains('field-missing')) e.target.classList.remove('field-missing');
+});
+document.addEventListener('change', function(e) {
+  if (e.target.type === 'radio') {
+    document.querySelectorAll('input[name="' + e.target.name + '"]').forEach(function(r) {
+      r.closest('.check-row').classList.remove('check-group-missing');
+    });
+  }
+  if (e.target.classList.contains('field-missing')) e.target.classList.remove('field-missing');
+});
+
+// Auto-calculate end date
+document.getElementById('startDate').addEventListener('change', function() {
+  var start = new Date(this.value + 'T00:00:00');
+  if (!isNaN(start)) {
+    var end = new Date(start);
+    end.setMonth(end.getMonth() + 3);
+    var endStr = end.toISOString().split('T')[0];
+    document.getElementById('endDate').value = endStr;
+  }
+});
+</script>
+
+</body>
+</html>
