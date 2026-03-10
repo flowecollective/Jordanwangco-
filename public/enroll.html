@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enroll - Stylist Residency Program | Flowe Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#C9A96E;--gold-light:#E8D5B0;--gold-dark:#A8884D;--cream:#FAF6F0;--charcoal:#1A1A1A;--muted:#6B6460;--light-line:#E0DAD0;--white:#FFFFFF;--font-display:'Cormorant Garamond',Georgia,serif;--font-body:'Outfit',sans-serif}
+body{font-family:var(--font-body);background:var(--cream);color:var(--charcoal);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+.wrap{max-width:700px;margin:0 auto;padding:4rem 2rem 3rem;flex:1}
+
+.header{text-align:center;margin-bottom:3rem}
+.header-eyebrow{font-size:.6rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.header-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:300;line-height:1.15;margin-bottom:.75rem}
+.header-title em{font-style:italic;font-weight:400;color:var(--gold-dark)}
+.header-desc{font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.7;max-width:500px;margin:0 auto}
+
+.options{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem}
+.option-card{background:var(--white);border:1px solid var(--light-line);padding:2.5rem 2rem;text-align:center;transition:all .4s ease;cursor:pointer;position:relative;display:flex;flex-direction:column}
+.option-card:hover{border-color:var(--gold-light);transform:translateY(-3px);box-shadow:0 16px 50px rgba(0,0,0,0.06)}
+.option-card.featured{border-color:var(--gold)}
+.option-card.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light))}
+.option-badge{font-size:.55rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem}
+.option-price{font-family:var(--font-display);font-size:2.5rem;font-weight:300;color:var(--charcoal);margin-bottom:.25rem}
+.option-term{font-size:.8rem;font-weight:300;color:var(--muted);margin-bottom:.25rem}
+.option-total{font-size:.75rem;font-weight:300;color:var(--muted);font-style:italic;margin-bottom:1.5rem}
+.option-divider{width:30px;height:1px;background:var(--gold);margin:0 auto 1.5rem;opacity:.5}
+.option-details{list-style:none;padding:0;margin-bottom:2rem;flex:1}
+.option-details li{padding:.35rem 0 .35rem 1.2rem;position:relative;font-size:.85rem;font-weight:300;color:var(--charcoal);line-height:1.5;text-align:left}
+.option-details li::before{content:'';position:absolute;left:0;top:.6em;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.option-btn{display:block;width:100%;padding:1rem;font-family:var(--font-body);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all .3s;cursor:pointer;border:none}
+.option-btn-primary{background:var(--gold);color:var(--charcoal)}
+.option-btn-primary:hover{background:var(--gold-light);box-shadow:0 8px 30px rgba(201,169,110,0.25)}
+.option-btn-secondary{background:transparent;color:var(--charcoal);border:1px solid var(--charcoal)}
+.option-btn-secondary:hover{background:var(--charcoal);color:var(--cream)}
+
+.fine-print{text-align:center;margin-bottom:2rem}
+.fine-print p{font-size:.75rem;font-weight:300;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+
+.questions-block{background:var(--white);border:1px solid var(--light-line);padding:2rem;text-align:center}
+.questions-block p{font-size:.9rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.questions-link{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-dark);text-decoration:none;border-bottom:1px solid var(--gold-light);padding-bottom:2px;transition:all .3s}
+.questions-link:hover{color:var(--charcoal);border-color:var(--charcoal)}
+
+footer{background:var(--charcoal);padding:2.5rem 2rem;text-align:center}
+.footer-logo{font-family:var(--font-display);font-size:1.2rem;font-weight:400;letter-spacing:.15em;color:var(--cream);margin-bottom:.75rem;text-decoration:none;display:block}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+.footer-links a{font-size:.7rem;font-weight:400;color:rgba(250,246,240,.4);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--gold)}
+
+@media(max-width:768px){
+  .wrap{padding:3rem 1.5rem 2rem}
+  .options{grid-template-columns:1fr}
+  .header-title{font-size:2rem}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="header">
+    <div class="header-eyebrow">Stylist Residency Program</div>
+    <h1 class="header-title">Invest in Your <em>Career</em></h1>
+    <p class="header-desc">A 3-month, hands-on training experience with technical mastery, business strategy, and direct mentorship. Choose your payment option below.</p>
+  </div>
+
+  <div class="options">
+    <div class="option-card featured">
+      <div class="option-badge">Best Value</div>
+      <div class="option-price">$4,500</div>
+      <div class="option-term">One-time payment</div>
+      <div class="option-total">Save $450</div>
+      <div class="option-divider"></div>
+      <ul class="option-details">
+        <li>Full 3-month residency</li>
+        <li>Technical refinement</li>
+        <li>Business structure + pricing</li>
+        <li>Direct mentorship</li>
+        <li>Salon floor experience</li>
+      </ul>
+      <a href="https://buy.stripe.com/00wcN4dmoetn7Y0aLU9EI07" target="_blank" rel="noopener" class="option-btn option-btn-primary">Pay in Full</a>
+    </div>
+
+    <div class="option-card">
+      <div class="option-badge">Payment Plan</div>
+      <div class="option-price">$1,650</div>
+      <div class="option-term">per month &times; 3 months</div>
+      <div class="option-total">$4,950 total</div>
+      <div class="option-divider"></div>
+      <ul class="option-details">
+        <li>Full 3-month residency</li>
+        <li>Technical refinement</li>
+        <li>Business structure + pricing</li>
+        <li>Direct mentorship</li>
+        <li>Salon floor experience</li>
+      </ul>
+      <a href="https://buy.stripe.com/4gM8wObegetnemo6vE9EI08" target="_blank" rel="noopener" class="option-btn option-btn-secondary">Start Monthly Plan</a>
+    </div>
+  </div>
+
+  <div class="fine-print">
+    <p>Both options include the full residency experience. The payment plan totals $4,950 over 3 months.</p>
+    <p>Non-refundable once the residency begins. Enrollment is confirmed upon first payment.</p>
+  </div>
+
+  <div class="questions-block">
+    <p>Not sure if the residency is right for you?</p>
+    <a href="/call" class="questions-link">Book a Career Direction Call</a>
+  </div>
+</div>
+
+<footer>
+  <a href="https://jordanwangco.com" class="footer-logo">FLOWE</a>
+  <div class="footer-links">
+    <a href="tel:8329740913">832-974-0913</a>
+    <a href="mailto:hello@flowecollective.com">hello@flowecollective.com</a>
+    <a href="https://instagram.com/flowecollective_" target="_blank" rel="noopener">@flowecollective_</a>
+  </div>
+</footer>
+
+</body>
+</html>
