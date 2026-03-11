@@ -1119,11 +1119,33 @@ async function handleSubmit() {
     // Wait for sig images to render
     await new Promise(function(r){ setTimeout(r, 150); });
 
-    // Clone the doc-wrap for pdf rendering
-    var el = document.querySelector('.doc-wrap');
+    // Clone the document for PDF rendering (leaves live form untouched)
+    var original = document.querySelector('.doc-wrap');
+    var clone = original.cloneNode(true);
 
-    // Apply print-like classes temporarily
-    document.body.classList.add('rendering-pdf');
+    // In the clone: hide inputs, show filled values, swap canvases for images
+    clone.querySelectorAll('.fill-input').forEach(function(el){ el.style.display = 'none'; });
+    clone.querySelectorAll('.sig-input').forEach(function(el){ el.style.display = 'none'; });
+    clone.querySelectorAll('.filled-value').forEach(function(el){ el.style.display = 'inline-block'; });
+    clone.querySelectorAll('.sig-pad-canvas').forEach(function(el){ el.style.display = 'none'; });
+    clone.querySelectorAll('.sig-pad-actions').forEach(function(el){ el.style.display = 'none'; });
+    clone.querySelectorAll('.sig-pad-img').forEach(function(el){ el.style.display = 'block'; });
+    clone.querySelectorAll('.sig-lock').forEach(function(el){ el.style.display = 'none'; });
+    // Show company fields in clone if unlocked
+    var cloneCompanyFields = clone.querySelector('#companyFields');
+    if (cloneCompanyFields && companyUnlocked) cloneCompanyFields.style.display = 'block';
+
+    // Render checked checkmarks in clone
+    clone.querySelectorAll('.check-row input:checked + .check-mark').forEach(function(el){
+      el.style.borderColor = '#1A1A1A';
+      el.style.background = '#1A1A1A';
+    });
+
+    // Append clone offscreen for html2pdf
+    clone.style.position = 'absolute';
+    clone.style.left = '-9999px';
+    clone.style.top = '0';
+    document.body.appendChild(clone);
 
     var opt = {
       margin: [0.5, 0.6, 0.5, 0.6],
@@ -1134,11 +1156,10 @@ async function handleSubmit() {
       pagebreak: { mode: ['css', 'legacy'], avoid: ['.sig-block', '.day'] }
     };
 
-    btn.textContent = 'Generating PDF…';
+    var pdfBlob = await html2pdf().set(opt).from(clone).outputPdf('blob');
 
-    var pdfBlob = await html2pdf().set(opt).from(el).outputPdf('blob');
-
-    document.body.classList.remove('rendering-pdf');
+    // Remove clone
+    document.body.removeChild(clone);
 
     btn.textContent = 'Uploading…';
 
@@ -1152,10 +1173,27 @@ async function handleSubmit() {
         'Authorization': 'Bearer ' + SUPABASE_KEY,
         'apikey': SUPABASE_KEY,
         'Content-Type': 'application/pdf',
+        'Cache-Control': 'max-age=3600',
         'x-upsert': 'true'
       },
       body: pdfBlob
     });
+
+    // If 400, try FormData approach
+    if (response.status === 400) {
+      var formData = new FormData();
+      formData.append('', new File([pdfBlob], fileName, { type: 'application/pdf' }));
+
+      response = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'apikey': SUPABASE_KEY,
+          'x-upsert': 'true'
+        },
+        body: formData
+      });
+    }
 
     if (!response.ok) {
       var errData = await response.json().catch(function(){ return {}; });
@@ -1172,7 +1210,10 @@ async function handleSubmit() {
     btn.classList.remove('submitting');
 
   } catch (err) {
-    document.body.classList.remove('rendering-pdf');
+    // Clone cleanup in case it's still attached
+    var leftover = document.querySelector('.doc-wrap[style*="-9999px"]');
+    if (leftover) document.body.removeChild(leftover);
+
     console.error('Submit error:', err);
     showToast('Upload failed: ' + err.message + '. You can still use Print as a fallback.');
     btn.disabled = false;
