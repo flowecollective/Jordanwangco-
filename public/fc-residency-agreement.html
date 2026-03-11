@@ -1166,22 +1166,32 @@ async function handleSubmit() {
       }
     });
 
-    // Append clone offscreen for html2pdf
-    clone.style.position = 'absolute';
-    clone.style.left = '-9999px';
+    // Append clone for html2pdf — must be on-screen for html2canvas
+    clone.style.position = 'fixed';
+    clone.style.left = '0';
     clone.style.top = '0';
+    clone.style.width = '760px';
+    clone.style.zIndex = '-1';
+    clone.style.opacity = '0';
+    clone.style.pointerEvents = 'none';
     document.body.appendChild(clone);
+
+    // Temporarily make visible for capture
+    clone.style.opacity = '1';
 
     var opt = {
       margin: [0.5, 0.6, 0.5, 0.6],
       filename: getFileName(),
       image: { type: 'jpeg', quality: 0.95 },
-      html2canvas: { scale: 2, useCORS: true, logging: false },
+      html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0, windowWidth: 760 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
       pagebreak: { mode: ['css', 'legacy'], avoid: ['.sig-block', '.day'] }
     };
 
     var pdfBlob = await html2pdf().set(opt).from(clone).outputPdf('blob');
+
+    // Re-hide and remove clone
+    clone.style.opacity = '0';
 
     // Remove clone
     document.body.removeChild(clone);
