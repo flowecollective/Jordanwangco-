@@ -1106,7 +1106,8 @@ function prepForRender() {
 function getFileName() {
   var name = document.getElementById('residentName').value.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
   var date = document.getElementById('startDate').value || 'undated';
-  return name + '-' + date + '.pdf';
+  var ts = Date.now();
+  return name + '-' + date + '-' + ts + '.pdf';
 }
 
 // ── PRINT (browser dialog, no upload) ──
@@ -1169,13 +1170,12 @@ async function handleSubmit() {
     var formData = new FormData();
     formData.append('file', new File([pdfBlob], fileName, { type: 'application/pdf' }));
 
-    // Try POST first (new file)
+    // PUT with upsert
     var response = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'apikey': SUPABASE_KEY,
-        'x-upsert': 'true'
+        'apikey': SUPABASE_KEY
       },
       body: formData
     });
