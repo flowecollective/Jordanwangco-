@@ -1123,6 +1123,17 @@ async function handleSubmit() {
     var original = document.querySelector('.doc-wrap');
     var clone = original.cloneNode(true);
 
+    // Prevent duplicate IDs/names from interfering with live form
+    clone.querySelectorAll('[id]').forEach(function(el){ el.removeAttribute('id'); });
+    clone.querySelectorAll('input[name]').forEach(function(el){ el.removeAttribute('name'); });
+
+    // Copy checked states from original to clone (cloneNode can miss these)
+    var origRadios = original.querySelectorAll('input[type="radio"]');
+    var cloneRadios = clone.querySelectorAll('input[type="radio"]');
+    origRadios.forEach(function(r, i) {
+      if (r.checked && cloneRadios[i]) cloneRadios[i].checked = true;
+    });
+
     // In the clone: hide inputs, show filled values, swap canvases for images
     clone.querySelectorAll('.fill-input').forEach(function(el){ el.style.display = 'none'; });
     clone.querySelectorAll('.sig-input').forEach(function(el){ el.style.display = 'none'; });
@@ -1132,13 +1143,17 @@ async function handleSubmit() {
     clone.querySelectorAll('.sig-pad-img').forEach(function(el){ el.style.display = 'block'; });
     clone.querySelectorAll('.sig-lock').forEach(function(el){ el.style.display = 'none'; });
     // Show company fields in clone if unlocked
-    var cloneCompanyFields = clone.querySelector('#companyFields');
+    var cloneCompanyFields = clone.querySelector('.sig-company-fields');
     if (cloneCompanyFields && companyUnlocked) cloneCompanyFields.style.display = 'block';
 
-    // Render checked checkmarks in clone
-    clone.querySelectorAll('.check-row input:checked + .check-mark').forEach(function(el){
-      el.style.borderColor = '#1A1A1A';
-      el.style.background = '#1A1A1A';
+    // Render checked checkmarks visually in clone
+    clone.querySelectorAll('.check-row').forEach(function(row) {
+      var input = row.querySelector('input');
+      var mark = row.querySelector('.check-mark');
+      if (input && input.checked && mark) {
+        mark.style.borderColor = '#1A1A1A';
+        mark.style.background = '#1A1A1A';
+      }
     });
 
     // Append clone offscreen for html2pdf
@@ -1165,31 +1180,29 @@ async function handleSubmit() {
 
     // Upload to Supabase Storage
     var fileName = getFileName();
-    var uploadUrl = SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName;
 
-    var response = await fetch(uploadUrl, {
-      method: 'POST',
+    // Use the Supabase JS-style upload: POST with FormData
+    var formData = new FormData();
+    formData.append('file', new File([pdfBlob], fileName, { type: 'application/pdf' }));
+
+    // Try upsert first (in case file already exists)
+    var response = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
+      method: 'PUT',
       headers: {
         'Authorization': 'Bearer ' + SUPABASE_KEY,
         'apikey': SUPABASE_KEY,
-        'Content-Type': 'application/pdf',
-        'Cache-Control': 'max-age=3600',
         'x-upsert': 'true'
       },
-      body: pdfBlob
+      body: formData
     });
 
-    // If 400, try FormData approach
-    if (response.status === 400) {
-      var formData = new FormData();
-      formData.append('', new File([pdfBlob], fileName, { type: 'application/pdf' }));
-
+    // If PUT fails, try POST (first-time upload)
+    if (!response.ok) {
       response = await fetch(SUPABASE_URL + '/storage/v1/object/' + BUCKET + '/' + fileName, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + SUPABASE_KEY,
-          'apikey': SUPABASE_KEY,
-          'x-upsert': 'true'
+          'apikey': SUPABASE_KEY
         },
         body: formData
       });
