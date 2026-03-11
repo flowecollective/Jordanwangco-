@@ -824,7 +824,10 @@ ul li::before{content:'';position:absolute;left:.3rem;top:.7em;width:4px;height:
   </div>
   <div class="success-title">Agreement Submitted</div>
   <div class="success-msg" id="successMsg">Your signed agreement has been securely uploaded.</div>
-  <button class="success-btn" onclick="document.getElementById('successOverlay').classList.remove('show')">Close</button>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center">
+    <button class="success-btn" id="downloadBtn" onclick="downloadPdf()">Download Copy</button>
+    <button class="success-btn" onclick="document.getElementById('successOverlay').classList.remove('show')" style="background:transparent;color:var(--gold-light);border:1px solid var(--muted)">Close</button>
+  </div>
 </div>
 
 <script>
@@ -1006,8 +1009,15 @@ function validateForm() {
   var requiredFields = [
     { id: 'residentName', label: 'Resident Name' },
     { id: 'startDate', label: 'Start Date' },
-    { id: 'endDate', label: 'End Date' }
+    { id: 'endDate', label: 'End Date' },
+    { id: 'sigDateResident', label: 'Resident Signature Date' },
+    { id: 'sigDateExhibit', label: 'Exhibit A Date' }
   ];
+
+  // Add company date if unlocked
+  if (companyUnlocked) {
+    requiredFields.push({ id: 'sigDateCompany', label: 'Company Signature Date' });
+  }
 
   requiredFields.forEach(function(f) {
     var el = document.getElementById(f.id);
@@ -1213,7 +1223,9 @@ async function handleSubmit() {
       throw new Error(errData.message || errData.error || 'Upload failed (' + response.status + ')');
     }
 
-    // Show success
+    // Show success + store blob for download
+    lastPdfBlob = pdfBlob;
+    lastPdfName = fileName;
     var residentName = document.getElementById('residentName').value.trim();
     document.getElementById('successMsg').textContent =
       'The signed agreement for ' + residentName + ' has been securely uploaded as ' + fileName;
@@ -1233,6 +1245,22 @@ async function handleSubmit() {
     btn.textContent = 'Sign & Submit';
     btn.classList.remove('submitting');
   }
+}
+
+// ── Store last PDF for download ──
+var lastPdfBlob = null;
+var lastPdfName = '';
+
+function downloadPdf() {
+  if (!lastPdfBlob) return;
+  var url = URL.createObjectURL(lastPdfBlob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = lastPdfName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 // Remove error highlights on interaction
