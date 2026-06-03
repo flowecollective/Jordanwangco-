@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta name="referrer" content="no-referrer">
+<title>Clients</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:dark;--paper:#1E1611;--panel:#2A201A;--bone:#F3ECDE;--soft:rgba(243,236,222,.72);--wheat:#D8C09A;--silver:#C7CCD0;--faint:rgba(243,236,222,.45);--line:rgba(243,236,222,.16);--line-strong:rgba(243,236,222,.42);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--bone);font-family:"Hanken Grotesk",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6;position:relative;min-height:100vh;}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .wrap{max-width:980px;margin:0 auto;padding:72px 32px 100px;position:relative;z-index:2;}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:26px;}
+  .kick{font-family:monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--wheat);}
+  h1{font-family:"Instrument Serif",serif;font-size:46px;line-height:1.0;font-weight:400;margin-top:10px;}
+  .sub{font-size:13px;color:var(--soft);margin-top:10px;letter-spacing:.02em;}
+  .priv{font-family:monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:3px;padding:6px 11px;white-space:nowrap;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;}
+  @media(max-width:780px){.grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.grid{grid-template-columns:1fr;}}
+  .client{display:flex;flex-direction:column;background:rgba(243,236,222,.025);border:1px solid var(--line);border-radius:8px;padding:24px 22px 20px;text-decoration:none;color:inherit;transition:border-color .15s,background .15s;min-height:188px;}
+  .client:hover{border-color:var(--line-strong);background:rgba(243,236,222,.05);}
+  .mono{font-family:"Instrument Serif",serif;font-size:40px;line-height:1;color:var(--wheat);}
+  .cn{font-size:16px;color:var(--bone);margin-top:16px;font-weight:500;}
+  .cmeta{font-size:12px;color:var(--soft);margin-top:4px;}
+  .pill{display:inline-block;font-family:monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-top:auto;width:max-content;}
+  .pill.draft{background:rgba(216,192,154,.14);color:var(--wheat);}
+  .pill.sent{border:1px solid var(--line-strong);color:var(--silver);}
+  .open{font-size:12px;color:var(--wheat);margin-top:12px;letter-spacing:.04em;}
+  .new{justify-content:center;align-items:center;text-align:center;border-style:dashed;border-color:var(--line-strong);color:var(--silver);}
+  .new .plus{font-family:"Instrument Serif",serif;font-size:42px;color:var(--silver);line-height:1;}
+  .new .nt{font-size:13px;margin-top:10px;color:var(--soft);}
+  .foot{margin-top:46px;border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:var(--faint);max-width:74ch;line-height:1.7;}
+  .foot b{color:var(--soft);font-weight:500;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="kick">// Jordan Wang</div>
+      <h1>The Aesthetic Brief</h1>
+      <div class="sub">Client briefs, living documents. Each one updates in place and the client refers back to the same link.</div>
+    </div>
+    <div class="priv">Private hub</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- CLIENT CARD: copy this block per client. Link to the client's unguessable slug file. -->
+    <a class="client" href="the-brief-sabrina-balloun.html">
+      <div class="mono">SB</div>
+      <div class="cn">Sabrina Balloun</div>
+      <div class="cmeta">Hair-loss plan, phased</div>
+      <div class="open">Open brief &rarr;</div>
+      <span class="pill draft">Draft</span>
+    </a>
+
+    <!-- New brief from the template -->
+    <a class="client new" href="client-brief-template.html">
+      <div class="plus">+</div>
+      <div class="nt">New brief<br>from template</div>
+    </a>
+
+  </div>
+
+  <p class="foot">
+    <b>Privacy.</b> This hub and every brief are set to noindex, so search engines skip them. They are still reachable by anyone with the URL. Give each client an unguessable filename (for example <b>/clients/sb-7f3a91.html</b> rather than a name), and consider a password on the /clients folder if your host supports it. Don't link this hub from your public site. <b>To add a client:</b> duplicate client-brief-template.html, rename it to the client's slug, fill it in, then copy a card above and point it at the new file.
+  </p>
+</div>
+</body>
+</html>

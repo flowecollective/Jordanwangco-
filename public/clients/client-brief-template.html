@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta name="referrer" content="no-referrer">
+<title>The Aesthetic Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!--
+  ============================================================
+  THE AESTHETIC BRIEF / CLIENT TEMPLATE  (Jordan Wang)
+  Duplicate as /clients/<unguessable-slug>.html  (e.g. sb-7f3a91.html)
+
+  FIND & REPLACE:
+    {{CLIENT_NAME}}   full name (cover + meta)
+    {{INIT}}          initials for the running header (e.g. SB)
+    {{DATE}}          date, or leave Draft
+
+  THEN:
+    - Cover portrait: add  <div class="cover-photo" style="background-image:url('data:image/jpeg;base64, ... ')"></div>
+      as the FIRST child of the cover plate for a diffused background.
+    - Replace every  [ EDIT ... ]  note with the client's real content.
+    - Swap each dashed slot for a real photo (<img ... style="width:100%;height:auto;display:block;">).
+    - Reserve plate: set each option's data-name / data-dep / data-emin / data-emax / data-link,
+      and paste your Stripe Payment Links over the PASTE_..._LINK placeholders.
+
+  RULES: keep it em-dash-free. noindex is already set. Do not ship another client any [ EDIT ] note or example copy.
+  ============================================================
+-->
+<style>
+  :root{
+    color-scheme: dark;
+    --ink:#130D09;
+    --paper:#1E1611;
+    --panel:#2A201A;
+    --rust:#73402A;
+    --rust-deep:#5E3320;
+    --bone:#F3ECDE;
+    --boneink:#241B14;
+    --wheat:#D8C09A;
+    --silver:#C7CCD0;
+    --soft:rgba(243,236,222,.76);
+    --faint:rgba(243,236,222,.48);
+    --line:rgba(243,236,222,.16);
+    --line-strong:rgba(243,236,222,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--ink);font-family:"Hanken Grotesk",sans-serif;-webkit-font-smoothing:antialiased;color:var(--bone);padding:46px 0 80px;}
+  .serif{font-family:"Instrument Serif",serif;font-weight:400;}
+
+  .deck{max-width:1060px;margin:0 auto;padding:0 26px;display:flex;flex-direction:column;gap:42px;}
+
+  /* ---- plate shell ---- */
+  .plate{position:relative;border-radius:7px;overflow:hidden;background:var(--paper);color:var(--bone);
+    box-shadow:0 36px 70px -34px rgba(0,0,0,.7);padding:60px 70px;}
+  .plate.ar{aspect-ratio:16/9;display:flex;flex-direction:column;justify-content:center;}
+  @media(max-width:720px){.plate{padding:38px 30px;}.plate.ar{aspect-ratio:auto;}}
+  .plate::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .g-rust{background:var(--rust);}
+  .g-panel{background:var(--panel);}
+  .g-bone{background:var(--bone);color:var(--boneink);}
+
+  /* ---- plate furniture ---- */
+  .fur{position:absolute;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint);font-weight:500;}
+  .fur.tl{top:24px;left:28px;} .fur.tr{top:24px;right:28px;text-align:right;} .fur.bl{bottom:22px;left:28px;}
+  .g-bone .fur{color:rgba(36,27,20,.45);}
+  .crop{position:absolute;bottom:20px;right:26px;width:15px;height:15px;border:1px solid var(--line-strong);}
+  .crop::before,.crop::after{content:"";position:absolute;background:var(--silver);}
+  .crop::before{left:50%;top:-5px;width:1px;height:25px;transform:translateX(-50%);}
+  .crop::after{top:50%;left:-5px;height:1px;width:25px;transform:translateY(-50%);}
+  .g-bone .crop{border-color:rgba(36,27,20,.3);} .g-bone .crop::before,.g-bone .crop::after{background:var(--boneink);}
+
+  /* ---- type ---- */
+  .kick{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--wheat);font-weight:600;}
+  .g-rust .kick{color:var(--bone);} .g-bone .kick{color:var(--rust);}
+  .cue{font-family:monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);}
+  .g-bone .cue{color:#9A6B43;}
+  h1{font-family:"Instrument Serif",serif;font-weight:400;font-size:76px;line-height:.96;letter-spacing:-.02em;margin-top:16px;}
+  h1 em{font-style:italic;color:var(--wheat);}
+  @media(max-width:720px){h1{font-size:46px;}}
+  h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:46px;line-height:1.02;letter-spacing:-.01em;margin-top:12px;}
+  @media(max-width:720px){h2{font-size:34px;}}
+  .sub{margin-top:22px;font-size:18px;line-height:1.5;font-weight:300;color:var(--soft);max-width:44ch;}
+  .sub b{color:var(--bone);font-weight:400;}
+  p{color:var(--soft);line-height:1.62;font-weight:300;max-width:60ch;margin-top:14px;}
+  .g-bone p{color:rgba(36,27,20,.74);}
+  strong,.bn{color:var(--bone);font-weight:500;} .g-bone strong{color:var(--boneink);}
+  a{color:var(--silver);text-decoration:none;border-bottom:1px solid var(--line-strong);}
+  a:hover{color:var(--bone);}
+
+  .meta{display:flex;gap:46px;margin-top:46px;flex-wrap:wrap;}
+  .meta .l{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--faint);}
+  .meta .v{font-size:15px;color:var(--bone);margin-top:5px;}
+
+  .bignum{font-family:"Instrument Serif",serif;font-size:128px;line-height:.8;color:var(--wheat);}
+  .g-rust .bignum{color:rgba(243,236,222,.9);}
+
+  /* contents */
+  .toc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 50px;margin-top:34px;max-width:760px;}
+  .toc .row{display:flex;gap:14px;align-items:baseline;border-top:1px solid rgba(243,236,222,.22);padding-top:11px;}
+  .toc .rn{font-family:"Instrument Serif",serif;font-size:16px;color:var(--bone);min-width:30px;}
+  .toc .rt{font-size:14px;color:rgba(243,236,222,.9);letter-spacing:.02em;}
+  .toc .rd{font-size:11px;color:rgba(243,236,222,.6);margin-top:2px;}
+
+  /* lists */
+  ul.clean{list-style:none;margin-top:18px;}
+  ul.clean li{position:relative;padding-left:24px;margin-top:12px;color:var(--soft);max-width:62ch;font-weight:300;}
+  ul.clean li::before{content:"";position:absolute;left:0;top:11px;width:9px;height:1px;background:var(--wheat);}
+  ul.clean li b{color:var(--bone);font-weight:500;}
+
+  /* private + honest + booking notes */
+  .note{margin-top:24px;display:flex;gap:15px;background:rgba(243,236,222,.04);border:1px solid var(--line);border-radius:5px;padding:18px 20px;align-items:flex-start;}
+  .note .nc{font-family:monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);white-space:nowrap;padding-top:3px;}
+  .note p{margin-top:0;font-size:14.5px;max-width:none;}
+  .honest{margin-top:24px;border-left:2px solid var(--wheat);padding-left:24px;}
+  .honest .nc{font-family:monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--wheat);}
+  .honest p{margin-top:8px;color:var(--bone);}
+
+  /* color swatches */
+  .swatches{display:flex;gap:22px;margin-top:30px;flex-wrap:wrap;}
+  .sw{width:120px;}
+  .sw .chip{height:120px;border-radius:4px;border:1px solid rgba(243,236,222,.14);}
+  .sw .sl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:10px;}
+  .sw .sv{font-size:13px;color:var(--bone);margin-top:3px;}
+
+  /* product rows */
+  .prod{padding:20px 0;border-top:1px solid var(--line);display:flex;gap:22px;align-items:flex-start;}
+  .prod:first-of-type{border-top:none;padding-top:6px;}
+  .prodimg{flex:0 0 92px;height:116px;border:1px dashed var(--line-strong);border-radius:4px;display:flex;align-items:flex-end;padding:8px;font-family:monospace;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--silver);line-height:1.35;}
+  .prodtext{flex:1;min-width:0;}
+  @media(max-width:600px){.prod{flex-direction:column;gap:14px;}.prodimg{flex:none;width:100%;height:96px;}}
+  .prod .pt{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--wheat);}
+  .prod .pn{font-family:"Instrument Serif",serif;font-size:22px;margin-top:3px;}
+  .prod .pr{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--silver);margin-top:2px;}
+  .prod p{font-size:14.5px;margin-top:10px;}
+  .lnk{margin-top:10px;font-size:13px;} .lnk a{margin-right:16px;}
+
+  /* directions grid */
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px;}
+  @media(max-width:720px){.opts{grid-template-columns:1fr;}}
+  .opt{border:1px solid var(--line);border-radius:5px;padding:24px 26px;background:rgba(243,236,222,.02);}
+  .opt .on{font-family:"Instrument Serif",serif;font-size:15px;color:var(--wheat);}
+  .opt h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:23px;line-height:1.1;margin-top:4px;}
+  .opt .when{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver);margin-top:9px;}
+  .opt p{font-size:13.5px;margin-top:11px;max-width:none;}
+  .opt .lnk{margin-top:11px;}
+  .slot{margin-top:11px;border:1px dashed var(--line-strong);border-radius:3px;padding:11px 13px;font-family:monospace;font-size:10px;letter-spacing:.1em;color:var(--silver);text-transform:uppercase;}
+  .inv{margin-top:13px;border-top:1px solid var(--line);padding-top:10px;font-size:13px;color:var(--bone);}
+  .inv .il{color:var(--wheat);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:10px;margin-right:8px;}
+  .inv .ic{color:var(--faint);font-size:11px;}
+
+  /* moodboard */
+  .board{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:118px;gap:14px;margin-top:30px;}
+  .tile{border:1px dashed rgba(36,27,20,.32);border-radius:4px;display:flex;align-items:flex-end;padding:11px;font-family:monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#9A6B43;background:rgba(36,27,20,.03);}
+  .tile.fill{border:none;color:var(--bone);align-items:flex-end;}
+  .tile.t-wide{grid-column:span 2;} .tile.t-tall{grid-row:span 2;}
+  .tile.c1{background:#3A2A20;} .tile.c2{background:#73402A;} .tile.c3{background:#9A6B43;} .tile.c4{background:#5E3A26;}
+  .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px;}
+  .shots .tile{height:132px;}
+  .minihead{font-family:monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9A6B43;margin-top:34px;}
+  .gets{display:grid;grid-template-columns:1fr 1fr;gap:14px 36px;margin-top:16px;}
+  @media(max-width:600px){.gets,.shots,.proof{grid-template-columns:1fr;}}
+  .get{border-top:1px solid rgba(36,27,20,.16);padding-top:11px;}
+  .get .gh{font-family:"Instrument Serif",serif;font-size:21px;color:var(--boneink);line-height:1.05;}
+  .get .gd{font-size:13px;color:rgba(36,27,20,.68);margin-top:4px;}
+  .proof{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+  .proof .tile{height:128px;}
+
+  /* plan */
+  .plan{margin-top:22px;}
+  .pr{display:grid;grid-template-columns:96px 1fr;gap:22px;padding:15px 0;border-top:1px solid var(--line);}
+  .pr .pp{font-family:"Instrument Serif",serif;font-size:15px;color:var(--wheat);}
+  .pr .pd{color:var(--soft);font-size:14.5px;font-weight:300;} .pr .pd b{color:var(--bone);font-weight:500;}
+
+  /* questionnaire */
+  .q{margin-top:18px;} .q .ql{font-size:14.5px;color:var(--bone);}
+  .q .qb{margin-top:8px;font-size:13px;color:var(--faint);border-bottom:1px solid var(--line-strong);padding-bottom:8px;font-style:italic;}
+  .book{margin-top:22px;border-top:1px solid var(--line);padding-top:15px;font-size:14px;color:var(--soft);font-weight:300;}
+  .book b{color:var(--wheat);font-weight:600;} .book .bc{font-family:monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);margin-right:9px;}
+  .sign{display:flex;gap:38px;margin-top:26px;}
+  .sign span{flex:1;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-top:1px solid var(--line-strong);padding-top:8px;}
+
+  .colophon{font-size:11.5px;line-height:1.7;color:var(--faint);max-width:72ch;}
+  .plate.cover > *{position:relative;z-index:2;}
+  .plate.cover > .cover-photo{z-index:0;}
+  .cover-photo{position:absolute;inset:0;background-position:50% 24%;background-size:cover;background-repeat:no-repeat;filter:blur(2.5px) grayscale(.2) brightness(.72) contrast(1.02);}
+  .cover-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#160F0B 0%,#160F0B 37%,rgba(22,15,11,.78) 56%,rgba(22,15,11,.42) 82%,rgba(22,15,11,.6) 100%);}
+  /* reserve */
+  .resv{margin-top:22px;display:flex;flex-direction:column;border-top:1px solid var(--line);}
+  .ritem{display:flex;align-items:center;gap:14px;padding:15px 2px;border-bottom:1px solid var(--line);cursor:pointer;}
+  .ritem input{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:1px solid var(--line-strong);border-radius:3px;flex:0 0 18px;cursor:pointer;position:relative;background:transparent;}
+  .ritem input:checked{background:var(--wheat);border-color:var(--wheat);}
+  .ritem input:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(45deg);}
+  .ritem .rn{flex:1;font-size:15px;color:var(--bone);}
+  .ritem .rn em{display:block;color:var(--silver);font-style:normal;font-size:12px;font-weight:300;margin-top:4px;letter-spacing:.01em;}
+  .ritem .rp{font-family:"Instrument Serif",serif;font-size:21px;color:var(--wheat);white-space:nowrap;text-align:right;}
+  .ritem .rp small{display:block;font-family:"Hanken Grotesk",sans-serif;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:3px;font-weight:600;}
+  .ritem.fixed{background:rgba(216,192,154,.07);}
+  .rtotal{margin-top:18px;font-size:14px;color:var(--soft);}
+  .rtotal b{color:var(--bone);font-weight:500;}
+  .cta{display:inline-block;margin-top:20px;background:var(--wheat);color:var(--paper);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:4px;text-decoration:none;border:none;}
+  .cta:hover{background:#E6D2B0;color:var(--paper);}
+  .rnote{margin-top:14px;font-size:12px;color:var(--faint);max-width:60ch;}
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- 01 COVER -->
+  <div class="plate ar cover">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate i / Cover</span>
+    <div class="kick">// Jordan Wang</div>
+    <h1>[ EDIT: the<br>cover <em>line.</em> ]</h1>
+    <p class="sub">[ EDIT: one honest sentence, the promise of this plan in the client's own terms. ]</p>
+    <div class="meta">
+      <div><div class="l">Prepared for</div><div class="v">{{CLIENT_NAME}}</div></div>
+      <div><div class="l">By</div><div class="v">Jordan Wang</div></div>
+      <div><div class="l">Status</div><div class="v">{{DATE}}</div></div>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 02 CONTENTS -->
+  <div class="plate ar g-rust">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate ii / Contents</span>
+    <div class="kick">// Contents</div>
+    <h2 style="margin-top:8px;">What's inside</h2>
+    <div class="contents">
+      <div class="row"><div class="rn serif">i</div><div><div class="rt">The Read</div><div class="rd">[ EDIT: where they are now ]</div></div></div>
+      <div class="row"><div class="rn serif">ii</div><div><div class="rt">Phase 01</div><div class="rd">[ EDIT: where we start ]</div></div></div>
+      <div class="row"><div class="rn serif">iii</div><div><div class="rt">Color</div><div class="rd">[ EDIT: the one move ]</div></div></div>
+      <div class="row"><div class="rn serif">iv</div><div><div class="rt">At-home routine</div><div class="rd">[ EDIT: scalp / care ]</div></div></div>
+      <div class="row"><div class="rn serif">v</div><div><div class="rt">The Directions</div><div class="rd">[ EDIT: their path ]</div></div></div>
+      <div class="row"><div class="rn serif">vi</div><div><div class="rt">The Sequence</div><div class="rd">How it actually runs</div></div></div>
+      <div class="row"><div class="rn serif">vii</div><div><div class="rt">Your Voice</div><div class="rd">Tell me what can't be compromised</div></div></div>
+      <div class="row"><div class="rn serif">viii</div><div><div class="rt">Reserve</div><div class="rd">Select what you want, secure your place</div></div></div>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 03 THE READ -->
+  <div class="plate">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate iii / The Read</span>
+    <div class="cue">// i. The Read</div>
+    <h2>[ EDIT: the honest read ]</h2>
+    <p>[ EDIT: what you can see and what you can't see yet. Name the constraint that makes this plan phased rather than a reveal. Keep it factual and warm. ]</p>
+    <div class="slot">[ EDIT: optional pull-quote or the client's hard non-negotiable, threaded through the whole brief ]</div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 04 PHASE 01 -->
+  <div class="plate g-panel">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate iv / Phase 01</span>
+    <div class="cue">// ii. Phase 01</div>
+    <h2>[ EDIT: the first step ]</h2>
+    <p>[ EDIT: what happens first and why. If there is a continuity promise (never without coverage, privacy, etc.), state it here. ]</p>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 05 COLOR -->
+  <div class="plate">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate v / Color</span>
+    <div class="cue">// iii. Color</div>
+    <h2>[ EDIT: the one color move ]</h2>
+    <p>[ EDIT: the single, defensible color decision. Resist a menu. Two swatches max. ]</p>
+    <div class="slot">[ EDIT: swatch "now" ]</div>
+    <div class="slot">[ EDIT: swatch "to" ]</div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 06 AT-HOME ROUTINE -->
+  <div class="plate g-panel">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate vi / At-home</span>
+    <div class="cue">// iv. At-home routine</div>
+    <h2>The at-home routine</h2>
+    <div class="prod">
+      <div class="slot" style="flex:0 0 150px;width:150px;">[ photo ]</div>
+      <div class="prodtext">
+      <div class="pt">[ EDIT: role, e.g. lead, growth support ]</div>
+      <div class="pn">[ EDIT: product name ]</div>
+      <div class="pr">[ EDIT: one-line descriptor ]</div>
+      <p>[ EDIT: what it does, honestly. Frame as support, never a cure. Note any coordination with the client's medical care. ]</p>
+      <div class="lnk"><a href="#" target="_blank" rel="noopener">Reference →</a></div>
+      </div>
+    </div>
+    <div class="prod">
+      <div class="slot" style="flex:0 0 150px;width:150px;">[ photo ]</div>
+      <div class="prodtext">
+      <div class="pt">[ EDIT: role ]</div>
+      <div class="pn">[ EDIT: product name ]</div>
+      <div class="pr">[ EDIT: descriptor ]</div>
+      <p>[ EDIT: copy ]</p>
+      </div>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 07 DIRECTIONS DIVIDER -->
+  <div class="plate ar g-rust">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate vii / Directions</span>
+    <div style="margin-top:auto;">
+      <div class="kick">// The Directions</div>
+      <h2 style="margin-top:6px;">[ EDIT: the<br>directions line ]</h2>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 08 OPTIONS -->
+  <div class="plate">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate viii / Options</span>
+    <div class="cue">// v. Your path, and the alternatives</div>
+    <p style="color:rgba(243,236,222,.82);margin-top:20px;max-width:62ch;">[ EDIT: your actual recommendation in one short paragraph, not a menu. Name the day-one move and the destination. ]</p>
+    <div class="opts">
+      <div class="opt">
+        <div style="display:inline-block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;background:var(--wheat);color:var(--paper);padding:3px 9px;border-radius:2px;font-weight:600;margin-bottom:9px;">Recommended</div>
+        <h3>[ EDIT: option one ]</h3>
+        <div class="when">[ EDIT: when / why ]</div>
+        <p>[ EDIT: what it is, in plain language. ]</p>
+        <div class="slot">[ photo or proof ]</div>
+        <div class="inv"><span class="il">Investment</span>$[low]&ndash;$[high] <span class="ic">· color and shaping included · indicative</span></div>
+      </div>
+      <div class="opt">
+        <div style="display:inline-block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;border:1px solid var(--line-strong);color:var(--silver);padding:3px 9px;border-radius:2px;font-weight:500;margin-bottom:9px;">Alternative</div>
+        <h3>[ EDIT: option two ]</h3>
+        <div class="when">[ EDIT: when / why ]</div>
+        <p>[ EDIT: copy ]</p>
+        <div class="inv"><span class="il">Investment</span>$[low]&ndash;$[high] <span class="ic">· color and shaping included · indicative</span></div>
+      </div>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 09 SEQUENCE -->
+  <div class="plate">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate ix / Sequence</span>
+    <div class="cue">// vi. The Sequence</div>
+    <h2>How it actually runs</h2>
+    <div class="steps">
+      <div class="pr"><div class="pp serif">Before</div><div class="pd"><b>[ EDIT: prep step. ]</b> [ EDIT ]</div></div>
+      <div class="pr"><div class="pp serif">Day one</div><div class="pd"><b>[ EDIT: the appointment. ]</b> [ EDIT ]</div></div>
+      <div class="pr"><div class="pp serif">After</div><div class="pd"><b>[ EDIT: routine begins. ]</b> [ EDIT ]</div></div>
+      <div class="pr"><div class="pp serif">Ongoing</div><div class="pd"><b>[ EDIT: re-assess / maintain. ]</b> [ EDIT ]</div></div>
+    </div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 10 YOUR VOICE -->
+  <div class="plate g-panel">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate x / Your Voice</span>
+    <div class="cue">// vii. Your Voice, steers everything above</div>
+    <h2>Tell me what you can't compromise on</h2>
+    <div class="q"><div class="ql">The one thing you can't compromise on?</div><div class="qb">________________________________________________</div></div>
+    <div class="q"><div class="ql">A hard no, something you never want?</div><div class="qb">________________________________________________</div></div>
+    <div class="q"><div class="ql">Direction you're drawn to?</div><div class="qb">[ EDIT: list the options ]</div></div>
+    <div class="q"><div class="ql">Book this as a private appointment?</div><div class="qb">Yes, full privacy / No need / Let's talk</div></div>
+    <div class="book"><span class="bc">// Booking</span> [ EDIT: appointment length / what to expect. Private appointments are held Mondays and Tuesdays. ]</div>
+    <div class="sign"><span>Approved //</span><span>Date //</span></div>
+    <span class="crop"></span>
+  </div>
+
+  <!-- 11 RESERVE -->
+  <div class="plate g-panel">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate xi / Reserve</span>
+    <div class="cue">// viii. Reserve</div>
+    <h2>Reserve your place</h2>
+    <p>Choose one direction. A 50% deposit reserves your place, and the balance is settled at your consult. Add a private appointment if you'd like.</p>
+    <div class="resv">
+      <label class="ritem" data-name="[ Option one ]" data-dep="1000" data-emin="1900" data-emax="3200" data-link="PASTE_OPTION1_DEPOSIT_LINK"><input type="checkbox"><span class="rn">[ EDIT: option one ]<em>Estimate $1,900&ndash;$3,200 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
+      <label class="ritem" data-name="[ Option two ]" data-dep="1500" data-emin="2500" data-emax="3700" data-link="PASTE_OPTION2_DEPOSIT_LINK"><input type="checkbox"><span class="rn">[ EDIT: option two ]<em>Estimate $2,500&ndash;$3,700 &middot; balance settled at consult</em></span><span class="rp">$1,500<small>deposit now</small></span></label>
+      <label class="ritem" data-name="[ Option three ]" data-dep="1000" data-emin="1900" data-emax="2900" data-link="PASTE_OPTION3_DEPOSIT_LINK"><input type="checkbox"><span class="rn">[ EDIT: option three ]<em>Estimate $1,900&ndash;$2,900 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
+      <label class="ritem fixed" data-dep="500" data-link="PASTE_PRIVATE_APPT_LINK"><input type="checkbox"><span class="rn">Private appointment<em>Mondays &amp; Tuesdays &middot; includes one assistant attending</em></span><span class="rp">$500<small>add-on</small></span></label>
+    </div>
+    <div class="rtotal" id="rtotal">Choose a direction to see your deposit.</div>
+    <a class="cta" id="reserveBtn" href="#" target="_blank" rel="noopener">Reserve with Stripe &rarr;</a>
+    <p class="rnote">A 50% deposit reserves your place; the balance is confirmed and settled at your consult. The private appointment is offered as an optional add-on at checkout. Secure checkout via Stripe.</p>
+    <span class="crop"></span>
+  </div>
+  <script>
+  (function(){
+    var labels=[].slice.call(document.querySelectorAll('.resv .ritem'));
+    var dirs=labels.filter(function(l){return !l.classList.contains('fixed');});
+    var priv=document.querySelector('.resv .ritem.fixed');
+    var privIn=priv.querySelector('input');
+    var out=document.getElementById('rtotal');
+    var btn=document.getElementById('reserveBtn');
+    function fmt(n){return '$'+Number(n).toLocaleString();}
+    function selDir(){var r=null;dirs.forEach(function(l){if(l.querySelector('input').checked){r=l;}});return r;}
+    function upd(){
+      var d=selDir(), p=privIn.checked;
+      if(!d && !p){ out.textContent='Choose a direction to see your deposit.'; btn.textContent='Reserve with Stripe \u2192'; btn.setAttribute('href','#'); return; }
+      if(d){
+        var dep=+d.dataset.dep;
+        var msg=d.dataset.name+', estimate <b>'+fmt(+d.dataset.emin)+'\u2013'+fmt(+d.dataset.emax)+'</b> &middot; deposit due now <b>'+fmt(dep)+'</b>';
+        if(p){ msg+=' &middot; add the private appointment ('+fmt(+priv.dataset.dep)+') at checkout'; }
+        out.innerHTML=msg;
+        btn.setAttribute('href', d.dataset.link);
+        btn.textContent='Reserve \u00b7 '+fmt(dep)+' deposit \u2192';
+      } else {
+        out.innerHTML='Private appointment &middot; <b>'+fmt(+priv.dataset.dep)+'</b> due now';
+        btn.setAttribute('href', priv.dataset.link);
+        btn.textContent='Reserve \u00b7 '+fmt(+priv.dataset.dep)+' \u2192';
+      }
+    }
+    dirs.forEach(function(l){ l.querySelector('input').addEventListener('change',function(){ var inp=this; if(inp.checked){ dirs.forEach(function(o){ var oi=o.querySelector('input'); if(oi!==inp){ oi.checked=false; } }); } upd(); }); });
+    privIn.addEventListener('change',upd);
+  })();
+  </script>
+  <!-- 12 COLOPHON -->
+  <div class="plate">
+    <span class="fur tl">The Aesthetic Brief / {{INIT}}</span>
+    <span class="fur tr">Plate xii / Colophon</span>
+    <div class="cue">// Notes</div>
+    <p class="colophon" style="margin-top:16px;">TEMPLATE. Duplicate per client to an unguessable slug under /clients. Replace every [ EDIT ] note, swap the slots for real photos, set the cover portrait, and wire the Reserve deposits and Stripe links. Clinical framing stays conservative: support, not cure; coordinate with the client's medical care; provisional until assessed. Investment figures are indicative ranges, not final. Set in the // Jordan Wang identity. Proofread, and confirm no example copy from another client remains, before sending.</p>
+    <span class="crop"></span>
+  </div>
+
+</div>
+</body>
+</html>
