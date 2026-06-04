@@ -1,68 +1,53 @@
 #!/usr/bin/env node
-// Set, read, or clear a per-brief password in the Upstash KV store.
-// Passwords are stored at key  brief:pw:<slug>  and read by public/middleware.js.
-// No redeploy needed: changes take effect on the next request.
+// Set, read, or clear a per-brief password (stored in KV at brief:pw:<slug>,
+// read by public/middleware.js to gate /clients/<slug>). No redeploy needed.
 //
-// Credentials come from the same env vars the app uses. The easiest way to load
-// them locally is to pull them from Vercel first:
+// This talks to the deployed admin endpoint /api/brief-pw, authenticated with
+// the master password, so you never need the KV credentials locally.
 //
-//   cd Jordanwangco- && vercel env pull .env.local   # one time / when they change
+//   export CLIENTS_MASTER_PW='your-master-password'   # or pass --pw=...
 //   node scripts/brief-pw.js set   sb-7f3a91 "their-password"
 //   node scripts/brief-pw.js get   sb-7f3a91
 //   node scripts/brief-pw.js clear sb-7f3a91
 //
-// (If you don't use vercel env pull, export KV_REST_API_URL and
-//  KV_REST_API_TOKEN in your shell before running.)
+// Base URL defaults to the production site; override with --url=... or BRIEF_BASE_URL.
 
-const fs = require('fs');
-const path = require('path');
+const DEFAULT_BASE = 'https://jordanwangco.vercel.app';
 
-// Load .env.local / .env if present (so `vercel env pull` just works).
-for (const f of ['.env.local', '.env']) {
-  const p = path.join(process.cwd(), f);
-  if (!fs.existsSync(p)) continue;
-  for (const line of fs.readFileSync(p, 'utf8').split('\n')) {
-    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-    if (!m) continue;
-    let v = m[2].trim();
-    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) v = v.slice(1, -1);
-    if (process.env[m[1]] === undefined) process.env[m[1]] = v;
-  }
+const argv = process.argv.slice(2);
+const flags = {};
+const pos = [];
+for (const a of argv) {
+  const m = a.match(/^--([a-z]+)=(.*)$/);
+  if (m) flags[m[1]] = m[2]; else pos.push(a);
 }
+const [cmd, slug, pw] = pos;
 
-const e = process.env;
-const URL_ = e.KV_REST_API_URL || e.UPSTASH_REDIS_REST_URL || e.STORAGE_KV_REST_API_URL || e.STORAGE_REST_API_URL || e.REDIS_REST_API_URL || '';
-const TOKEN = e.KV_REST_API_TOKEN || e.UPSTASH_REDIS_REST_TOKEN || e.STORAGE_KV_REST_API_TOKEN || e.STORAGE_REST_API_TOKEN || e.REDIS_REST_API_TOKEN || '';
-
+const base = (flags.url || process.env.BRIEF_BASE_URL || DEFAULT_BASE).replace(/\/+$/, '');
+const master = flags.pw || process.env.CLIENTS_MASTER_PW || '';
 const SLUG = /^[a-z0-9-]{1,64}$/;
-const [cmd, slug, pw] = process.argv.slice(2);
 
 function die(msg) { console.error(msg); process.exit(1); }
-if (!URL_ || !TOKEN) die('Missing KV credentials. Run `vercel env pull .env.local` or export KV_REST_API_URL / KV_REST_API_TOKEN.');
-if (!cmd || !['set', 'get', 'clear'].includes(cmd)) die('Usage: node scripts/brief-pw.js <set|get|clear> <slug> [password]');
+if (!master) die('Missing master password. Set CLIENTS_MASTER_PW or pass --pw=...');
+if (!cmd || !['set', 'get', 'clear'].includes(cmd)) die('Usage: node scripts/brief-pw.js <set|get|clear> <slug> [password] [--url=...] [--pw=...]');
 if (!slug || !SLUG.test(slug)) die('Bad slug. Use lowercase letters, digits, and hyphens (e.g. sb-7f3a91).');
 if (cmd === 'set' && !pw) die('set needs a password: node scripts/brief-pw.js set ' + slug + ' "the-password"');
 
-async function redis(args) {
-  const r = await fetch(URL_, {
-    method: 'POST',
-    headers: { Authorization: 'Bearer ' + TOKEN, 'Content-Type': 'application/json' },
-    body: JSON.stringify(args),
+async function call(method, body) {
+  const url = base + '/api/brief-pw' + (method === 'GET' ? '?slug=' + encodeURIComponent(slug) : '');
+  const res = await fetch(url, {
+    method,
+    headers: Object.assign({ 'x-admin-pw': master }, body ? { 'Content-Type': 'application/json' } : {}),
+    body: body ? JSON.stringify(body) : undefined,
   });
-  if (!r.ok) die('KV request failed: ' + r.status + ' ' + (await r.text()).slice(0, 200));
-  return r.json();
+  const text = await res.text();
+  let j; try { j = JSON.parse(text); } catch (e) { j = { raw: text }; }
+  if (!res.ok) die('Request failed (' + res.status + '): ' + (j.error || text).toString().slice(0, 200));
+  return j;
 }
 
 (async () => {
-  const key = 'brief:pw:' + slug;
-  if (cmd === 'set') {
-    await redis(['SET', key, pw]);
-    console.log('Set password for ' + slug + '.');
-  } else if (cmd === 'get') {
-    const j = await redis(['GET', key]);
-    console.log(j && j.result ? slug + ': ' + j.result : 'No password set for ' + slug + ' (brief is admin-only).');
-  } else if (cmd === 'clear') {
-    await redis(['DEL', key]);
-    console.log('Cleared password for ' + slug + ' (now admin-only).');
-  }
+  if (cmd === 'set') { await call('POST', { slug, password: pw }); console.log('Set password for ' + slug + '.'); }
+  else if (cmd === 'clear') { await call('POST', { slug, clear: true }); console.log('Cleared password for ' + slug + ' (now admin-only).'); }
+  else { const j = await call('GET'); console.log(slug + ': ' + (j.set ? 'password is set' : 'no password (admin-only)')); }
 })().catch((err) => die(String(err)));
