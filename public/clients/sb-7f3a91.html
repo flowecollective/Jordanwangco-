@@ -81,6 +81,11 @@
   .toc .rn{font-family:"Instrument Serif",serif;font-size:16px;color:var(--bone);min-width:30px;}
   .toc .rt{font-size:14px;color:rgba(243,236,222,.9);letter-spacing:.02em;}
   .toc .rd{font-size:11px;color:rgba(243,236,222,.6);margin-top:2px;}
+  .toc a.row{text-decoration:none;color:inherit;cursor:pointer;transition:border-color .15s;}
+  .toc a.row:hover{border-top-color:var(--wheat);}
+  .toc a.row:hover .rt{color:var(--wheat);}
+  html{scroll-behavior:smooth;}
+  .plate{scroll-margin-top:24px;}
 
   /* lists */
   ul.clean{list-style:none;margin-top:18px;}
@@ -225,19 +230,19 @@
     <div class="kick">// Contents</div>
     <h2 style="margin-top:8px;">What's inside</h2>
     <div class="toc">
-      <div class="row"><div class="rn serif">i</div><div><div class="rt">The Read</div><div class="rd">What we know, and what we don't yet</div></div></div>
-      <div class="row"><div class="rn serif">ii</div><div><div class="rt">Remove &amp; Assess</div><div class="rd">Where we start, privately, if you like</div></div></div>
-      <div class="row"><div class="rn serif">iii</div><div><div class="rt">Color</div><div class="rd">Off the hard black, to a soft black</div></div></div>
-      <div class="row"><div class="rn serif">iv</div><div><div class="rt">Scalp &amp; Growth</div><div class="rd">The at-home routine</div></div></div>
-      <div class="row"><div class="rn serif">v</div><div><div class="rt">The Directions</div><div class="rd">Your path, wig now, mesh integration as destination</div></div></div>
-      <div class="row"><div class="rn serif">vi</div><div><div class="rt">The Sequence</div><div class="rd">How it actually runs</div></div></div>
-      <div class="row"><div class="rn serif">vii</div><div><div class="rt">Your Voice</div><div class="rd">Tell me what can't be compromised</div></div></div>
-      <div class="row"><div class="rn serif">viii</div><div><div class="rt">Reserve</div><div class="rd">Select what you want, secure your place</div></div></div>
+      <a class="row" href="#s-read"><div class="rn serif">i</div><div><div class="rt">The Read</div><div class="rd">What we know, and what we don't yet</div></div></a>
+      <a class="row" href="#s-remove"><div class="rn serif">ii</div><div><div class="rt">Remove &amp; Assess</div><div class="rd">Where we start, privately, if you like</div></div></a>
+      <a class="row" href="#s-color"><div class="rn serif">iii</div><div><div class="rt">Color</div><div class="rd">Off the hard black, to a soft black</div></div></a>
+      <a class="row" href="#s-scalp"><div class="rn serif">iv</div><div><div class="rt">Scalp &amp; Growth</div><div class="rd">The at-home routine</div></div></a>
+      <a class="row" href="#s-directions"><div class="rn serif">v</div><div><div class="rt">The Directions</div><div class="rd">Your path, wig now, mesh integration as destination</div></div></a>
+      <a class="row" href="#s-sequence"><div class="rn serif">vi</div><div><div class="rt">The Sequence</div><div class="rd">How it actually runs</div></div></a>
+      <a class="row" href="#s-voice"><div class="rn serif">vii</div><div><div class="rt">Your Voice</div><div class="rd">Tell me what can't be compromised</div></div></a>
+      <a class="row" href="#s-reserve"><div class="rn serif">viii</div><div><div class="rt">Reserve</div><div class="rd">Select what you want, secure your place</div></div></a>
     </div>
   </div>
 
   <!-- 03 THE READ -->
-  <div class="plate">
+  <div class="plate" id="s-read">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">The Read</span>
     <div class="cue">// i. The Read</div>
@@ -252,7 +257,7 @@
     <span class="fur bl">JW, Houston</span>  </div>
 
   <!-- 04 REMOVE & ASSESS -->
-  <div class="plate g-panel">
+  <div class="plate g-panel" id="s-remove">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Phase 01</span>
     <div class="cue">// ii. Phase 01</div>
@@ -274,7 +279,7 @@
   </div>
 
   <!-- 05 COLOR -->
-  <div class="plate">
+  <div class="plate" id="s-color">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Color</span>
     <div class="cue">// iii. Color · provisional pending removal</div>
@@ -288,7 +293,7 @@
   </div>
 
   <!-- 06 SCALP & GROWTH -->
-  <div class="plate g-panel">
+  <div class="plate g-panel" id="s-scalp">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Support</span>
     <div class="cue">// iv. Scalp &amp; Growth Support</div>
@@ -329,7 +334,7 @@
   </div>
 
   <!-- 07 DIRECTIONS DIVIDER -->
-  <div class="plate ar g-rust">
+  <div class="plate ar g-rust" id="s-directions">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Directions</span>
     <div style="display:flex;align-items:center;gap:34px;flex-wrap:wrap;">
@@ -382,7 +387,7 @@
   </div>
 
   <!-- 09 THE SEQUENCE -->
-  <div class="plate">
+  <div class="plate" id="s-sequence">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Sequence</span>
     <div class="cue">// vi. The Sequence</div>
@@ -397,7 +402,7 @@
   </div>
 
   <!-- 10 YOUR VOICE -->
-  <div class="plate g-panel">
+  <div class="plate g-panel" id="s-voice">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Your Voice</span>
     <div class="cue">// vii. Your Voice, steers everything above</div>
@@ -436,7 +441,7 @@
   </script>
 
   <!-- 11 RESERVE -->
-  <div class="plate g-panel">
+  <div class="plate g-panel" id="s-reserve">
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Reserve</span>
     <div class="cue">// viii. Reserve</div>
