@@ -20,12 +20,17 @@
   .kick{font-family:monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--wheat);}
   h1{font-family:"Instrument Serif",serif;font-size:46px;line-height:1.0;font-weight:400;margin-top:10px;}
   .sub{font-size:13px;color:var(--soft);margin-top:10px;letter-spacing:.02em;}
+  .topright{display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
   .priv{font-family:monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:3px;padding:6px 11px;white-space:nowrap;}
+  .logout{font-size:11px;color:var(--faint);text-decoration:none;letter-spacing:.04em;border-bottom:1px solid transparent;}
+  .logout:hover{color:var(--soft);border-bottom-color:var(--line-strong);}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;}
   @media(max-width:780px){.grid{grid-template-columns:1fr 1fr;}}
   @media(max-width:520px){.grid{grid-template-columns:1fr;}}
-  .client{display:flex;flex-direction:column;background:rgba(243,236,222,.025);border:1px solid var(--line);border-radius:8px;padding:24px 22px 20px;text-decoration:none;color:inherit;transition:border-color .15s,background .15s;min-height:188px;}
+  .client{position:relative;display:flex;flex-direction:column;background:rgba(243,236,222,.025);border:1px solid var(--line);border-radius:8px;padding:24px 22px 20px;color:inherit;min-height:188px;}
   .client:hover{border-color:var(--line-strong);background:rgba(243,236,222,.05);}
+  .client .stretch{position:absolute;inset:0;z-index:1;border-radius:8px;}
+  .client>*:not(.stretch){position:relative;z-index:2;}
   .mono{font-family:"Instrument Serif",serif;font-size:40px;line-height:1;color:var(--wheat);}
   .cn{font-size:16px;color:var(--bone);margin-top:16px;font-weight:500;}
   .cmeta{font-size:12px;color:var(--soft);margin-top:4px;}
@@ -36,8 +41,32 @@
   .new{justify-content:center;align-items:center;text-align:center;border-style:dashed;border-color:var(--line-strong);color:var(--silver);}
   .new .plus{font-family:"Instrument Serif",serif;font-size:42px;color:var(--silver);line-height:1;}
   .new .nt{font-size:13px;margin-top:10px;color:var(--soft);}
+  /* key button + lock state */
+  .keybtn{position:absolute;top:14px;right:14px;z-index:3;width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:rgba(30,22,17,.7);border:1px solid var(--line);border-radius:6px;color:var(--faint);cursor:pointer;transition:color .15s,border-color .15s,background .15s;}
+  .keybtn:hover{color:var(--wheat);border-color:var(--line-strong);background:rgba(42,32,26,.9);}
+  .keybtn svg{width:15px;height:15px;display:block;}
+  .lockstate{position:absolute;top:21px;left:22px;z-index:3;font-family:monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;display:none;align-items:center;gap:5px;}
+  .lockstate.set{color:var(--wheat);}.lockstate.unset{color:#E0A0A0;}
+  .lockstate .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
   .foot{margin-top:46px;border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:var(--faint);max-width:74ch;line-height:1.7;}
   .foot b{color:var(--soft);font-weight:500;}
+  /* modal */
+  .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(12,9,6,.66);}
+  .modal.show{display:flex;}
+  .sheet{width:100%;max-width:380px;background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;padding:26px 26px 24px;}
+  .sheet .mk{font-family:monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--wheat);}
+  .sheet h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:26px;margin-top:8px;}
+  .sheet .mstate{font-size:12px;color:var(--soft);margin-top:6px;line-height:1.5;}
+  .sheet input{width:100%;margin-top:18px;background:rgba(243,236,222,.05);border:1px solid var(--line-strong);border-radius:6px;color:var(--bone);font-family:inherit;font-size:15px;padding:12px 14px;}
+  .sheet input:focus{outline:none;border-color:var(--wheat);}
+  .row{display:flex;gap:10px;margin-top:16px;}
+  .btn{flex:1;border:none;border-radius:6px;font-family:inherit;font-size:13px;font-weight:600;letter-spacing:.03em;padding:11px;cursor:pointer;transition:opacity .15s;}
+  .btn:hover{opacity:.9;}.btn:disabled{opacity:.45;cursor:default;}
+  .btn.save{background:var(--wheat);color:#211a13;}
+  .btn.ghost{background:transparent;border:1px solid var(--line-strong);color:var(--soft);}
+  .btn.danger{background:transparent;border:1px solid rgba(224,160,160,.5);color:#E0A0A0;}
+  .mmsg{min-height:16px;margin-top:12px;font-size:12px;letter-spacing:.02em;}
+  .mmsg.ok{color:var(--wheat);}.mmsg.err{color:#E5A3A3;}
 </style>
 </head>
 <body>
@@ -48,31 +77,112 @@
       <h1>The Aesthetic Brief</h1>
       <div class="sub">Client briefs, living documents. Each one updates in place and the client refers back to the same link.</div>
     </div>
-    <div class="priv">Private hub</div>
+    <div class="topright">
+      <div class="priv">Private hub</div>
+      <a class="logout" href="#" id="logout">Sign out</a>
+    </div>
   </div>
 
   <div class="grid">
 
-    <!-- CLIENT CARD: copy this block per client. Link to the client's unguessable slug file. -->
-    <a class="client" href="/clients/sb-7f3a91">
+    <!-- CLIENT CARD: copy this block per client. Set data-slug + the href to the client's unguessable slug. -->
+    <div class="client" data-slug="sb-7f3a91">
+      <button class="keybtn" type="button" title="Set brief password" aria-label="Set brief password">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 19 4"/><path d="m16 7 3 3"/><path d="m18 5 2 2"/></svg>
+      </button>
+      <span class="lockstate" data-slug="sb-7f3a91"><span class="dot"></span><span class="lbl"></span></span>
+      <a class="stretch" href="/clients/sb-7f3a91" aria-label="Open Sabrina Balloun's brief"></a>
       <div class="mono">SB</div>
       <div class="cn">Sabrina Balloun</div>
       <div class="cmeta">Hair-loss plan, phased</div>
       <div class="open">Open brief &rarr;</div>
       <span class="pill draft">Draft</span>
-    </a>
+    </div>
 
     <!-- New brief from the template -->
-    <a class="client new" href="/clients/client-brief-template">
+    <div class="client new">
+      <a class="stretch" href="/clients/client-brief-template" aria-label="New brief from template"></a>
       <div class="plus">+</div>
       <div class="nt">New brief<br>from template</div>
-    </a>
+    </div>
 
   </div>
 
   <p class="foot">
-    <b>Privacy.</b> This hub and every brief are set to noindex, so search engines skip them. They are still reachable by anyone with the URL. Give each client an unguessable filename (for example <b>/clients/sb-7f3a91.html</b> rather than a name), and consider a password on the /clients folder if your host supports it. Don't link this hub from your public site. <b>To add a client:</b> duplicate client-brief-template.html, rename it to the client's slug, fill it in, then copy a card above and point it at the new file.
+    <b>Privacy.</b> This hub and every brief are unlisted (noindex) and password-protected. Each brief opens with its own password (tap the <b>key</b> on a card to set or change it) or with your master password; this hub and the template are master-only. Clients only ever see their own brief. <b>To add a client:</b> duplicate client-brief-template.html, rename it to the client's slug, fill it in, copy a card above, set its <b>data-slug</b> + link, then tap the key to give it a password.
   </p>
 </div>
+
+<!-- password modal -->
+<div class="modal" id="modal">
+  <div class="sheet">
+    <div class="mk">// Brief password</div>
+    <h2 id="mTitle">Set password</h2>
+    <div class="mstate" id="mState">Checking&hellip;</div>
+    <input id="mPw" type="text" autocomplete="off" placeholder="New password" aria-label="New password">
+    <div class="row">
+      <button class="btn ghost" type="button" id="mCancel">Cancel</button>
+      <button class="btn danger" type="button" id="mClear">Remove</button>
+      <button class="btn save" type="button" id="mSave">Save</button>
+    </div>
+    <div class="mmsg" id="mMsg"></div>
+  </div>
+</div>
+
+<script>(function(){
+  var modal=document.getElementById('modal');
+  var mTitle=document.getElementById('mTitle'),mState=document.getElementById('mState'),mPw=document.getElementById('mPw'),mMsg=document.getElementById('mMsg');
+  var mSave=document.getElementById('mSave'),mClear=document.getElementById('mClear'),mCancel=document.getElementById('mCancel');
+  var current=null; // {slug,name}
+
+  function msg(t,kind){mMsg.textContent=t||'';mMsg.className='mmsg'+(kind?(' '+kind):'');}
+
+  function setLockUI(slug,isSet){
+    var el=document.querySelector('.lockstate[data-slug="'+slug+'"]');
+    if(!el)return;el.style.display='inline-flex';el.className='lockstate '+(isSet?'set':'unset');
+    el.querySelector('.lbl').textContent=isSet?'Password set':'No password';
+  }
+  function refresh(slug){
+    fetch('/api/brief-pw?slug='+encodeURIComponent(slug),{credentials:'include'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(j){if(j)setLockUI(slug,!!j.set);}).catch(function(){});
+  }
+  [].forEach.call(document.querySelectorAll('.client[data-slug]'),function(c){refresh(c.getAttribute('data-slug'));});
+
+  function open(slug,name){
+    current={slug:slug,name:name};
+    mTitle.textContent='Password for '+name;mState.textContent='Checking…';mPw.value='';msg('');
+    mSave.disabled=false;mClear.disabled=true;
+    modal.classList.add('show');mPw.focus();
+    fetch('/api/brief-pw?slug='+encodeURIComponent(slug),{credentials:'include'})
+      .then(function(r){return r.ok?r.json():null;})
+      .then(function(j){var isSet=!!(j&&j.set);mState.textContent=isSet?'A password is currently set. Enter a new one to change it.':'No password yet. The brief stays locked until you set one.';mClear.disabled=!isSet;})
+      .catch(function(){mState.textContent='Could not check current state.';});
+  }
+  function close(){modal.classList.remove('show');current=null;}
+
+  [].forEach.call(document.querySelectorAll('.client[data-slug] .keybtn'),function(btn){
+    btn.addEventListener('click',function(ev){ev.preventDefault();ev.stopPropagation();
+      var card=btn.closest('.client');open(card.getAttribute('data-slug'),(card.querySelector('.cn')||{}).textContent||card.getAttribute('data-slug'));});
+  });
+
+  mCancel.addEventListener('click',close);
+  modal.addEventListener('click',function(e){if(e.target===modal)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.classList.contains('show'))close();});
+
+  function post(body,okText){
+    mSave.disabled=true;mClear.disabled=true;msg('Saving…');
+    return fetch('/api/brief-pw',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok&&j&&j.ok,err:j&&j.error};});})
+      .then(function(o){if(o.ok){msg(okText,'ok');refresh(current.slug);setTimeout(close,750);}else{msg('Failed'+(o.err?(' ('+o.err+')'):''),'err');mSave.disabled=false;mClear.disabled=false;}})
+      .catch(function(){msg('Network error','err');mSave.disabled=false;mClear.disabled=false;});
+  }
+  mSave.addEventListener('click',function(){if(!current)return;var v=mPw.value.trim();if(v.length<4){msg('Use at least 4 characters','err');return;}post({slug:current.slug,password:v},'Saved ✓');});
+  mClear.addEventListener('click',function(){if(!current)return;post({slug:current.slug,clear:true},'Password removed ✓');});
+  mPw.addEventListener('keydown',function(e){if(e.key==='Enter')mSave.click();});
+
+  document.getElementById('logout').addEventListener('click',function(e){e.preventDefault();
+    fetch('/api/logout',{method:'POST',credentials:'include'}).then(function(){location.reload();}).catch(function(){location.reload();});});
+})();</script>
 </body>
 </html>

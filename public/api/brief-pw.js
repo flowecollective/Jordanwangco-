@@ -1,10 +1,12 @@
 // Admin endpoint to manage per-brief passwords stored in KV at brief:pw:<slug>.
 // public/middleware.js reads those keys to gate /clients/<slug>.
 //
-// Auth: send the master password (env CLIENTS_MASTER_PW) in the "x-admin-pw"
-// header. Disabled with 503 until CLIENTS_MASTER_PW is configured, so it is
-// never an open write endpoint. Runs server-side where the KV credentials are
-// real, so no secrets ever leave Vercel.
+// Auth: either send the master password (env CLIENTS_MASTER_PW) in the
+// "x-admin-pw" header (used by scripts/brief-pw.js), or have a valid master
+// session cookie (fc_sess with scope "*", set by /api/unlock — used by the
+// /clients admin UI). Disabled with 503 until CLIENTS_MASTER_PW is configured,
+// so it is never an open write endpoint. Runs server-side where the KV
+// credentials are real, so no secrets ever leave Vercel.
 //
 //   GET  /api/brief-pw?slug=sb-7f3a91     -> { slug, set: true|false }   (never returns the password)
 //   POST /api/brief-pw  { slug, password } -> sets the brief password
@@ -38,6 +40,23 @@ function safeEqual(a, b) {
   if (ab.length !== bb.length) return false;
   try { return crypto.timingSafeEqual(ab, bb); } catch (e) { return false; }
 }
+function readCookie(req, name) {
+  var h = (req.headers && req.headers.cookie) || '';
+  var m = h.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  return m ? decodeURIComponent(m[1]) : '';
+}
+// True only for a valid master session cookie (fc_sess, scope "*").
+function hasMasterCookie(req, master) {
+  var token = readCookie(req, 'fc_sess');
+  if (!token || token.indexOf('.') < 0) return false;
+  var i = token.indexOf('.'), p = token.slice(0, i), sig = token.slice(i + 1);
+  var expect = crypto.createHmac('sha256', 'fcb1:' + master).update(p).digest('base64url');
+  if (sig.length !== expect.length) return false;
+  try { if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expect))) return false; } catch (e) { return false; }
+  var payload;
+  try { payload = JSON.parse(Buffer.from(p, 'base64url').toString('utf8')); } catch (e) { return false; }
+  return !!payload && payload.s === '*' && typeof payload.e === 'number' && payload.e >= Math.floor(Date.now() / 1000);
+}
 var SLUG = /^[a-z0-9-]{1,64}$/;
 
 module.exports = async function (req, res) {
@@ -46,7 +65,8 @@ module.exports = async function (req, res) {
   if (!master) { res.status(503).json({ error: 'admin_disabled' }); return; }
 
   var supplied = req.headers['x-admin-pw'];
-  if (typeof supplied !== 'string' || !safeEqual(supplied, master)) { res.status(401).json({ error: 'unauthorized' }); return; }
+  var authed = (typeof supplied === 'string' && safeEqual(supplied, master)) || hasMasterCookie(req, master);
+  if (!authed) { res.status(401).json({ error: 'unauthorized' }); return; }
 
   var c = creds();
   if (!c.url || !c.token) { res.status(503).json({ error: 'storage_not_configured' }); return; }

@@ -12,7 +12,7 @@
 //
 // Base URL defaults to the production site; override with --url=... or BRIEF_BASE_URL.
 
-const DEFAULT_BASE = 'https://jordanwangco.vercel.app';
+const DEFAULT_BASE = 'https://www.jordanwangco.com';
 
 const argv = process.argv.slice(2);
 const flags = {};
