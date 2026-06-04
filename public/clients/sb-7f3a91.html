@@ -158,6 +158,22 @@
   /* questionnaire */
   .q{margin-top:18px;} .q .ql{font-size:14.5px;color:var(--bone);}
   .q .qb{margin-top:8px;font-size:13px;color:var(--faint);border-bottom:1px solid var(--line-strong);padding-bottom:8px;font-style:italic;}
+  .q label.ql{display:block;}
+  .q .qin{display:block;width:100%;margin-top:8px;background:transparent;border:none;border-bottom:1px solid var(--line-strong);color:var(--bone);font-family:inherit;font-size:15px;line-height:1.5;padding:7px 2px;resize:vertical;}
+  .q .qin::placeholder{color:var(--faint);font-style:italic;}
+  .q .qin:focus{outline:none;border-bottom-color:var(--wheat);}
+  .qsub{margin-top:5px;font-size:12.5px;color:var(--faint);font-style:italic;}
+  .qchoices{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px;}
+  .qchoices label{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--soft);border:1px solid var(--line);border-radius:5px;padding:8px 13px;cursor:pointer;transition:border-color .15s,background .15s,color .15s;}
+  .qchoices label:hover{border-color:var(--line-strong);}
+  .qchoices label:has(input:checked){border-color:var(--wheat);color:var(--bone);background:rgba(216,192,154,.12);}
+  .qchoices input{accent-color:var(--wheat);margin:0;}
+  .qchoices .qhint{color:var(--faint);}
+  .voice-actions{display:flex;align-items:center;gap:16px;margin-top:28px;flex-wrap:wrap;}
+  .voice-save{font-family:inherit;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;background:var(--wheat);color:#1c130b;border:none;border-radius:6px;padding:13px 24px;cursor:pointer;}
+  .voice-save:hover{background:#e6cfa6;}
+  .voice-save:disabled{opacity:.6;cursor:default;}
+  .voice-status{font-size:12.5px;color:var(--faint);letter-spacing:.02em;}
   .book{margin-top:22px;border-top:1px solid var(--line);padding-top:15px;font-size:14px;color:var(--soft);font-weight:300;}
   .book b{color:var(--wheat);font-weight:600;} .book .bc{font-family:monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--silver);margin-right:9px;}
   .sign{display:flex;gap:38px;margin-top:26px;}
@@ -387,15 +403,38 @@
     <span class="fur tr">Your Voice</span>
     <div class="cue">// vii. Your Voice, steers everything above</div>
     <h2>Tell me what you can't compromise on</h2>
-    <div class="q"><div class="ql">The one thing you can't compromise on?</div><div class="qb">e.g. "I cannot look thin on top for a single event."</div></div>
-    <div class="q"><div class="ql">A hard no, something you never want?</div><div class="qb">________________________________________________</div></div>
-    <div class="q"><div class="ql">Direction you're drawn to?</div><div class="qb">Wig → mesh integration (recommended) / Butterfly wefts / or "let's decide after removal"</div></div>
-    <div class="q"><div class="ql">Color: good to soften to a soft black?</div><div class="qb">stays deep, just easing off the hard contrast black</div></div>
-    <div class="q"><div class="ql">Best days &amp; times for you?</div><div class="qb">e.g. "Mondays or Thursdays, mornings" (list a few that work)</div></div>
-    <div class="q"><div class="ql">Book this as a private appointment?</div><div class="qb">Yes, full privacy / No need / Let's talk</div></div>
+    <form id="voiceForm" autocomplete="off" onsubmit="return false;">
+    <div class="q"><label class="ql" for="v_compromise">The one thing you can't compromise on?</label><textarea class="qin" id="v_compromise" name="compromise" rows="2" placeholder="e.g. &quot;I cannot look thin on top for a single event.&quot;"></textarea></div>
+    <div class="q"><label class="ql" for="v_hardno">A hard no, something you never want?</label><textarea class="qin" id="v_hardno" name="hardno" rows="2" placeholder="Your answer"></textarea></div>
+    <div class="q"><div class="ql">Direction you're drawn to?</div><div class="qchoices"><label><input type="radio" name="direction" value="Wig → mesh integration (recommended)">Wig → mesh integration <span class="qhint">(recommended)</span></label><label><input type="radio" name="direction" value="Butterfly wefts">Butterfly wefts</label><label><input type="radio" name="direction" value="Decide after removal">Let's decide after removal</label></div></div>
+    <div class="q"><div class="ql">Color: good to soften to a soft black?</div><div class="qsub">stays deep, just easing off the hard contrast black</div><div class="qchoices"><label><input type="radio" name="color" value="Yes">Yes</label><label><input type="radio" name="color" value="No">No</label><label><input type="radio" name="color" value="Let's talk">Let's talk</label></div></div>
+    <div class="q"><label class="ql" for="v_times">Best days &amp; times for you?</label><textarea class="qin" id="v_times" name="times" rows="2" placeholder="e.g. &quot;Mondays or Thursdays, mornings&quot; (list a few that work)"></textarea></div>
+    <div class="q"><div class="ql">Book this as a private appointment?</div><div class="qchoices"><label><input type="radio" name="privacy" value="Yes, full privacy">Yes, full privacy</label><label><input type="radio" name="privacy" value="No need">No need</label><label><input type="radio" name="privacy" value="Let's talk">Let's talk</label></div></div>
     <div class="book"><span class="bc">// Booking</span> Plan for a long first day, the initial appointment runs <b>6–8 hours</b> depending on the direction we land on, so let's hold a day with room rather than squeeze it. Private appointments are held <b>Mondays and Tuesdays</b>.</div>
-    <div class="sign"><span>Approved //</span><span>Date //</span></div>
+    <div class="q" style="margin-top:24px;"><label class="ql" for="v_name">Your name</label><input class="qin" id="v_name" name="name" type="text" placeholder="Your name"></div>
+    <div class="voice-actions"><button type="button" class="voice-save" id="voiceSave">Save my answers</button><span class="voice-status" id="voiceStatus"></span></div>
+    </form>
   </div>
+
+  <script>
+  (function(){
+    var SLUG=(location.pathname.split('/').filter(Boolean).pop()||'sb-7f3a91');
+    if(!/^[a-z0-9-]+$/.test(SLUG))SLUG='sb-7f3a91';
+    var form=document.getElementById('voiceForm');
+    var statusEl=document.getElementById('voiceStatus');
+    var btn=document.getElementById('voiceSave');
+    if(!form||!btn) return;
+    var texts=['compromise','hardno','times','name'];
+    var radios=['direction','color','privacy'];
+    function setStatus(t){statusEl.textContent=t;}
+    function collect(){var d={};texts.forEach(function(n){var el=form.querySelector('[name="'+n+'"]');if(el)d[n]=el.value.trim();});radios.forEach(function(n){var el=form.querySelector('input[name="'+n+'"]:checked');d[n]=el?el.value:'';});return d;}
+    function apply(a){if(!a)return;texts.forEach(function(n){var el=form.querySelector('[name="'+n+'"]');if(el&&a[n]!=null)el.value=a[n];});radios.forEach(function(n){var v=a[n];if(!v)return;form.querySelectorAll('input[name="'+n+'"]').forEach(function(el){if(el.value===v)el.checked=true;});});}
+    function fmt(iso){try{return new Date(iso).toLocaleString();}catch(e){return'';}}
+    setStatus('Loading…');
+    fetch('/api/load?slug='+encodeURIComponent(SLUG)).then(function(r){return r.json();}).then(function(j){if(j&&j.data&&j.data.answers){apply(j.data.answers);setStatus(j.data.updatedAt?('Last saved '+fmt(j.data.updatedAt)):'');}else setStatus('');}).catch(function(){setStatus('');});
+    btn.addEventListener('click',function(){btn.disabled=true;setStatus('Saving…');fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({slug:SLUG,answers:collect()})}).then(function(r){return r.json().then(function(j){return{ok:r.ok&&j&&j.ok,err:j&&j.error};});}).then(function(o){setStatus(o.ok?('Saved ✓ '+new Date().toLocaleTimeString()):('Could not save'+(o.err?(' ('+o.err+')'):'')));}).catch(function(){setStatus('Could not save (network)');}).finally(function(){btn.disabled=false;});});
+  })();
+  </script>
 
   <!-- 11 RESERVE -->
   <div class="plate g-panel">
