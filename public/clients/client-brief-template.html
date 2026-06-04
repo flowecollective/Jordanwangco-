@@ -129,7 +129,10 @@
   .prod:first-of-type{border-top:none;padding-top:6px;}
   .prodimg{flex:0 0 92px;height:116px;border:1px dashed var(--line-strong);border-radius:4px;display:flex;align-items:flex-end;padding:8px;font-family:monospace;font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--silver);line-height:1.35;}
   .prodtext{flex:1;min-width:0;}
-  @media(max-width:600px){.prod{flex-direction:column;gap:14px;}.prodimg{flex:none;width:100%;height:96px;}}
+  @media(max-width:600px){.prod{flex-direction:column;gap:16px;align-items:flex-start;}
+    .prod>div:first-child{flex:none !important;width:100% !important;max-width:300px !important;height:auto !important;}
+    .prodimg{height:auto !important;}
+    .prod img{width:100% !important;height:auto !important;object-fit:contain !important;}}
   .prod .pt{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--wheat);}
   .prod .pn{font-family:"Instrument Serif",serif;font-size:22px;margin-top:3px;}
   .prod .pr{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--silver);margin-top:2px;}
