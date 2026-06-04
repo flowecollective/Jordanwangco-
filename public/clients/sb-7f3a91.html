@@ -179,7 +179,6 @@
   .sign{display:flex;gap:38px;margin-top:26px;}
   .sign span{flex:1;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-top:1px solid var(--line-strong);padding-top:8px;}
 
-  .colophon{font-size:11.5px;line-height:1.7;color:var(--faint);max-width:72ch;}
   .plate.cover > *{z-index:2;}
   .plate.cover > .cover-photo{z-index:0;}
   .cover-photo{position:absolute;inset:0;background-position:50% 24%;background-size:cover;background-repeat:no-repeat;filter:blur(2.5px) grayscale(.2) brightness(.72) contrast(1.02);}
@@ -470,14 +469,6 @@
     dirs.forEach(function(l){ l.querySelector('input').addEventListener('change',function(){ var inp=this; if(inp.checked){ dirs.forEach(function(o){ var oi=o.querySelector('input'); if(oi!==inp){ oi.checked=false; } }); } upd(); }); });
   })();
   </script>
-
-  <!-- 12 COLOPHON -->
-  <div class="plate">
-    <span class="fur tl">The Aesthetic Brief / SB</span>
-    <span class="fur tr">Colophon</span>
-    <div class="cue">// Notes</div>
-    <p class="colophon" style="margin-top:16px;">DRAFT, for review before sending. Clinical framing is intentionally conservative: regrowth is presented as best-chance pending the dermatologist's assessment (Sabrina is already under PRP care, so the plan coordinates with her existing derm rather than referring out), never promised, and products are framed as scalp/follicle <em>support</em>, not a cure. CALECIM microneedling is shown as Sabrina's at-home routine (consumer 0.5mm derma stamp); in-salon microneedling is excluded because in Texas it falls outside cosmetology scope. All directions and the color move are provisional until removal reveals true density. Per Sabrina's non-negotiable, the plan guarantees continuous coverage: nothing is removed without the day-one 100% human-hair Swiss lace wig prepped and ready, and the recommended destination, a full mesh integration, is mapped and customized only after removal. This requires the wig to be sourced/fitted before the removal date. Color is a softening off contrast black to a soft black only, no other tone. Investment figures are indicative market-anchored ranges, NOT final pricing; Jordan sets the real numbers against her own hair-sourcing cost, hours, and positioning before this goes to the client; each direction price now bakes in color and shaping (+$700); maintenance/refresh is recurring revenue not captured in the headline figure. Photo and board slots to be filled with real, curated imagery (Marco). Specific products, color levels, investment, and any external links you'd swap are Jordan's calls. The Reserve plate takes a flat deposit per direction (wig $1,000, mesh $1,500, butterfly $1,000) with the balance settled at consult. The $500 private appointment is offered as an optional add-on at checkout, configured as a recommended product on each deposit Payment Link in Stripe, so there is no separate appointment link or on-page checkbox. The three deposit links are live. Set in the // Jordan Wang identity. Proofread before sending.</p>
-  </div>
 
 </div>
 </body>
