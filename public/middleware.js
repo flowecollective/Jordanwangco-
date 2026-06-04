@@ -4,14 +4,17 @@
 // untouched, so deploying this can never break or lock out the live briefs.
 //
 // When CLIENTS_MASTER_PW is set, protection turns on:
-//   - the master password opens any brief (for you, the stylist),
-//   - each brief also opens with its own env var PW_<slug>, where the slug's
-//     non-alphanumeric characters become "_"  (e.g. sb-7f3a91 -> PW_sb_7f3a91),
+//   - the master password (env CLIENTS_MASTER_PW) opens any brief (for you, the
+//     stylist) and is the fail-safe key even if KV is empty or unreachable,
+//   - each brief also opens with its own password stored in KV at
+//     "brief:pw:<slug>" (set it without a redeploy; see scripts/brief-pw.js),
 //   - the /clients index and the template are admin-only (master password),
-//   - a brief with no PW_<slug> configured is admin-only (fails closed).
+//   - a brief with no KV password configured is admin-only (fails closed).
 //
 // Basic Auth: the browser shows a native password prompt. The realm is the brief
-// slug, so credentials cached for one brief are not reused on another.
+// slug, so credentials cached for one brief are not reused on another. KV is only
+// read when a non-master password is actually supplied, so first visits and your
+// own master logins never touch KV.
 
 import { next } from '@vercel/functions';
 
@@ -20,7 +23,32 @@ export const config = {
   matcher: ['/clients', '/clients/:path*'],
 };
 
-export default function middleware(request) {
+function kvCreds() {
+  var e = process.env;
+  return {
+    url: e.KV_REST_API_URL || e.UPSTASH_REDIS_REST_URL || e.STORAGE_KV_REST_API_URL || e.STORAGE_REST_API_URL || e.REDIS_REST_API_URL || '',
+    token: e.KV_REST_API_TOKEN || e.UPSTASH_REDIS_REST_TOKEN || e.STORAGE_KV_REST_API_TOKEN || e.STORAGE_REST_API_TOKEN || e.REDIS_REST_API_TOKEN || '',
+  };
+}
+
+async function kvGet(key) {
+  var c = kvCreds();
+  if (!c.url || !c.token) return null;
+  try {
+    var r = await fetch(c.url, {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + c.token, 'Content-Type': 'application/json' },
+      body: JSON.stringify(['GET', key]),
+    });
+    if (!r.ok) return null;
+    var j = await r.json();
+    return j && typeof j.result === 'string' ? j.result : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+export default async function middleware(request) {
   const master = process.env.CLIENTS_MASTER_PW;
   if (!master) return next(); // protection disabled until a master password is configured
 
@@ -29,12 +57,15 @@ export default function middleware(request) {
   const slug = rest.split('/')[0];
 
   const adminOnly = !slug || slug === 'index' || slug === 'client-brief-template';
-  const envKey = 'PW_' + slug.replace(/[^a-zA-Z0-9]/g, '_');
-  const briefPw = adminOnly ? '' : (process.env[envKey] || '');
-
   const supplied = basicPassword(request);
-  if (supplied !== null && (supplied === master || (briefPw && supplied === briefPw))) {
-    return next(); // authorized -> continue to the page
+
+  // No credentials yet -> prompt immediately, no KV read.
+  if (supplied !== null) {
+    if (supplied === master) return next(); // your master key, always works, never hits KV
+    if (!adminOnly) {
+      const briefPw = await kvGet('brief:pw:' + slug); // only read KV when a non-master pw is tried
+      if (briefPw && supplied === briefPw) return next();
+    }
   }
 
   const realm = adminOnly ? 'Client briefs' : slug;
