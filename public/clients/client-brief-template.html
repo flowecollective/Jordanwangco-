@@ -182,7 +182,7 @@
   .sign span{flex:1;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-top:1px solid var(--line-strong);padding-top:8px;}
 
   .colophon{font-size:11.5px;line-height:1.7;color:var(--faint);max-width:72ch;}
-  .plate.cover > *{position:relative;z-index:2;}
+  .plate.cover > *{z-index:2;}
   .plate.cover > .cover-photo{z-index:0;}
   .cover-photo{position:absolute;inset:0;background-position:50% 24%;background-size:cover;background-repeat:no-repeat;filter:blur(2.5px) grayscale(.2) brightness(.72) contrast(1.02);}
   .cover-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#160F0B 0%,#160F0B 37%,rgba(22,15,11,.78) 56%,rgba(22,15,11,.42) 82%,rgba(22,15,11,.6) 100%);}
@@ -365,7 +365,7 @@
     <span class="fur tr">Plate xi / Reserve</span>
     <div class="cue">// viii. Reserve</div>
     <h2>Reserve your place</h2>
-    <p>Choose one direction. A 50% deposit reserves your place, and the balance is settled at your consult. Add a private appointment if you'd like.</p>
+    <p>Choose one direction. A deposit reserves your place, and the balance is settled at your consult. Add a private appointment if you'd like.</p>
     <div class="resv">
       <label class="ritem" data-name="[ Option one ]" data-dep="1000" data-emin="1900" data-emax="3200" data-link="PASTE_OPTION1_DEPOSIT_LINK"><input type="checkbox"><span class="rn">[ EDIT: option one ]<em>Estimate $1,900&ndash;$3,200 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
       <label class="ritem" data-name="[ Option two ]" data-dep="1500" data-emin="2500" data-emax="3700" data-link="PASTE_OPTION2_DEPOSIT_LINK"><input type="checkbox"><span class="rn">[ EDIT: option two ]<em>Estimate $2,500&ndash;$3,700 &middot; balance settled at consult</em></span><span class="rp">$1,500<small>deposit now</small></span></label>
@@ -374,7 +374,7 @@
     </div>
     <div class="rtotal" id="rtotal">Choose a direction to see your deposit.</div>
     <a class="cta" id="reserveBtn" href="#" target="_blank" rel="noopener">Reserve with Stripe &rarr;</a>
-    <p class="rnote">A 50% deposit reserves your place; the balance is confirmed and settled at your consult. The private appointment is offered as an optional add-on at checkout. Secure checkout via Stripe.</p>
+    <p class="rnote">A deposit reserves your place; the balance is confirmed and settled at your consult. The private appointment is offered as an optional add-on at checkout. Secure checkout via Stripe.</p>
   </div>
   <script>
   (function(){
