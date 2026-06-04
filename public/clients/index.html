@@ -37,9 +37,14 @@
   .cmeta{font-size:12px;color:var(--soft);margin-top:4px;}
   .open{font-size:12px;color:var(--wheat);margin-top:12px;letter-spacing:.04em;}
   .cfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:16px;}
-  .pill{display:inline-block;font-family:monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:3px 8px;border-radius:2px;width:max-content;}
+  /* status pill doubles as a draft/final toggle (above the click layer) */
+  .pill{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;font-family:monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border-radius:3px;width:max-content;border:1px solid transparent;background:transparent;color:var(--faint);cursor:pointer;transition:background .15s,border-color .15s,color .15s,opacity .15s;}
+  .pill::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:none;}
+  .pill:hover{opacity:.82;}
+  .pill:focus-visible{outline:1px solid var(--wheat);outline-offset:2px;}
+  .pill[disabled]{cursor:default;opacity:.5;}
   .pill.draft{background:rgba(216,192,154,.14);color:var(--wheat);}
-  .pill.sent{border:1px solid var(--line-strong);color:var(--silver);}
+  .pill.final{background:var(--wheat);color:#211a13;}
   .new{justify-content:center;align-items:center;text-align:center;border-style:dashed;border-color:var(--line-strong);color:var(--silver);}
   .new .plus{font-family:"Instrument Serif",serif;font-size:42px;color:var(--silver);line-height:1;}
   .new .nt{font-size:13px;margin-top:10px;color:var(--soft);}
@@ -101,7 +106,7 @@
       <div class="cmeta">Hair-loss plan, phased</div>
       <div class="open">Open brief &rarr;</div>
       <div class="cfoot">
-        <span class="pill draft">Draft</span>
+        <button class="pill draft" type="button" data-slug="sb-7f3a91" title="Toggle draft / final">Draft</button>
         <span class="lockstate" data-slug="sb-7f3a91"><span class="dot"></span><span class="lbl"></span></span>
       </div>
     </div>
@@ -155,6 +160,26 @@
       .then(function(j){if(j)setLockUI(slug,!!j.set);}).catch(function(){});
   }
   [].forEach.call(document.querySelectorAll('.client[data-slug]'),function(c){refresh(c.getAttribute('data-slug'));});
+
+  // draft/final status pill
+  function setPill(slug,status){
+    var p=document.querySelector('.pill[data-slug="'+slug+'"]');
+    if(!p)return;var s=(status==='final')?'final':'draft';
+    p.className='pill '+s;p.textContent=(s==='final')?'Final':'Draft';
+  }
+  [].forEach.call(document.querySelectorAll('.pill[data-slug]'),function(p){
+    var slug=p.getAttribute('data-slug');
+    fetch('/api/brief-status?slug='+encodeURIComponent(slug),{credentials:'include'})
+      .then(function(r){return r.ok?r.json():null;}).then(function(j){if(j)setPill(slug,j.status);}).catch(function(){});
+    p.addEventListener('click',function(ev){ev.preventDefault();ev.stopPropagation();
+      var cur=p.classList.contains('final')?'final':'draft';var next=(cur==='final')?'draft':'final';
+      setPill(slug,next);p.disabled=true;
+      fetch('/api/brief-status',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({slug:slug,status:next})})
+        .then(function(r){return r.json().then(function(j){return{ok:r.ok&&j&&j.ok,status:j&&j.status};});})
+        .then(function(o){if(o.ok){setPill(slug,o.status);}else{setPill(slug,cur);}})
+        .catch(function(){setPill(slug,cur);}).then(function(){p.disabled=false;});
+    });
+  });
 
   function open(slug,name){
     current={slug:slug,name:name};
