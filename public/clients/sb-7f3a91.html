@@ -180,7 +180,6 @@
   .ritem .rn em{display:block;color:var(--silver);font-style:normal;font-size:12px;font-weight:300;margin-top:4px;letter-spacing:.01em;}
   .ritem .rp{font-family:"Instrument Serif",serif;font-size:21px;color:var(--wheat);white-space:nowrap;text-align:right;}
   .ritem .rp small{display:block;font-family:"Hanken Grotesk",sans-serif;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:3px;font-weight:600;}
-  .ritem.fixed{background:rgba(216,192,154,.07);}
   .rtotal{margin-top:18px;font-size:14px;color:var(--soft);}
   .rtotal b{color:var(--bone);font-weight:500;}
   .cta{display:inline-block;margin-top:20px;background:var(--wheat);color:var(--paper);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:4px;text-decoration:none;border:none;}
@@ -418,44 +417,31 @@
     <h2>Reserve your place</h2>
     <p>Choose one direction. A 50% deposit reserves your place, and the balance is settled at your consult once I've seen your hair. Color and shaping are baked into every direction. Add a private appointment if you'd like.</p>
     <div class="resv">
-      <label class="ritem" data-name="Wig (day-one coverage)" data-dep="1000" data-emin="1900" data-emax="3200" data-link="PASTE_WIG_DEPOSIT_LINK"><input type="checkbox"><span class="rn">Day-one coverage, 100% human-hair Swiss lace wig<em>Estimate $1,900&ndash;$3,200 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
-      <label class="ritem" data-name="Mesh integration" data-dep="1500" data-emin="2500" data-emax="3700" data-link="PASTE_MESH_DEPOSIT_LINK"><input type="checkbox"><span class="rn">Full mesh integration, recommended destination<em>Estimate $2,500&ndash;$3,700 &middot; balance settled at consult</em></span><span class="rp">$1,500<small>deposit now</small></span></label>
-      <label class="ritem" data-name="Butterfly wefts" data-dep="1000" data-emin="1900" data-emax="2900" data-link="PASTE_BUTTERFLY_DEPOSIT_LINK"><input type="checkbox"><span class="rn">Butterfly wefts, alternative<em>Estimate $1,900&ndash;$2,900 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
-      <label class="ritem fixed" data-dep="500" data-link="PASTE_PRIVATE_APPT_LINK"><input type="checkbox"><span class="rn">Private appointment<em>Mondays &amp; Tuesdays &middot; includes one assistant attending</em></span><span class="rp">$500<small>add-on</small></span></label>
+      <label class="ritem" data-name="Wig (day-one coverage)" data-dep="1000" data-emin="1900" data-emax="3200" data-link="https://buy.stripe.com/dRm7sK6Y05WRbac9HQ9EI0a"><input type="checkbox"><span class="rn">Day-one coverage, 100% human-hair Swiss lace wig<em>Estimate $1,900&ndash;$3,200 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
+      <label class="ritem" data-name="Mesh integration" data-dep="1500" data-emin="2500" data-emax="3700" data-link="https://buy.stripe.com/eVq7sK968clffqsaLU9EI09"><input type="checkbox"><span class="rn">Full mesh integration, recommended destination<em>Estimate $2,500&ndash;$3,700 &middot; balance settled at consult</em></span><span class="rp">$1,500<small>deposit now</small></span></label>
+      <label class="ritem" data-name="Butterfly wefts" data-dep="1000" data-emin="1900" data-emax="2900" data-link="https://buy.stripe.com/7sY8wO9685WRguwdY69EI0b"><input type="checkbox"><span class="rn">Butterfly wefts, alternative<em>Estimate $1,900&ndash;$2,900 &middot; balance settled at consult</em></span><span class="rp">$1,000<small>deposit now</small></span></label>
     </div>
     <div class="rtotal" id="rtotal">Choose a direction to see your deposit.</div>
     <a class="cta" id="reserveBtn" href="#" target="_blank" rel="noopener">Reserve with Stripe &rarr;</a>
-    <p class="rnote">A 50% deposit reserves your place; the balance is confirmed and settled at your consult once we've seen your hair. The private appointment is offered as an optional add-on at checkout. Secure checkout via Stripe.</p>
+    <p class="rnote">A 50% deposit reserves your place; the balance is confirmed and settled at your consult once we've seen your hair. You can add a private appointment ($500 &middot; Mondays &amp; Tuesdays &middot; includes one assistant attending) as an optional item at checkout. Secure checkout via Stripe.</p>
     <span class="crop"></span>
   </div>
   <script>
   (function(){
-    var labels=[].slice.call(document.querySelectorAll('.resv .ritem'));
-    var dirs=labels.filter(function(l){return !l.classList.contains('fixed');});
-    var priv=document.querySelector('.resv .ritem.fixed');
-    var privIn=priv.querySelector('input');
+    var dirs=[].slice.call(document.querySelectorAll('.resv .ritem'));
     var out=document.getElementById('rtotal');
     var btn=document.getElementById('reserveBtn');
     function fmt(n){return '$'+Number(n).toLocaleString();}
     function selDir(){var r=null;dirs.forEach(function(l){if(l.querySelector('input').checked){r=l;}});return r;}
     function upd(){
-      var d=selDir(), p=privIn.checked;
-      if(!d && !p){ out.textContent='Choose a direction to see your deposit.'; btn.textContent='Reserve with Stripe \u2192'; btn.setAttribute('href','#'); return; }
-      if(d){
-        var dep=+d.dataset.dep;
-        var msg=d.dataset.name+', estimate <b>'+fmt(+d.dataset.emin)+'\u2013'+fmt(+d.dataset.emax)+'</b> &middot; deposit due now <b>'+fmt(dep)+'</b>';
-        if(p){ msg+=' &middot; add the private appointment ('+fmt(+priv.dataset.dep)+') at checkout'; }
-        out.innerHTML=msg;
-        btn.setAttribute('href', d.dataset.link);
-        btn.textContent='Reserve \u00b7 '+fmt(dep)+' deposit \u2192';
-      } else {
-        out.innerHTML='Private appointment &middot; <b>'+fmt(+priv.dataset.dep)+'</b> due now';
-        btn.setAttribute('href', priv.dataset.link);
-        btn.textContent='Reserve \u00b7 '+fmt(+priv.dataset.dep)+' \u2192';
-      }
+      var d=selDir();
+      if(!d){ out.textContent='Choose a direction to see your deposit.'; btn.textContent='Reserve with Stripe \u2192'; btn.setAttribute('href','#'); return; }
+      var dep=+d.dataset.dep;
+      out.innerHTML=d.dataset.name+', estimate <b>'+fmt(+d.dataset.emin)+'\u2013'+fmt(+d.dataset.emax)+'</b> &middot; deposit due now <b>'+fmt(dep)+'</b>';
+      btn.setAttribute('href', d.dataset.link);
+      btn.textContent='Reserve \u00b7 '+fmt(dep)+' deposit \u2192';
     }
     dirs.forEach(function(l){ l.querySelector('input').addEventListener('change',function(){ var inp=this; if(inp.checked){ dirs.forEach(function(o){ var oi=o.querySelector('input'); if(oi!==inp){ oi.checked=false; } }); } upd(); }); });
-    privIn.addEventListener('change',upd);
   })();
   </script>
 
@@ -464,7 +450,7 @@
     <span class="fur tl">The Aesthetic Brief / SB</span>
     <span class="fur tr">Plate xii / Colophon</span>
     <div class="cue">// Notes</div>
-    <p class="colophon" style="margin-top:16px;">DRAFT, for review before sending. Clinical framing is intentionally conservative: regrowth is presented as best-chance pending the dermatologist's assessment (Sabrina is already under PRP care, so the plan coordinates with her existing derm rather than referring out), never promised, and products are framed as scalp/follicle <em>support</em>, not a cure. CALECIM microneedling is shown as Sabrina's at-home routine (consumer 0.5mm derma stamp); in-salon microneedling is excluded because in Texas it falls outside cosmetology scope. All directions and the color move are provisional until removal reveals true density. Per Sabrina's non-negotiable, the plan guarantees continuous coverage: nothing is removed without the day-one 100% human-hair Swiss lace wig prepped and ready, and the recommended destination, a full mesh integration, is mapped and customized only after removal. This requires the wig to be sourced/fitted before the removal date. Color is a softening off contrast black to a soft black only, no other tone. Investment figures are indicative market-anchored ranges, NOT final pricing; Jordan sets the real numbers against her own hair-sourcing cost, hours, and positioning before this goes to the client; each direction price now bakes in color and shaping (+$700); maintenance/refresh is recurring revenue not captured in the headline figure. Photo and board slots to be filled with real, curated imagery (Marco). Specific products, color levels, investment, and any external links you'd swap are Jordan's calls. The Reserve plate takes a fixed 50% deposit per direction (wig $1,000, mesh $1,500, butterfly $1,000) with the balance settled at consult, plus the $500 private appointment as an optional add-on. Each item's data-link is a placeholder (PASTE_..._LINK) until Jordan adds her Stripe Payment Links: one deposit link per direction, one for the private appointment, with the appointment set as an optional item on each deposit link. Set in the // Jordan Wang identity. Proofread before sending.</p>
+    <p class="colophon" style="margin-top:16px;">DRAFT, for review before sending. Clinical framing is intentionally conservative: regrowth is presented as best-chance pending the dermatologist's assessment (Sabrina is already under PRP care, so the plan coordinates with her existing derm rather than referring out), never promised, and products are framed as scalp/follicle <em>support</em>, not a cure. CALECIM microneedling is shown as Sabrina's at-home routine (consumer 0.5mm derma stamp); in-salon microneedling is excluded because in Texas it falls outside cosmetology scope. All directions and the color move are provisional until removal reveals true density. Per Sabrina's non-negotiable, the plan guarantees continuous coverage: nothing is removed without the day-one 100% human-hair Swiss lace wig prepped and ready, and the recommended destination, a full mesh integration, is mapped and customized only after removal. This requires the wig to be sourced/fitted before the removal date. Color is a softening off contrast black to a soft black only, no other tone. Investment figures are indicative market-anchored ranges, NOT final pricing; Jordan sets the real numbers against her own hair-sourcing cost, hours, and positioning before this goes to the client; each direction price now bakes in color and shaping (+$700); maintenance/refresh is recurring revenue not captured in the headline figure. Photo and board slots to be filled with real, curated imagery (Marco). Specific products, color levels, investment, and any external links you'd swap are Jordan's calls. The Reserve plate takes a fixed 50% deposit per direction (wig $1,000, mesh $1,500, butterfly $1,000) with the balance settled at consult. The $500 private appointment is offered as an optional add-on at checkout, configured as a recommended product on each deposit Payment Link in Stripe, so there is no separate appointment link or on-page checkbox. The three deposit links are live. Set in the // Jordan Wang identity. Proofread before sending.</p>
     <span class="crop"></span>
   </div>
 
